@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a1440d4e9a03e4a8d42a035f3f6b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeStart: 60
+  timeStart: 555
   textBox: {fileID: 1937776066}
 --- !u!1 &938062035
 GameObject:
@@ -777,7 +777,7 @@ GameObject:
   - component: {fileID: 1937776066}
   - component: {fileID: 1937776065}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937776063}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34a1440d4e9a03e4a8d42a035f3f6b24, type: 3}
   m_Name: 
@@ -847,7 +847,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Timer
 --- !u!222 &1937776067
 CanvasRenderer:
   m_ObjectHideFlags: 0

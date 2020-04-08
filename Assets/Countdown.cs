@@ -12,6 +12,7 @@ public class Countdown : MonoBehaviour
     void Start()
     {
         textBox.text = timeStart.ToString();
+        //textBox.text = timeStart.ToString("F2");
     }
 
     // Update is called once per frame
@@ -19,5 +20,7 @@ public class Countdown : MonoBehaviour
     {
         timeStart -= Time.deltaTime;
         textBox.text = Mathf.Round(timeStart).ToString();
+        //textBox.text = Mathf.Round(timeStart).ToString("F2");
     }
 }
+ 
