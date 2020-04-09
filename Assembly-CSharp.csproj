@@ -60,10 +60,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Countdown.cs" />
-    <Compile Include="Assets\MenuControl.cs" />
+    <Compile Include="Assets\CSVLoader.cs" />
+    <Compile Include="Assets\LocalisationSystem.cs" />
+    <Compile Include="Assets\LocalisedString.cs" />
     <Compile Include="Assets\Scripts\ClickOnO.cs" />
+    <Compile Include="Assets\Scripts\Countdown.cs" />
+    <Compile Include="Assets\Scripts\MenuControl.cs" />
     <Compile Include="Assets\Scripts\RotateO.cs" />
+    <Compile Include="Assets\TextLocaliserUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

@@ -9,18 +9,14 @@ public class MenuControl : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    public void ButtonOptions()
-    {
-        SceneManager.LoadScene(2);
-    }
-    public void ButtonHighscores()
-    {
-        SceneManager.LoadScene(3);
-    }
-    public void ButtonDemo()
-    {
-        SceneManager.LoadScene(4);
-    }
+    //public void ButtonHighscores()
+    //{
+    //    SceneManager.LoadScene(2);
+    //}
+    //public void ButtonDemo()
+    //{
+    //    SceneManager.LoadScene(3);
+    //}
     public void ButtonQuit()
     {
         Application.Quit();
