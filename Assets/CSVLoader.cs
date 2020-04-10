@@ -62,9 +62,9 @@ public class CSVLoader
         return dictionary;
     }
 #if UNITY_EDITOR
-    public void Add(string key, string enWord, string ltWord, string plWord)
+    public void Add(string key, string word)
     {
-        string append = string.Format("\n\"{0}\",\"{1}\",\"{2}\",\"{3}\"", key, enWord, ltWord, plWord);
+        string append = string.Format("\n\"{0}\",\"{1}\",\"\",\"\"", key, word);
         File.AppendAllText("Assets/Resources/localisation.csv", append);
 
         UnityEditor.AssetDatabase.Refresh();
@@ -102,10 +102,10 @@ public class CSVLoader
         }
     }
 
-    public void Edit(string key, string enWord, string ltWord, string plWord)
+    public void Edit(string key, string word)
     {
         Remove(key);
-        Add(key, enWord, ltWord, plWord);
+        Add(key, word);
     }
 #endif
 }

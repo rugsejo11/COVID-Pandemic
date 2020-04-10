@@ -15,7 +15,7 @@ public class TextLocaliserEditWindow : EditorWindow
     }
 
     public string key;
-    public string enWord; public string ltWord; public string plWord;
+    public string word;
 
     public void OnGUI()
     {
@@ -24,17 +24,8 @@ public class TextLocaliserEditWindow : EditorWindow
         EditorGUILayout.LabelField("English:", GUILayout.MaxWidth(50));
 
         EditorStyles.textArea.wordWrap = true;
-        enWord = EditorGUILayout.TextArea(enWord, EditorStyles.textArea, GUILayout.Height(30), GUILayout.Width(100));
+        word = EditorGUILayout.TextArea(word, EditorStyles.textArea, GUILayout.Height(30), GUILayout.Width(100));
 
-
-        EditorGUILayout.BeginVertical();
-
-        EditorGUILayout.LabelField("Lithuanian:", GUILayout.MaxWidth(100));
-        ltWord = EditorGUILayout.TextArea(ltWord, EditorStyles.textArea, GUILayout.Height(30), GUILayout.Width(100));
-
-
-        EditorGUILayout.LabelField("Polish:", GUILayout.MaxWidth(100));
-        plWord = EditorGUILayout.TextArea(plWord, EditorStyles.textArea, GUILayout.Height(30), GUILayout.Width(100));
 
         EditorGUILayout.EndHorizontal();
 
@@ -42,11 +33,11 @@ public class TextLocaliserEditWindow : EditorWindow
         {
             if (LocalisationSystem.GetLocalisedValue(key) != string.Empty)
             {
-                LocalisationSystem.Replace(key, enWord, ltWord, plWord);
+                LocalisationSystem.Replace(key, word);
             }
             else
             {
-                LocalisationSystem.Add(key, enWord, ltWord, plWord);
+                LocalisationSystem.Add(key, word);
             }
         }
 

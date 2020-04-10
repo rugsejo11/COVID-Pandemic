@@ -88,12 +88,13 @@ public class LocalisationSystem : MonoBehaviour
         return value;
     }
 
+#if UNITY_EDITOR
 
-    public static void Add(string key, string ltWord, string enWord, string plWord)
+    public static void Add(string key, string word)
     {
-        if (ltWord.Contains("\""))
+        if (word.Contains("\""))
         {
-            ltWord.Replace('"', '\"');
+            word.Replace('"', '\"');
         }
 
         if (csvLoader == null)
@@ -102,17 +103,17 @@ public class LocalisationSystem : MonoBehaviour
         }
 
         csvLoader.LoadCSV();
-        csvLoader.Add(key, ltWord, enWord, plWord);
+        csvLoader.Add(key, word);
         csvLoader.LoadCSV();
 
         UpdateDictionaries();
     }
 
-    public static void Replace(string key, string ltWord, string enWord, string plWord)
+    public static void Replace(string key, string word)
     {
-        if (ltWord.Contains("\""))
+        if (word.Contains("\""))
         {
-            ltWord.Replace('"', '\"');
+            word.Replace('"', '\"');
         }
 
         if (csvLoader == null)
@@ -121,7 +122,7 @@ public class LocalisationSystem : MonoBehaviour
         }
 
         csvLoader.LoadCSV();
-        csvLoader.Edit(key, ltWord, enWord, plWord);
+        csvLoader.Edit(key, word);
         csvLoader.LoadCSV();
 
         UpdateDictionaries();
@@ -140,4 +141,5 @@ public class LocalisationSystem : MonoBehaviour
 
         UpdateDictionaries();
     }
+#endif
 }
