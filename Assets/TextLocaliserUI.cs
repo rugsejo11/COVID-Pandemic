@@ -7,11 +7,9 @@ using UnityEngine;
 
 public class TextLocaliserUI : MonoBehaviour
 {
-
     TextMeshProUGUI textField;
 
     public LocalisedString localisedString;
-
 
     // Start is called before the first frame update
     void Start()

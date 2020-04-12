@@ -4,6 +4,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
+    /// <summary>
+    /// Function To Save Player Data
+    /// </summary>
+    /// <param name="player">Object Player</param>
     public static void SavePlayer(Player player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -16,6 +20,10 @@ public static class SaveSystem
         stream.Close();
     }
 
+    /// <summary>
+    /// Function To Load Player Data
+    /// </summary>
+    /// <returns></returns>
     public static PlayerData LoadPlayer()
     {
         string path = Application.persistentDataPath + "/player.data";

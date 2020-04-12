@@ -1937,7 +1937,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -62.43831, y: 0, z: -85.56139, w: 0}
+  m_margin: {x: -111.11763, y: -15.949056, z: -114.00803, w: 0}
   m_textInfo:
     textComponent: {fileID: 440111078}
     characterCount: 8
@@ -3341,7 +3341,6 @@ GameObject:
   - component: {fileID: 794113926}
   - component: {fileID: 794113925}
   - component: {fileID: 794113924}
-  - component: {fileID: 794113927}
   m_Layer: 5
   m_Name: EnglishButton
   m_TagString: Untagged
@@ -3455,18 +3454,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794113922}
   m_CullTransparentMesh: 0
---- !u!114 &794113927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 794113922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dbaa2c29b4cc4f44877d9f8f876bdac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &884479236
 GameObject:
   m_ObjectHideFlags: 0
@@ -4764,7 +4751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1279663300
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7723,7 +7710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1931857460
 RectTransform:
   m_ObjectHideFlags: 0

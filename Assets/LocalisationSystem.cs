@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+using TMPro;
 
 public class LocalisationSystem : MonoBehaviour
 {
@@ -8,15 +11,13 @@ public class LocalisationSystem : MonoBehaviour
     public enum Language
     {
         English,
-        //French,
         Polish,
         Lithuanian
     }
 
-    public static Language language = Language.English;
-
+    private static Language language; 
+    private string lang;
     private static Dictionary<string, string> localisedEN;
-    //private static Dictionary<string, string> localisedFR;
     private static Dictionary<string, string> localisedLT;
     private static Dictionary<string, string> localisedPL;
 
@@ -24,6 +25,22 @@ public class LocalisationSystem : MonoBehaviour
 
     public static CSVLoader csvLoader;
 
+    private void Start()
+    {
+        lang = PlayerPrefs.GetString("Language", lang);
+        switch (lang)
+        {
+            case "English":
+                language = Language.English;
+                break;
+            case "Lithuanian":
+                language = Language.Lithuanian;
+                break;
+            case "Polish":
+                language = Language.Polish;
+                break;
+        }
+    }
     public static void Init()
     {
         csvLoader = new CSVLoader();
@@ -31,15 +48,12 @@ public class LocalisationSystem : MonoBehaviour
 
         UpdateDictionaries();
 
-
-
         isInit = true;
     }
 
     public static void UpdateDictionaries()
     {
         localisedEN = csvLoader.GetDictionaryValues("en");
-        //localisedFR = csvLoader.GetDictionaryValues("fr");
         localisedLT = csvLoader.GetDictionaryValues("lt");
         localisedPL = csvLoader.GetDictionaryValues("pl");
     }
@@ -48,16 +62,19 @@ public class LocalisationSystem : MonoBehaviour
     public void UpdateLanguageToEnglish()
     {
         language = Language.English;
+        PlayerPrefs.SetString("Language", "English");
     }
 
     public void UpdateLanguageToLithuanian()
     {
         language = Language.Lithuanian;
+        PlayerPrefs.SetString("Language", "Lithuanian");
     }
 
     public void UpdateLanguageToPolish()
     {
         language = Language.Polish;
+        PlayerPrefs.SetString("Language", "Polish");
     }
 
     public static Dictionary<string, string> GetDictionaryForEditor()
@@ -75,9 +92,6 @@ public class LocalisationSystem : MonoBehaviour
             case Language.English:
                 localisedEN.TryGetValue(key, out value);
                 break;
-            //case Language.French:
-            //    localisedFR.TryGetValue(key, out value);
-            //    break;
             case Language.Lithuanian:
                 localisedLT.TryGetValue(key, out value);
                 break;
@@ -87,9 +101,14 @@ public class LocalisationSystem : MonoBehaviour
         }
         return value;
     }
-
+    #region UNITY EDITOR
 #if UNITY_EDITOR
 
+    /// <summary>
+    /// Add Word To Localisation List
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="word"></param>
     public static void Add(string key, string word)
     {
         if (word.Contains("\""))
@@ -142,4 +161,5 @@ public class LocalisationSystem : MonoBehaviour
         UpdateDictionaries();
     }
 #endif
+    #endregion
 }

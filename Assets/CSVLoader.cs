@@ -61,6 +61,8 @@ public class CSVLoader
         }
         return dictionary;
     }
+
+    #region Unity Editor
 #if UNITY_EDITOR
     public void Add(string key, string word)
     {
@@ -108,4 +110,5 @@ public class CSVLoader
         Add(key, word);
     }
 #endif
+    #endregion
 }

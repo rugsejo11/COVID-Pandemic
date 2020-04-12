@@ -8,7 +8,6 @@ public class TextLocaliserEditWindow : EditorWindow
     public static void Open(string key)
     {
         var window = (TextLocaliserEditWindow)ScriptableObject.CreateInstance(typeof(TextLocaliserEditWindow));
-        //TextLocaliserEditWindow window = new TextLocaliserEditWindow();
         window.titleContent = new GUIContent("Localiser Window");
         window.ShowUtility();
         window.key = key;
@@ -17,6 +16,9 @@ public class TextLocaliserEditWindow : EditorWindow
     public string key;
     public string word;
 
+    /// <summary>
+    /// Adding localisation
+    /// </summary>
     public void OnGUI()
     {
         key = EditorGUILayout.TextField("Key :", key);
@@ -46,6 +48,9 @@ public class TextLocaliserEditWindow : EditorWindow
     }
 }
 
+/// <summary>
+/// Localisation List Search Window
+/// </summary>
 public class TextLocaliserSearchWindow : EditorWindow
 {
     public static void Open()
