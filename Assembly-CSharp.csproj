@@ -63,7 +63,10 @@
     <Compile Include="Assets\CSVLoader.cs" />
     <Compile Include="Assets\LocalisationSystem.cs" />
     <Compile Include="Assets\LocalisedString.cs" />
-    <Compile Include="Assets\OptionsMenu.cs" />
+    <Compile Include="Assets\Options.cs" />
+    <Compile Include="Assets\Player.cs" />
+    <Compile Include="Assets\PlayerData.cs" />
+    <Compile Include="Assets\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\ClickOnO.cs" />
     <Compile Include="Assets\Scripts\Countdown.cs" />
     <Compile Include="Assets\Scripts\MenuControl.cs" />
