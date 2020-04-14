@@ -131,7 +131,7 @@ e63944317d2f5958e31963668bb29158 Assembly-CSharp.dll:TMPro.Examples.VertexJitter
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
 3cae62e09a50c5d5aae8d0536b3d8fde Assembly-CSharp.dll:.ChatController
-62c7e04c453dcd7e9b90629162de9e56 Assembly-CSharp.dll:.Options
+f3f1e2617133ca5035b7ab767b499bef Assembly-CSharp.dll:.Options
 e244702e0dc05782229aa524e4d757f5 Assembly-CSharp.dll:TMPro.Examples.TMP_ExampleScript_01
 e6ae40841db498b6e673877ac45ad208 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
