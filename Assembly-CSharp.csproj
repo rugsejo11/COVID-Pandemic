@@ -60,18 +60,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CSVLoader.cs" />
+    <Compile Include="Assets\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Game\ClickOnO.cs" />
     <Compile Include="Assets\Scripts\Game\Countdown.cs" />
     <Compile Include="Assets\Scripts\Game\RotateO.cs" />
-    <Compile Include="Assets\Scripts\LocalisationSystem.cs" />
-    <Compile Include="Assets\Scripts\LocalisedString.cs" />
+    <Compile Include="Assets\Scripts\Localisation\CSVLoader.cs" />
+    <Compile Include="Assets\Scripts\Localisation\LocalisationSystem.cs" />
+    <Compile Include="Assets\Scripts\Localisation\LocalisedString.cs" />
+    <Compile Include="Assets\Scripts\Localisation\TextLocaliserUI.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuControl.cs" />
     <Compile Include="Assets\Scripts\Menu\Options.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\PlayerData\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerData\PlayerData.cs" />
     <Compile Include="Assets\Scripts\SaveSystem.cs" />
-    <Compile Include="Assets\Scripts\TextLocaliserUI.cs" />
+    <Compile Include="Assets\Sound.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
