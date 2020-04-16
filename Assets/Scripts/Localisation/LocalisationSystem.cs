@@ -4,103 +4,105 @@ using UnityEngine.SceneManagement;
 
 public class LocalisationSystem : MonoBehaviour
 {
+    #region Variables
+    private static Dictionary<string, string> localisedEN; // English Dictionary Values
+    private static Dictionary<string, string> localisedLT; // Lithuanian Dictionary Values
+    private static Dictionary<string, string> localisedPL; // Polish Dictionary Values
 
-    public enum Language
-    {
-        English,
-        Polish,
-        Lithuanian
-    }
+    public static bool isInit; // Is Inisitalisation Process Done
 
-    private static Language language; // Selected Language Object
-    private string lang; // Selected Language In String
-    private static Dictionary<string, string> localisedEN;
-    private static Dictionary<string, string> localisedLT;
-    private static Dictionary<string, string> localisedPL;
+    public static CSVLoader csvLoader; // CSV Loader For Loading CSV Data File
+    #endregion
 
-    public static bool isInit;
+    #region Functions
 
-    public static CSVLoader csvLoader;
-
-    private void Start()
-    {
-        lang = PlayerPrefs.GetString("Language", lang);
-        switch (lang)
-        {
-            case "English":
-                language = Language.English;
-                break;
-            case "Lithuanian":
-                language = Language.Lithuanian;
-                break;
-            case "Polish":
-                language = Language.Polish;
-                break;
-        }
-    }
+    /// <summary>
+    /// Initialise Localisation System
+    /// </summary>
     public static void Init()
     {
-        csvLoader = new CSVLoader();
-        csvLoader.LoadCSV();
+        csvLoader = new CSVLoader(); // Create New CSVLoader
+        csvLoader.LoadCSV(); //Load CSVLoader
 
-        UpdateDictionaries();
+        UpdateDictionaries(); // Update Localisation System Dictionary Values
 
-        isInit = true;
+        isInit = true; // Initialisation Process Done
     }
 
+    /// <summary>
+    /// Update Localisation System Dictionary Values
+    /// </summary>
     public static void UpdateDictionaries()
     {
-        localisedEN = csvLoader.GetDictionaryValues("en");
-        localisedLT = csvLoader.GetDictionaryValues("lt");
-        localisedPL = csvLoader.GetDictionaryValues("pl");
+        localisedEN = csvLoader.GetDictionaryValues("en"); // English Dictionary Values
+        localisedLT = csvLoader.GetDictionaryValues("lt"); // Lithuanian Dictionary Values
+        localisedPL = csvLoader.GetDictionaryValues("pl"); // Polish Dictionary Values
     }
 
-
+    /// <summary>
+    /// Set UI To English
+    /// </summary>
     public void UpdateLanguageToEnglish()
     {
-        language = Language.English;
-        PlayerPrefs.SetString("Language", "English");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetString("Language", "English"); // Save Language Player Preference To English
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload Active Scene
     }
 
+    /// <summary>
+    /// Set UI To Lithuanian
+    /// </summary>
     public void UpdateLanguageToLithuanian()
     {
-        language = Language.Lithuanian;
-        PlayerPrefs.SetString("Language", "Lithuanian");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetString("Language", "Lithuanian"); // Save Language Player Preference To Lithuanian
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload Active Scene
     }
 
+    /// <summary>
+    /// SET UI TO POLISH
+    /// </summary>
     public void UpdateLanguageToPolish()
     {
-        language = Language.Polish;
-        PlayerPrefs.SetString("Language", "Polish");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetString("Language", "Polish"); // Save Language Player Preference To Polish
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload Active Scene
     }
 
+    /// <summary>
+    /// Unity Editor Dictionary Localised To English
+    /// </summary>
+    /// <returns></returns>
     public static Dictionary<string, string> GetDictionaryForEditor()
     {
         if (!isInit) { Init(); }
         return localisedEN;
     }
+
+    /// <summary>
+    /// Get Localised Value Of Key
+    /// </summary>
+    /// <param name="key">Localisation key</param>
+    /// <returns></returns>
     public static string GetLocalisedValue(string key)
     {
-        if (!isInit) { Init(); }
+        if (!isInit) { Init(); } // Initialise If Not
         string value = key;
-
-        switch (language)
+        string languageString = string.Empty;
+        languageString = PlayerPrefs.GetString("Language", languageString); // Get Player Set Language
+        switch (languageString)
         {
-            case Language.English:
+            case "English":
                 localisedEN.TryGetValue(key, out value);
                 break;
-            case Language.Lithuanian:
+            case "Lithuanian":
                 localisedLT.TryGetValue(key, out value);
                 break;
-            case Language.Polish:
+            case "Polish":
                 localisedPL.TryGetValue(key, out value);
                 break;
         }
         return value;
     }
+    #endregion
+
     #region UNITY EDITOR
 #if UNITY_EDITOR
 

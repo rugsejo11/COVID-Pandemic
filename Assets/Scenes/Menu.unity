@@ -420,7 +420,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 1931857459}
         m_MethodName: SetActive
         m_Mode: 6
@@ -431,7 +431,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 723443263}
         m_MethodName: ButtonPressed
         m_Mode: 1
@@ -442,7 +442,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &67707718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,7 +511,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1307,7 +1307,7 @@ GameObject:
   - component: {fileID: 369969956}
   - component: {fileID: 369969955}
   m_Layer: 5
-  m_Name: Text
+  m_Name: VolumeSliderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1322,14 +1322,14 @@ RectTransform:
   m_GameObject: {fileID: 369969953}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9265786, y: 0.5504361, z: 1.1588374}
+  m_LocalScale: {x: 3.1788063, y: 3.1788068, z: 3.1788068}
   m_Children: []
-  m_Father: {fileID: 2079583359}
-  m_RootOrder: 3
+  m_Father: {fileID: 401571741}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.73, y: 21.374619}
+  m_AnchoredPosition: {x: -91.70241, y: -81.560074}
   m_SizeDelta: {x: 114.02, y: 40.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &369969955
@@ -1537,7 +1537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &401571741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1554,6 +1554,7 @@ RectTransform:
   - {fileID: 1786777073}
   - {fileID: 1297913914}
   - {fileID: 1296455852}
+  - {fileID: 369969954}
   - {fileID: 2079583359}
   - {fileID: 493630924}
   m_Father: {fileID: 1606766991}
@@ -1613,8 +1614,8 @@ RectTransform:
   m_Father: {fileID: 1852306441}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2517,7 +2518,7 @@ RectTransform:
   m_Children:
   - {fileID: 1711013573}
   m_Father: {fileID: 401571741}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2578,6 +2579,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1279663299}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
+      - m_Target: {fileID: 723443263}
+        m_MethodName: ButtonPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2702,6 +2714,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 385726124}
         m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 723443263}
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3318,62 +3341,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722536194}
   m_CullTransparentMesh: 0
---- !u!1 &723443262
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 723443264}
-  - component: {fileID: 723443263}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &723443263
+--- !u!114 &723443263 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1357036775286879328, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+    type: 3}
+  m_PrefabInstance: {fileID: 1357036775671032415}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 723443262}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71a98718e443a1e4eb64f7cd7fc5c533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: buttonPress
-    clip: {fileID: 8300000, guid: b1a842f86430ed340b03abf385396656, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: buttonPress2
-    clip: {fileID: 8300000, guid: b1a842f86430ed340b03abf385396656, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
---- !u!4 &723443264
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 723443262}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &794113922
 GameObject:
   m_ObjectHideFlags: 0
@@ -4601,7 +4580,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
+      - m_Target: {fileID: 723443263}
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1209462983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5050,7 +5040,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 401571742}
+      - m_Target: {fileID: 1429778560}
         m_MethodName: SetResolution
         m_Mode: 0
         m_Arguments:
@@ -5060,7 +5050,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
 --- !u!114 &1297913916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6446,6 +6436,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 723443263}
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
 --- !u!114 &1656827741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7187,7 +7188,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 401571742}
+      - m_Target: {fileID: 1429778560}
         m_MethodName: SetFullScreen
         m_Mode: 0
         m_Arguments:
@@ -7198,6 +7199,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 723443263}
+        m_MethodName: ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1822364059
 GameObject:
@@ -8347,9 +8359,8 @@ RectTransform:
   - {fileID: 426272318}
   - {fileID: 602861907}
   - {fileID: 1852306441}
-  - {fileID: 369969954}
   m_Father: {fileID: 401571741}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8396,8 +8407,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 113583916}
   m_HandleRect: {fileID: 402853509}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0.001
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -8585,3 +8596,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localisedString:
     key: quit_button
+--- !u!1001 &1357036775671032415
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879263, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357036775286879329, guid: 9940f5f833281a24fa6ddeb8f90ae567,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9940f5f833281a24fa6ddeb8f90ae567, type: 3}

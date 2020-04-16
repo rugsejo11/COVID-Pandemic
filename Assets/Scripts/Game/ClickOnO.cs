@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-
 
 public class ClickOnO : MonoBehaviour
 {
-    public float force = 20;
-    // Start is called before the first frame update
-    void Start()
-    {
+    #region Variables
+    public float force = 10; // Force Used To Throw Object
+    #endregion
 
-    }
-
-    private void PrintName(GameObject ob)
-    {
-        print(ob.name);
-    }
-
+    #region Functions
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        LaunchObject(); // If Mouse 1 Pressed Launch Object
+        GetToMenu(); // If ESC Button Pressed Get To Menu Scene
+    }
+
+    /// <summary>
+    /// On Button Pressed Launch Object
+    /// </summary>
+    private void LaunchObject()
+    {
+        if (Input.GetMouseButtonDown(0)) // If Button 1 Pressed
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -31,21 +31,33 @@ public class ClickOnO : MonoBehaviour
                     Rigidbody rb;
                     if (rb = hit.transform.GetComponent<Rigidbody>())
                     {
-                        LaunchIntoAir(rb);
+                        LaunchIntoAir(rb); // Use Force On Rigidbody
                     }
                 }
             }
-
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            MenuControl.GetToMenu();
-        }
     }
 
+    /// <summary>
+    /// Launch Object Into Air
+    /// </summary>
+    /// <param name="rig"></param>
     private void LaunchIntoAir(Rigidbody rig)
     {
-        rig.AddForce(rig.transform.up * force, ForceMode.Impulse);
+        rig.AddForce(rig.transform.up * force, ForceMode.Impulse); // Use Force On Rigidbody
     }
+
+    /// <summary>
+    /// On Button Pressed Get To Menu Scene
+    /// </summary>
+    private void GetToMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) // If ESC Button Pressed
+        {
+            MenuControl.GetToMenu(); // Get To Menu Scene
+            FindObjectOfType<AudioManager>().Play("buttonPress"); // Play Button Press Audio
+        }
+    }
+    #endregion
 }

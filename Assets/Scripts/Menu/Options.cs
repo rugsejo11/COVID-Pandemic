@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -9,7 +8,7 @@ using System.Linq;
 public class Options : MonoBehaviour
 {
     #region Variables
-    public AudioMixer audioMixer; // Music Audio Mixer
+    public AudioMixer audioMixer; // Audio Mixer
     public TMP_Dropdown resolutionDropdown; // Dropdown To Select Game Resolution
     public TMP_Dropdown graphicsDropdown; // Dropdown To Select Between Fancy And Fast Graphics
     public Toggle FullscreenToggle; // Toggle To Select Fullscreen Or Windowed Game
@@ -22,31 +21,32 @@ public class Options : MonoBehaviour
     #region On Start
     private void Start()
     {
-        screenResolutions = Screen.resolutions.Where(resolution => resolution.refreshRate == 60).ToArray(); // Fill Array screenResolutions With All Available Monitor Resolutions Only Unique
-        PrepareResolutionDropdown();
-        SetSavedOptions();
-        PrepareGraphicsDropdown();
+        screenResolutions = Screen.resolutions.Where(resolution => resolution.refreshRate == 60).ToArray(); // All Available Monitor Resolutions With 60 Refresh Rate
+        PrepareResolutionDropdown(); // Prepare Resolution Dropdown
+        PrepareGraphicsDropdown(); // Prepare Graphics Dropdown
+        SetSavedOptions(); // Get Player Set Saved Options And Set Them
     }
     #endregion
 
     #region Preparation Functions
+    /// <summary>
+    /// Function To Prepare Resolutions Dropdown List
+    /// </summary>
     public void PrepareResolutionDropdown()
     {
+        int currentResolutionIndex = 0; // Index Of Current Resolution
         resolutionDropdown.ClearOptions(); // Empty Dropdown Values
+        List<string> resolutionsList = new List<string>(); // List For TMP_Dropdown
 
-        List<string> resolutionsList = new List<string>(); // Create resolutionsList List For resolutionDropdown
-
-        int currentResolutionIndex = 0;
         for (int i = 0; i < screenResolutions.Length; i++)
         {
-            string res = screenResolutions[i].width + " x " + screenResolutions[i].height;
+            string res = screenResolutions[i].width + " x " + screenResolutions[i].height; // resolution string
 
             if (!resolutionsList.Contains(res))
-                resolutionsList.Add(res);
+                resolutionsList.Add(res); // Creating List Of Resolutions 
 
             // Get Current Resolution Index
-            if (screenResolutions[i].width == Screen.width &&
-                screenResolutions[i].height == Screen.height)
+            if (screenResolutions[i].width == Screen.width && screenResolutions[i].height == Screen.height)
             {
                 currentResolutionIndex = i; // Variable That Has Index Of Current Resolution
             }
@@ -56,40 +56,47 @@ public class Options : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex; // Select Current Resolution In Dropdown
         resolutionDropdown.RefreshShownValue(); // Refresh Dropdown Shown Value
     }
+    /// <summary>
+    /// Function To Prepare Graphics Dropdown List
+    /// </summary>
     public void PrepareGraphicsDropdown()
     {
         graphicsDropdown.ClearOptions(); // Empty Dropdown Values
+        string[] qualitySettings = QualitySettings.names; // Array Of All Graphics
+        List<string> graphicsList = new List<string>(); // List For TMP_Dropdown
+        int currentQualityIndex = 0; // Index Of Current Graphics
 
-        string[] qualitySettings = QualitySettings.names;
-        List<string> graphicsList = new List<string>(); // Create graphicsList List For graphicsDropdown
-
-        int qualityIndex = 0;
         for (int i = 0; i < qualitySettings.Length; i++)
         {
-            string settingsName = LocalisationSystem.GetLocalisedValue(qualitySettings[i]);
+            string settingsName = LocalisationSystem.GetLocalisedValue(qualitySettings[i]); // Localised Graphics Name
+
             if (!graphicsList.Contains(settingsName))
-                graphicsList.Add(settingsName);
+                graphicsList.Add(settingsName); // Creating List Of Graphics
         }
         graphicsDropdown.AddOptions(graphicsList); // Add Graphics List To Dropdown
-        graphicsDropdown.value = PlayerPrefs.GetInt("qualityIndex", qualityIndex); // Select Current Graphic In Dropdown
+        graphicsDropdown.value = PlayerPrefs.GetInt("qualityIndex", currentQualityIndex); // Select Current Graphic In Dropdown
         graphicsDropdown.RefreshShownValue(); // Refresh Dropdown Shown Value
     }
+    /// <summary>
+    /// Function To Save Last Saved Options
+    /// </summary>
     public void SetSavedOptions()
     {
-        int qualityIndex = int.MinValue; // Variable Containing Selected Quality Index
-        int isFullscreen = int.MinValue; // Variable Containing Selected Game Mode Fullscreen Or Windowed
-        int resolutionIndex = int.MinValue; // Variable Containing Selected Game Resolution
+        int qualityIndex = int.MinValue; // Index Of Selected Quality
+        int isFullscreen = int.MinValue; // Selected Game Mode (Fullscreen Or Windowed)
+        int resolutionIndex = int.MinValue; // Index Of Selected Game Resolution
 
         //Volume
-        VolumeSilder.value = PlayerPrefs.GetFloat("volume", 10f);
+        VolumeSilder.value = PlayerPrefs.GetFloat("volume", 1f); // Set VolumeSlider To Last Saved Volume Value
+        audioMixer.SetFloat("volume", Mathf.Log10(VolumeSilder.value) * 20); // Set AudioMixer Value To Last Saved Value
 
         //Graphics
-        QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("qualityIndex", qualityIndex));
-        graphicsDropdown.value = PlayerPrefs.GetInt("qualityIndex", qualityIndex);
+        QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("qualityIndex", qualityIndex)); // Set QualityLevel To Last Saved Value
+        graphicsDropdown.value = PlayerPrefs.GetInt("qualityIndex", qualityIndex); // Set Dropdown Value To Last Saved Value
         graphicsDropdown.RefreshShownValue(); // Refresh Dropdown Shown Value
 
         //Fullscreen
-        isFullscreen = PlayerPrefs.GetInt("isFullscreen", isFullscreen);
+        isFullscreen = PlayerPrefs.GetInt("isFullscreen", isFullscreen); // Get Game Mode Value
         if (isFullscreen == 1)
         {
             Screen.fullScreen = true;
@@ -102,10 +109,10 @@ public class Options : MonoBehaviour
         }
 
         //Resolution
-        resolutionDropdown.value = PlayerPrefs.GetInt("resolutionIndex", resolutionIndex);
-        resolutionDropdown.RefreshShownValue();
-        Resolution selectedResolution = screenResolutions[resolutionDropdown.value];
-        Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen);
+        resolutionDropdown.value = PlayerPrefs.GetInt("resolutionIndex", resolutionIndex); // Set Resolution Index To Last Saved Index
+        resolutionDropdown.RefreshShownValue(); // Refresh Dropdown Value
+        Resolution selectedResolution = screenResolutions[resolutionDropdown.value]; // Get Last Saved Resolution
+        Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen); // Set Resolution To Last Saved Value
     }
     #endregion
 
@@ -116,8 +123,8 @@ public class Options : MonoBehaviour
     /// <param name="volume">Game volume</param>
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
         PlayerPrefs.SetFloat("volume", volume);
+        audioMixer.SetFloat("volume", Mathf.Log(volume) * 20);
     }
 
     /// <summary>

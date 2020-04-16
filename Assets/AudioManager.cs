@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
 using System;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    public Sound[] sounds;
+    #region Variables
+    public Sound[] sounds; // List Of Audio Manager Sounds
+    public static AudioManager instance; // Audio Manager Instance
+    #endregion
 
-    public static AudioManager instance;
-
-
+    #region Functions
+    /// <summary>
+    /// On Start Do
+    /// </summary>
     private void Awake()
     {
+        // Keep Playing Sound While Switching Scenes
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        //if (instance == null)
-        //    instance = this;
-        //else
-        //{
-        //    Destroy(gameObject);
-        //    return;
-        //}
-
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
 
         foreach (Sound s in sounds)
         {
@@ -33,28 +36,38 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Play [name] sound
+    /// </summary>
+    /// <param name="name"></param>
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, sound => sound.name == name); // Find Sound From Sounds List
         if (s == null)
         {
             Debug.LogWarning("Sound" + name + " not found!");
             return;
         }
-        s.source.Play();
+        s.source.Play(); // Play Sound
     }
 
+    /// <summary>
+    /// Play Button Pressed EFX
+    /// </summary>
     public void ButtonPressed()
     {
-        Sound s = Array.Find(sounds, sound => sound.name == "buttonPress");
+        Sound s = Array.Find(sounds, sound => sound.name == "buttonPress"); // Find ButtonPress Sound From Sounds List
         if (s == null)
         {
-            Debug.LogWarning("Sound" + name + " not found!");
+            Debug.LogWarning("Sound buttonPress not found!");
             return;
         }
-        s.source.volume = 1;
-        s.source.pitch = 1;
-        s.source.loop = false;
-        s.source.Play();
+        if (s.source == null)
+        {
+            s.source = gameObject.AddComponent<AudioSource>(); // If Component Not Found Create It
+        }
+        s.source.volume = PlayerPrefs.GetFloat("volume", 1f);
+        s.source.Play(); // Play Sound
     }
+    #endregion
 }
