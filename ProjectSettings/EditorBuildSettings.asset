@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/My Assets/Scenes/Menu.unity
     guid: 329ccd7b6364482429e58cbde9709a25
   - enabled: 1
-    path: Assets/Scenes/Game.unity
+    path: Assets/My Assets/Scenes/Game.unity
     guid: e91c9eff8d5c6cd43884589dc92b1628
+  - enabled: 1
+    path: Assets/morgue scene/morgue.unity
+    guid: 845128cf95f90184697fffb609346de8
   m_configObjects: {}
