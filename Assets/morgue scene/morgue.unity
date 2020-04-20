@@ -484,6 +484,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1763582864}
     m_Modifications:
+    - target: {fileID: 164812, guid: 79646652f63865f4185986c750a93b72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 460678, guid: 79646652f63865f4185986c750a93b72, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -6888,6 +6892,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 0100db3e890c43d4095696b6887b744b, type: 3}
       propertyPath: m_Name
       value: instrument_tray 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0100db3e890c43d4095696b6887b744b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0100db3e890c43d4095696b6887b744b, type: 3}
       propertyPath: m_LocalPosition.x

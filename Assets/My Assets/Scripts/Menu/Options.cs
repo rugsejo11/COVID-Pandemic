@@ -12,6 +12,7 @@ public class Options : MonoBehaviour
     public TMP_Dropdown resolutionDropdown; // Dropdown To Select Game Resolution
     public TMP_Dropdown graphicsDropdown; // Dropdown To Select Between Fancy And Fast Graphics
     public Toggle FullscreenToggle; // Toggle To Select Fullscreen Or Windowed Game
+    public TMP_Text ToggleText; //Fullscreen Toggle Text
     public Slider VolumeSilder; // Audio Volume Selector
 
     private Resolution[] screenResolutions; // Array Containing All Resolutions
@@ -34,27 +35,30 @@ public class Options : MonoBehaviour
     /// </summary>
     public void PrepareResolutionDropdown()
     {
-        int currentResolutionIndex = 0; // Index Of Current Resolution
-        resolutionDropdown.ClearOptions(); // Empty Dropdown Values
-        List<string> resolutionsList = new List<string>(); // List For TMP_Dropdown
-
-        for (int i = 0; i < screenResolutions.Length; i++)
+        if (screenResolutions.Length > 0) // If Not Mobile
         {
-            string res = screenResolutions[i].width + " x " + screenResolutions[i].height; // resolution string
+            int currentResolutionIndex = 0; // Index Of Current Resolution
+            resolutionDropdown.ClearOptions(); // Empty Dropdown Values
+            List<string> resolutionsList = new List<string>(); // List For TMP_Dropdown
 
-            if (!resolutionsList.Contains(res))
-                resolutionsList.Add(res); // Creating List Of Resolutions 
-
-            // Get Current Resolution Index
-            if (screenResolutions[i].width == Screen.width && screenResolutions[i].height == Screen.height)
+            for (int i = 0; i < screenResolutions.Length; i++)
             {
-                currentResolutionIndex = i; // Variable That Has Index Of Current Resolution
-            }
-        }
+                string res = screenResolutions[i].width + " x " + screenResolutions[i].height; // resolution string
 
-        resolutionDropdown.AddOptions(resolutionsList); // Add Resolutions List To Dropdown
-        resolutionDropdown.value = currentResolutionIndex; // Select Current Resolution In Dropdown
-        resolutionDropdown.RefreshShownValue(); // Refresh Dropdown Shown Value
+                if (!resolutionsList.Contains(res))
+                    resolutionsList.Add(res); // Creating List Of Resolutions 
+
+                // Get Current Resolution Index
+                if (screenResolutions[i].width == Screen.width && screenResolutions[i].height == Screen.height)
+                {
+                    currentResolutionIndex = i; // Variable That Has Index Of Current Resolution
+                }
+            }
+
+            resolutionDropdown.AddOptions(resolutionsList); // Add Resolutions List To Dropdown
+            resolutionDropdown.value = currentResolutionIndex; // Select Current Resolution In Dropdown
+            resolutionDropdown.RefreshShownValue(); // Refresh Dropdown Shown Value
+        }
     }
     /// <summary>
     /// Function To Prepare Graphics Dropdown List
@@ -95,24 +99,33 @@ public class Options : MonoBehaviour
         graphicsDropdown.value = PlayerPrefs.GetInt("qualityIndex", qualityIndex); // Set Dropdown Value To Last Saved Value
         graphicsDropdown.RefreshShownValue(); // Refresh Dropdown Shown Value
 
-        //Fullscreen
-        isFullscreen = PlayerPrefs.GetInt("isFullscreen", isFullscreen); // Get Game Mode Value
-        if (isFullscreen == 1)
+        if (screenResolutions.Length > 0) // If Not Mobile
         {
-            Screen.fullScreen = true;
-            FullscreenToggle.isOn = true;
-        }
-        else
-        {
-            Screen.fullScreen = false;
-            FullscreenToggle.isOn = false;
-        }
+            //Fullscreen
+            isFullscreen = PlayerPrefs.GetInt("isFullscreen", isFullscreen); // Get Game Mode Value
+            if (isFullscreen == 1)
+            {
+                Screen.fullScreen = true;
+                FullscreenToggle.isOn = true;
+            }
+            else
+            {
+                Screen.fullScreen = false;
+                FullscreenToggle.isOn = false;
+            }
 
-        //Resolution
-        resolutionDropdown.value = PlayerPrefs.GetInt("resolutionIndex", resolutionIndex); // Set Resolution Index To Last Saved Index
-        resolutionDropdown.RefreshShownValue(); // Refresh Dropdown Value
-        Resolution selectedResolution = screenResolutions[resolutionDropdown.value]; // Get Last Saved Resolution
-        Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen); // Set Resolution To Last Saved Value
+            //Resolution
+            resolutionDropdown.value = PlayerPrefs.GetInt("resolutionIndex", resolutionIndex); // Set Resolution Index To Last Saved Index
+            resolutionDropdown.RefreshShownValue(); // Refresh Dropdown Value
+            Resolution selectedResolution = screenResolutions[resolutionDropdown.value]; // Get Last Saved Resolution
+            Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen); // Set Resolution To Last Saved Value
+        }
+        else // For Mobile
+        {
+            resolutionDropdown.gameObject.SetActive(false);
+            FullscreenToggle.gameObject.SetActive(false);
+            Destroy(ToggleText);
+        }
     }
     #endregion
 

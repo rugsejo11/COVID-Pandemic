@@ -15,7 +15,6 @@ public class LocalisationSystem : MonoBehaviour
     #endregion
 
     #region Functions
-
     /// <summary>
     /// Initialise Localisation System
     /// </summary>
@@ -87,6 +86,7 @@ public class LocalisationSystem : MonoBehaviour
         string value = key;
         string languageString = string.Empty;
         languageString = PlayerPrefs.GetString("Language", languageString); // Get Player Set Language
+
         switch (languageString)
         {
             case "English":
@@ -97,6 +97,11 @@ public class LocalisationSystem : MonoBehaviour
                 break;
             case "Polish":
                 localisedPL.TryGetValue(key, out value);
+                break;
+            default:
+                languageString = "English";
+                PlayerPrefs.SetString("Language", "English"); // Save Language Player Preference To English
+                localisedEN.TryGetValue(key, out value);
                 break;
         }
         return value;
