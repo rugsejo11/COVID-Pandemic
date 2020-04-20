@@ -14,7 +14,7 @@ public class CSVLoader
 
     public void LoadCSV()
     {
-        csvFile = Resources.Load<TextAsset>("localisation");
+        csvFile = Resources.Load<TextAsset>("localisation_translations");
     }
 
     public Dictionary<string, string> GetDictionaryValues(string attributeId)
