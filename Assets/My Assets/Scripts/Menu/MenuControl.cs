@@ -34,8 +34,8 @@ public class MenuControl : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    //public void PlayDemo()
-    //{
-    //    SceneManager.LoadScene(3);
-    //}
+    public void PlayDemo()
+    {
+        SceneManager.LoadScene(3);
+    }
 }

@@ -13,7 +13,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float MinimumX = -90F;
         public float MaximumX = 90F;
         public bool smooth;
-        public float smoothTime = 5f;
+        public float smoothTime = 1f;
 
 
         private Quaternion m_CharacterTargetRot;
