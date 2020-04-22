@@ -55,7 +55,7 @@ public class ClickOnO : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)) // If ESC Button Pressed
         {
-            MenuControl.GetToMenu(); // Get To Menu Scene
+            //MenuControl.GetToMenu(); // Get To Menu Scene
             FindObjectOfType<AudioManager>().Play("buttonPress"); // Play Button Press Audio
         }
     }

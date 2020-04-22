@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Morgue Scene 1/morgue scene/morgue.unity
     guid: 845128cf95f90184697fffb609346de8
   - enabled: 1
-    path: Assets/AN Interactive Physical Door Pack/demo.unity
+    path: Assets/Morgue Scene 1/AN Interactive Physical Door Pack/demo.unity
     guid: 1fa5aeedf0015124987c02e0a469abdd
   m_configObjects: {}
