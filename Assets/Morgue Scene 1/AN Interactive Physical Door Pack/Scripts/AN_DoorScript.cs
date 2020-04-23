@@ -56,9 +56,7 @@ public class AN_DoorScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log(animator.GetBool("Open"));
             animator.SetBool("Open", true);
-            Debug.Log(animator.GetBool("Open"));
 
             //morgoDurys = GameObject.Find("door_02");
             //morgoDurysA = GameObject.Find("door_01");
