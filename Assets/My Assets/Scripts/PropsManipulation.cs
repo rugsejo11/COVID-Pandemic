@@ -23,13 +23,18 @@ public class PropsManipulation : MonoBehaviour
     float angleView;
     Vector3 direction;
 
+    [HideInInspector]
+    private int firstDoors = 1;
+    private int secondDoors = 2;
+
+
     //[Tooltip("True for rotation like valve (used for ramp/elevator only)")]
 
     // Update is called once per frame
     private void Update()
     {
         ButtonPressedOnObject();
-        CheckIfLevelFinished();
+        CheckIfStageFinished();
     }
     bool ButtonE()
     {
@@ -152,11 +157,11 @@ public class PropsManipulation : MonoBehaviour
                 }
 
             }
-            else if(isEButton)
+            else if (isEButton)
             {
-                    animator.SetBool("ButtonSelectedDown", false);
-                    animator.SetBool("ButtonSelectedUp", true);
-                    return true;
+                animator.SetBool("ButtonSelectedDown", false);
+                animator.SetBool("ButtonSelectedUp", true);
+                return true;
             }
             else if (isLever)
             {
@@ -202,9 +207,9 @@ public class PropsManipulation : MonoBehaviour
             }
             else if (isEButton)
             {
-                    animator.SetBool("ButtonSelectedUp", false);
-                    animator.SetBool("ButtonSelectedDown", true);
-                    return true;
+                animator.SetBool("ButtonSelectedUp", false);
+                animator.SetBool("ButtonSelectedDown", true);
+                return true;
             }
             else if (isLever)
             {
@@ -245,9 +250,17 @@ public class PropsManipulation : MonoBehaviour
     {
         animator.SetBool("Detonate", true);
     }
-    void CheckIfLevelFinished()
+    void CheckIfStageFinished()
     {
         if (animator.GetBool("IndicatorLeft") && animator.GetBool("LeverUp"))
-            dm.OpenDoors();
+        {
+            if (dm != null)
+                dm.OpenDoors(firstDoors);
+        }
+        if (animator.GetBool("IndicatorLeft") && animator.GetBool("LeverUp") && animator.GetBool("SwitcherOn"))
+        {
+            if (dm != null)
+                dm.OpenDoors(secondDoors);
+        }
     }
 }

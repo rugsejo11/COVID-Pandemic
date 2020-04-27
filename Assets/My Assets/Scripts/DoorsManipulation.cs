@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class DoorsManipulation : MonoBehaviour
 {
-    public bool toOpen = false;
+    public bool firstDoorsOpen = false; 
+    public bool secondDoorsOpen = false;
     public Animator animator;
 
-    // Update is called once per frame
-    void Update()
+    public void OpenDoors(int doorsNumber)
     {
-        if (toOpen)
-            OpenDoors();
+        if (animator != null)
+        {
+            switch (doorsNumber)
+            {
+                case 1:
+                    animator.SetBool("FirstDoorsOpen", true);
+                    break;
+                case 2:
+                    animator.SetBool("SecondDoorsOpen", true);
+                    break;
+                default:
+                    Debug.LogError("Doors not found.");
+                    break;
+            }
 
+        }
     }
 
-    public void OpenDoors()
-    {
-        //animator.SetBool("Open", true);
-        animator.SetTrigger("Open");
-    }
 }

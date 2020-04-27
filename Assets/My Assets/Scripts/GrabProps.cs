@@ -4,31 +4,37 @@ using UnityEngine;
 
 public class GrabProps : MonoBehaviour
 {
-    public bool OneTime = false; // If Possible To Do Single Time
-    public Transform HeroHandsPosition;
-    public Collider Destination; // If GameObj position == Destination Possition Attach
+    #region Variables
+    public bool OneTime = false; // If Possible To Grab Only One Time
+    public Transform HeroHandsPosition; // Hands position of the character
+    public Collider Destination; // Destination point where object can be attached
 
     // Is object nearview
-    float distance;
-    float angleView;
-    Vector3 direction;
+    float distance; // Distance from char to item
+    float angleView; // Angle difference from char camera to item
+    Vector3 direction; // Character camera direction
 
-    bool follow = false, isConnected = false, followFlag = false, youCan = true;
-    Rigidbody rb;
+    bool objectGrabbed = false; // Item grabbed
+    bool atDestination = false; // Item is attached to it's destination
+    bool possibleToGrab = true; // Is it possible to grab this item
 
+    Rigidbody objectToTake;
+    #endregion
+
+    #region Functions
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        objectToTake = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (youCan) Interaction();
+        if (possibleToGrab) Interaction();
 
         // frozen if it is connected to PowerOut
-        if (isConnected)
+        if (atDestination)
         {
             gameObject.transform.position = Destination.transform.position;
             gameObject.transform.rotation = Destination.transform.rotation;
@@ -37,35 +43,30 @@ public class GrabProps : MonoBehaviour
     }
     void Interaction()
     {
-        if (NearView() && Input.GetKeyDown(KeyCode.E) && !follow)
+        //if (NearView() && Input.GetKeyDown(KeyCode.E) && !follow)
+        if (NearView() && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed)
         {
-            isConnected = false; // unfrozen
-            follow = true;
-            followFlag = false;
+            atDestination = false; // unfrozen
+            objectGrabbed = true;
         }
 
-        if (follow)
+        if (objectGrabbed)
         {
-            rb.drag = 10f;
-            rb.angularDrag = 10f;
-            if (followFlag)
+            objectToTake.drag = 10f;
+            objectToTake.angularDrag = 10f;
+            distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+            if (distance > 3f || Input.GetKeyDown(KeyCode.Mouse0))
             {
-                distance = Vector3.Distance(transform.position, Camera.main.transform.position);
-                if (distance > 3f || Input.GetKeyDown(KeyCode.E))
-                {
-                    follow = false;
-                }
+                objectGrabbed = false;
             }
-
-            followFlag = true;
-            rb.AddExplosionForce(-1000f, HeroHandsPosition.position, 10f);
+            //objectToTake.AddExplosionForce(-1000f, HeroHandsPosition.position, 10f);
             // second variant of following
             //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, objectLerp.position, 1f);
         }
         else
         {
-            rb.drag = 0f;
-            rb.angularDrag = .5f;
+            objectToTake.drag = 0f;
+            objectToTake.angularDrag = .5f;
         }
     }
 
@@ -74,19 +75,19 @@ public class GrabProps : MonoBehaviour
         distance = Vector3.Distance(transform.position, Camera.main.transform.position);
         direction = transform.position - Camera.main.transform.position;
         angleView = Vector3.Angle(Camera.main.transform.forward, direction);
-        if (distance < 2f && angleView < 45f) return true;
+        if (distance < 2f && angleView < 10f) return true;
         else return false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider objectTaken)
     {
-        if (other == Destination)
+        if (objectTaken == Destination)
         {
-            isConnected = true;
-            follow = false;
+            atDestination = true;
+            objectGrabbed = false;
             //DoorObject.rbDoor.AddRelativeTorque(new Vector3(0, 0, 20f));
         }
-        if (OneTime) youCan = false;
+        if (OneTime) possibleToGrab = false;
     }
-
+    #endregion
 }

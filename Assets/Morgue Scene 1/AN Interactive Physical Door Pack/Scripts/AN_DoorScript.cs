@@ -51,31 +51,31 @@ public class AN_DoorScript : MonoBehaviour
 
     void Update()
     {
-        if (!Remote && Input.GetKeyDown(KeyCode.E) && NearView())
-            Action();
+        //if (!Remote && Input.GetKeyDown(KeyCode.E) && NearView())
+        //    Action();
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            animator.SetBool("Open", true);
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    animator.SetBool("Open", true);
 
-            //morgoDurys = GameObject.Find("door_02");
-            //morgoDurysA = GameObject.Find("door_01");
+        //    //morgoDurys = GameObject.Find("door_02");
+        //    //morgoDurysA = GameObject.Find("door_01");
 
-            //Transform morgDurys = morgoDurys.GetComponent<Transform>();
-            //Transform morgDurysA = morgoDurysA.GetComponent<Transform>();
+        //    //Transform morgDurys = morgoDurys.GetComponent<Transform>();
+        //    //Transform morgDurysA = morgoDurysA.GetComponent<Transform>();
 
-            //morgDurys.Rotate(new Vector3(0, 160f, 0));
-            //morgDurysA.Rotate(new Vector3(0, -160f, 0));
+        //    //morgDurys.Rotate(new Vector3(0, 160f, 0));
+        //    //morgDurysA.Rotate(new Vector3(0, -160f, 0));
 
 
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
+        //}
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
 
-            medinesDurys = GameObject.Find("Doorw");
-            Transform medDurys = medinesDurys.GetComponent<Transform>();
-            medDurys.Rotate(new Vector3(0, 0, -60f));
-        }
+        //    medinesDurys = GameObject.Find("Doorw");
+        //    Transform medDurys = medinesDurys.GetComponent<Transform>();
+        //    medDurys.Rotate(new Vector3(0, 0, -60f));
+        //}
 
     }
 
