@@ -126,8 +126,8 @@ GameObject:
   - component: {fileID: 2189870819492480558}
   - component: {fileID: 2189870819492480553}
   - component: {fileID: 2189870819492480552}
-  - component: {fileID: 2189870819492480556}
-  - component: {fileID: 2189870819492480546}
+  - component: {fileID: 5104868268168639691}
+  - component: {fileID: 3445328601886740015}
   - component: {fileID: 2189870819492480547}
   - component: {fileID: 2189870819492480557}
   m_Layer: 0
@@ -214,7 +214,7 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2189870819492480556
+--- !u!114 &5104868268168639691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,13 +223,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2189870819492480555}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cec1f8ffaa3aa6f41bddcd0ad30cf486, type: 3}
+  m_Script: {fileID: 11500000, guid: 630e201835c95f84cb64be67900f77a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 3
   JumpForce: 300
   Sensitivity: 70
---- !u!114 &2189870819492480546
+--- !u!114 &3445328601886740015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,12 +238,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2189870819492480555}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b7fd3b35bb20f741b23b534a52c2dc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 47c60eaff6f3136409c32dc1d6573c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RedKey: 0
-  BlueKey: 0
   GoalPosition: {fileID: 0}
+  grabbedObject: 0
 --- !u!54 &2189870819492480547
 Rigidbody:
   m_ObjectHideFlags: 0

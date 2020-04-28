@@ -5,16 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/My Assets/Scenes/Menu.unity
     guid: 329ccd7b6364482429e58cbde9709a25
-  - enabled: 1
+  - enabled: 0
     path: Assets/My Assets/Scenes/Game.unity
     guid: e91c9eff8d5c6cd43884589dc92b1628
   - enabled: 0
     path: Assets/Morgue Scene 1/morgue.unity
     guid: 845128cf95f90184697fffb609346de8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Morgue Scene 1/AN Interactive Physical Door Pack/demo.unity
     guid: 1fa5aeedf0015124987c02e0a469abdd
+  - enabled: 1
+    path: Assets/Laboratory_Interior/Scene/Laboratory_Room.unity
+    guid: add8fe2c3d3a9e746b5f668d061e9830
   m_configObjects: {}
