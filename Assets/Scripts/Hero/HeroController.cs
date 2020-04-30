@@ -11,10 +11,14 @@ public class HeroController : MonoBehaviour
     [SerializeField] private float jumpingForce = 300f; // Variable holding value how high character will jump
     [Tooltip("Mouse sensitivity")]
     [SerializeField] private float mouseSens = 70f; // Variable holding value sensitivity of the mouse
-    public bool onGround = false; // Variable holding value if player is on the ground
-    public bool characterLanded = false; // Variable holding value if player landed
-    public bool inAir = false;
+    private bool onGround = false; // Variable holding value if player is on the ground
+    private bool characterLanded = false; // Variable holding value if player landed
+    private bool inAir = false;
     private float currentMovementSpeed;
+
+    [SerializeField] private float m_StepInterval;
+    private float m_StepCycle;
+    private float m_NextStep;
 
     // Sound
     [SerializeField] private AudioClip[] m_FootstepSounds = new AudioClip[4];    // an array of footstep sounds that will be randomly selected from.
@@ -39,6 +43,9 @@ public class HeroController : MonoBehaviour
         characterBody = GetComponent<Rigidbody>();
         Cam = Camera.main.GetComponent<Transform>();
         currentMovementSpeed = float.MinValue;
+        m_StepCycle = 0f;
+        m_NextStep = m_StepCycle / 2f;
+
 
         Cursor.visible = true;
 
@@ -53,7 +60,7 @@ public class HeroController : MonoBehaviour
     {
         CameraRotation(); // Function to rotate hero's camera according to mouse movement 
         Jump(); // Function to let character jump if space button pressed and he is on the grouund
-        Land();
+                //Land();
     }
 
     /// <summary>
@@ -126,17 +133,25 @@ public class HeroController : MonoBehaviour
 
         moveVector = verticalVector + horizontalVector + jumpVector; // character movement vector
 
-        if (characterBody.velocity != moveVector)
-        {
-            characterBody.velocity = moveVector; // set character to move
-            if(currentMovementSpeed == runSpeed)
-            {
-
-            }
-            else { }
-        }
+        characterBody.velocity = moveVector; // set character to move
+        if (verticalVector.magnitude > 0 || horizontalVector.magnitude > 0)
+            ProgressStepCycle();
     }
+    private void ProgressStepCycle()
+    {
 
+        m_StepCycle += (characterBody.velocity.magnitude + (currentMovementSpeed * 3)) *
+                 Time.fixedDeltaTime;
+
+        if (!(m_StepCycle > m_NextStep))
+        {
+            return;
+        }
+
+        m_NextStep = m_StepCycle + m_StepInterval;
+
+        PlayFootStepAudio();
+    }
     /// <summary>
     /// Function on trigger with ground set that hero is on the ground
     /// </summary>
@@ -164,27 +179,37 @@ public class HeroController : MonoBehaviour
         inAir = true;
     }
 
+    private void StepsCounter(float speed)
+    {
+    }
+
+
     private void PlayJumpSound()
     {
-        if (m_JumpSound != null)
-        {
-            m_AudioSource.clip = m_JumpSound;
-            m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
-            m_AudioSource.Play();
-        }
+        //if (m_JumpSound != null)
+        //{
+        //    m_AudioSource.clip = m_JumpSound;
+        //    //m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
+        //    m_AudioSource.Play();
+        //}
+        FindObjectOfType<AudioManager>().Play("Jump"); // Play Button Press Audio
+
     }
     private void PlayLandingSound()
     {
-        if (m_LandSound != null)
-        {
-            m_AudioSource.clip = m_LandSound;
-            m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
-            m_AudioSource.Play();
-        }
+        //if (m_LandSound != null)
+        //{
+        //    m_AudioSource.clip = m_LandSound;
+        //    //m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
+        //    m_AudioSource.Play();
+        //}
+        FindObjectOfType<AudioManager>().Play("Land"); // Play Button Press Audio
+
     }
 
     private void PlayFootStepAudio()
     {
+        //FindObjectOfType<AudioManager>().Play("footStep1"); // Play Button Press Audio
         // pick & play a random footstep sound from the array,
         // excluding sound at index 0
         int n = Random.Range(1, m_FootstepSounds.Length);
