@@ -9,7 +9,16 @@ public class HeroController : MonoBehaviour
     public float jumpingForce = 300f; // Variable holding value how high character will jump
     [Tooltip("Mouse sensitivity")]
     public float mouseSens = 70f; // Variable holding value sensitivity of the mouse
-    bool onGround = false; // Variable holding value if player is on the ground
+    public bool onGround = false; // Variable holding value if player is on the ground
+    public bool inAir = false;
+
+
+    // Sound
+    [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+    [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
+    [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+    private AudioSource m_AudioSource;
+
 
     // Hero and moving him
     Rigidbody characterBody; // Character body
@@ -23,6 +32,7 @@ public class HeroController : MonoBehaviour
     /// </summary>
     void Start()
     {
+        m_AudioSource = GetComponent<AudioSource>();
         characterBody = GetComponent<Rigidbody>();
         Cam = Camera.main.GetComponent<Transform>();
 
@@ -40,6 +50,7 @@ public class HeroController : MonoBehaviour
     {
         CameraRotation(); // Function to rotate hero's camera according to mouse movement 
         Jump(); // Function to let character jump if space button pressed and he is on the grouund
+        Land();
     }
 
     /// <summary>
@@ -70,8 +81,20 @@ public class HeroController : MonoBehaviour
     private void Jump()
     {
         if (Input.GetButtonDown("Jump") && onGround == true)
+        {
             characterBody.AddForce(transform.up * jumpingForce);
+            PlayJumpSound();
+            //inAir = true;
+        }
 
+    }
+    private void Land()
+    {
+        if (!m_AudioSource.isPlaying && inAir == true && onGround == true)
+        {
+            PlayLandingSound();
+            inAir = false;
+        }
     }
 
     /// <summary>
@@ -119,5 +142,17 @@ public class HeroController : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         onGround = false; // Set variable that hero is no on the ground
+        inAir = true;
+    }
+
+    private void PlayJumpSound()
+    {
+        m_AudioSource.clip = m_JumpSound;
+        m_AudioSource.Play();
+    }
+    private void PlayLandingSound()
+    {
+        m_AudioSource.clip = m_LandSound;
+        m_AudioSource.Play();
     }
 }
