@@ -5,18 +5,19 @@ using UnityEngine;
 public class GrabProps : MonoBehaviour
 {
     #region Variables
-    public bool OneTime = false; // If Possible To Grab Only One Time
-    public Transform HeroHandsPosition; // Hands position of the character
-    public Collider Destination; // Destination point where object can be attached
+    private HeroInteractive hero; // Game character
+    [SerializeField] private Transform HeroHandsPosition = null; // Hands position of the character
 
-    // Is object nearview
-    float distance; // Distance from char to item
-    float angleView; // Angle difference from char camera to item
-    Vector3 direction; // Character camera direction
+    // Is object PossibleToGrabObject
+    private float distance; // Distance from char to item
+    private float angleView; // Angle difference from char camera to item
+    private Vector3 direction; // Character camera direction
 
-    bool objectGrabbed = false; // Item grabbed
-    bool atDestination = false; // Item is attached to it's destination
-    bool possibleToGrab = true; // Is it possible to grab this item
+    private bool objectGrabbed = false; // Item grabbed
+    [SerializeField] private bool possibleToGrab = true; // Is it possible to grab this item
+    private bool objectInHands = false; // Variable holding value if object is at hero's hands
+    [SerializeField] private Rigidbody characterBody = null; // Character body
+
 
     Rigidbody objectToTake;
     #endregion
@@ -25,6 +26,7 @@ public class GrabProps : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hero = FindObjectOfType<HeroInteractive>(); // Get hero object
         objectToTake = GetComponent<Rigidbody>();
     }
 
@@ -32,62 +34,74 @@ public class GrabProps : MonoBehaviour
     void Update()
     {
         if (possibleToGrab) Interaction();
-
-        // frozen if it is connected to PowerOut
-        if (atDestination)
-        {
-            gameObject.transform.position = Destination.transform.position;
-            gameObject.transform.rotation = Destination.transform.rotation;
-            //OBJECT SET ON
-        }
     }
     void Interaction()
     {
-        //if (NearView() && Input.GetKeyDown(KeyCode.E) && !follow)
-        if (NearView() && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed)
+        if (PossibleToGrabObject() && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed())
         {
-            atDestination = false; // unfrozen
             objectGrabbed = true;
+            hero.GrabObject(); // Set that hero has an object in he's hands
+            objectInHands = false; // Set that object is not grabbed just yet
         }
 
-        if (objectGrabbed)
+        else if (objectGrabbed)
         {
-            objectToTake.drag = 10f;
-            objectToTake.angularDrag = 10f;
+            if (Input.GetKeyUp(KeyCode.Mouse0)) // If Mouse 1 button realesed
+            {
+                objectGrabbed = false;
+                hero.DropObject(); // Free hero's hands
+                objectToTake.drag = 0f;
+                objectToTake.angularDrag = .5f;
+            }
+
+            else
+            {
+                if (!objectInHands) // If object dropped
+                {
+                    objectToTake.drag = 10f;
+                    objectToTake.angularDrag = 10f;
+                }
+                else
+                {
+                    distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+                    if (distance > 3f) // If object too far, drop object
+                    {
+                        objectGrabbed = false;
+                        hero.DropObject(); // Free hero's hands
+                    }
+                }
+            }
             distance = Vector3.Distance(transform.position, Camera.main.transform.position);
             if (distance > 3f || Input.GetKeyDown(KeyCode.Mouse0))
             {
                 objectGrabbed = false;
             }
-            //objectToTake.AddExplosionForce(-1000f, HeroHandsPosition.position, 10f);
-            // second variant of following
-            //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, objectLerp.position, 1f);
+
+            objectInHands = true;
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, HeroHandsPosition.position, 1f); // Follow object in character's hands
         }
+    }
+
+    bool PossibleToGrabObject() // it is true if you near interactive object
+    {
+        distance = Vector3.Distance(transform.position, Camera.main.transform.position); // Distance between object and hero
+        direction = transform.position - Camera.main.transform.position; // Direction between object and hero
+        angleView = Vector3.Angle(Camera.main.transform.forward, direction); // Angle view between object and hero
+
+        if (distance < 3f && angleView < 20f) // If distance and angle view is in range, return that it is possible to grab this object
+            return true;
         else
-        {
-            objectToTake.drag = 0f;
-            objectToTake.angularDrag = .5f;
-        }
+            return false;
     }
-
-    bool NearView() // it is true if you near interactive object
+    void OnCollisionEnter(Collision collision)
     {
-        distance = Vector3.Distance(transform.position, Camera.main.transform.position);
-        direction = transform.position - Camera.main.transform.position;
-        angleView = Vector3.Angle(Camera.main.transform.forward, direction);
-        if (distance < 2f && angleView < 10f) return true;
-        else return false;
-    }
-
-    private void OnTriggerEnter(Collider objectTaken)
-    {
-        if (objectTaken == Destination)
+        if (collision.gameObject.CompareTag("Room") && objectGrabbed)
         {
-            atDestination = true;
-            objectGrabbed = false;
-            //DoorObject.rbDoor.AddRelativeTorque(new Vector3(0, 0, 20f));
+            float force = 1500;
+            Vector3 dir = collision.contacts[0].point - transform.position;
+            dir = -dir.normalized;
+            characterBody.AddForce(dir * force);
         }
-        if (OneTime) possibleToGrab = false;
     }
     #endregion
 }

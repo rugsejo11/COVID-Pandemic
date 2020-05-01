@@ -2,273 +2,48 @@
 
 public class UseSwitchScript : MonoBehaviour
 {
-    //[HideInInspector]
-    public bool isHazardousLever = false;
-    public bool isFinishLever = false;
-    public bool isElectricityLever = false;
-    public bool isClownLever = false;
-    public bool isComplexLever = false;
-    [Space]
-    public bool isElevatorButton = false;
-    public bool isBigButton = false;
-    public bool isSmallButton = false;
-    [Space]
-    public bool isDetonator = false;
-    [Space]
-    public bool isSwitch = false;
-    [Space]
-    public Animator animator;
-    public OpenDoorsScript dm;
+    #region Variables
 
+    [SerializeField] private bool isHazardousLever = false;
+    [SerializeField] private bool isFinishLever = false;
+    [SerializeField] private bool isElectricityLever = false;
+    [SerializeField] private bool isClownLever = false;
+    [SerializeField] private bool isComplexLever = false;
+    [Space]
+    [SerializeField] private bool isElevatorButton = false;
+    [SerializeField] private bool isBigButton = false;
+    [SerializeField] private bool isSmallButton = false;
+    [Space]
+    [SerializeField] private bool isDetonator = false;
+    [Space]
+    [SerializeField] private bool isSwitch = false;
+    [Space]
 
-    // NearView()
-    float distance;
-    float angleView;
-    Vector3 direction;
+    [SerializeField] private Animator animator = null;
 
-    [HideInInspector]
+    // PossibleToClick() - Function to check if switch is reachable
+    private float distance;
+    private float angleView;
+    private Vector3 direction;
+
+    [SerializeField] private OpenDoorsScript dm = null;
+
     private int firstDoors = 1;
     private int secondDoors = 2;
 
-
-    //[Tooltip("True for rotation like valve (used for ramp/elevator only)")]
+    #endregion
 
     // Update is called once per frame
     private void Update()
     {
-        ButtonPressedOnObject();
+        ButtonPressedOnSwitch();
         CheckIfStageFinished();
     }
-    bool ButtonE()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && NearView())
-        {
-            if (isDetonator)
-            {
-                Detonator();
-                return true;
-            }
-            else if (isSmallButton)
-            {
-                if (animator.GetBool("SmallButtonPressed"))
-                    animator.SetBool("SmallButtonPressed", false);
-                else
-                    animator.SetBool("SmallButtonPressed", true);
-                return true;
-            }
-            else if (isBigButton)
-            {
-                if (animator.GetBool("BigButtonPressed"))
-                    animator.SetBool("BigButtonPressed", false);
-                else
-                    animator.SetBool("BigButtonPressed", true);
 
-                return true;
-            }
-            else if (isSwitch)
-            {
-                if (animator.GetBool("SwitcherOn"))
-                    animator.SetBool("SwitcherOn", false);
-                else
-                    animator.SetBool("SwitcherOn", true);
-
-                return true;
-            }
-
-            else if (isElectricityLever)
-            {
-                if (animator.GetBool("ElectricityLeverDown"))
-                    animator.SetBool("ElectricityLeverDown", false);
-                else
-                    animator.SetBool("ElectricityLeverDown", true);
-
-                return true;
-            }
-            else if (isHazardousLever)
-            {
-                if (animator.GetBool("HazardousLeverDown"))
-                    animator.SetBool("HazardousLeverDown", false);
-                else
-                    animator.SetBool("HazardousLeverDown", true);
-
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-    bool ButtonUp()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && NearView())
-        {
-            if (isComplexLever)
-            {
-                if (animator.GetBool("ComplexLeverDown"))
-                {
-                    animator.SetBool("ComplexLeverCenter", true);
-                    animator.SetBool("ComplexLeverDown", false);
-                    return true;
-                }
-                else
-                {
-                    animator.SetBool("ComplexLeverCenter", false);
-                    animator.SetBool("ComplexLeverUp", true);
-                    return true;
-                }
-            }
-            else if (isClownLever)
-            {
-                if (animator.GetBool("ClownLeverDown"))
-                {
-                    animator.SetBool("ClownLeverCenter", true);
-                    animator.SetBool("ClownLeverDown", false);
-                    return true;
-                }
-                else
-                {
-                    animator.SetBool("ClownLeverCenter", false);
-                    animator.SetBool("ClownLeverUp", true);
-                    return true;
-                }
-            }
-            return false;
-
-        }
-        return false;
-    }
-    bool ButtonDown()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow) && NearView())
-        {
-            if (isComplexLever)
-            {
-                if (animator.GetBool("ComplexLeverUp"))
-                {
-                    animator.SetBool("ComplexLeverCenter", true);
-                    animator.SetBool("ComplexLeverUp", false);
-                    return true;
-                }
-                else
-                {
-                    animator.SetBool("ComplexLeverCenter", false);
-                    animator.SetBool("ComplexLeverDown", true);
-                    return true;
-                }
-            }
-            else if (isClownLever)
-            {
-                if (animator.GetBool("ClownLeverUp"))
-                {
-                    animator.SetBool("ClownLeverCenter", true);
-                    animator.SetBool("ClownLeverUp", false);
-                    return true;
-                }
-                else
-                {
-                    animator.SetBool("ClownLeverCenter", false);
-                    animator.SetBool("ClownLeverDown", true);
-                    return true;
-                }
-            }
-            return false;
-        }
-        return false;
-    }
-    bool ButtonLeft()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && NearView())
-        {
-            if (isComplexLever)
-            {
-                if (animator.GetBool("ComplexIndicatorRight"))
-                {
-                    animator.SetBool("ComplexIndicatorCenter", true);
-                    animator.SetBool("ComplexIndicatorRight", false);
-                    return true;
-                }
-                else
-                {
-                    animator.SetBool("ComplexIndicatorCenter", false);
-                    animator.SetBool("ComplexIndicatorLeft", true);
-                    return true;
-
-                }
-
-            }
-            else if (isElevatorButton)
-            {
-                animator.SetBool("ElevatorButtonDown", false);
-                animator.SetBool("ElevatorButtonUp", true);
-                return true;
-            }
-            else if (isFinishLever)
-            {
-                if (animator.GetBool("FinishLeverRight"))
-                {
-                    animator.SetBool("FinishLeverCenter", true);
-                    animator.SetBool("FinishLeverRight", false);
-                    return true;
-                }
-                else
-                {
-                    animator.SetBool("FinishLeverCenter", false);
-                    animator.SetBool("FinishLeverLeft", true);
-                    return true;
-                }
-
-            }
-            return false;
-        }
-        return false;
-
-    }
-    bool ButtonRight()
-    {
-        if (Input.GetKeyDown(KeyCode.RightArrow) && NearView())
-        {
-            if (isComplexLever)
-            {
-                if (animator.GetBool("ComplexIndicatorLeft"))
-                {
-                    animator.SetBool("ComplexIndicatorCenter", true);
-                    animator.SetBool("ComplexIndicatorLeft", false);
-                    return true;
-                }
-                else
-                {
-                    animator.SetBool("ComplexIndicatorCenter", false);
-                    animator.SetBool("ComplexIndicatorRight", true);
-                    return true;
-                }
-
-            }
-            else if (isElevatorButton)
-            {
-                animator.SetBool("ElevatorButtonUp", false);
-                animator.SetBool("ElevatorButtonDown", true);
-                return true;
-            }
-            else if (isFinishLever)
-            {
-                if (animator.GetBool("FinishLeverLeft"))
-                {
-                    animator.SetBool("FinishLeverCenter", true);
-                    animator.SetBool("FinishLeverLeft", false);
-                    return true;
-                }
-                else
-                {
-                    animator.SetBool("FinishLeverCenter", false);
-                    animator.SetBool("FinishLeverRight", true);
-                    return true;
-                }
-            }
-            return false;
-        }
-        return false;
-    }
-
-    void ButtonPressedOnObject()
+    /// <summary>
+    /// Function to check if button pressed on switch
+    /// </summary>
+    void ButtonPressedOnSwitch()
     {
         if (ButtonE()) { }
         else if (ButtonUp()) { }
@@ -277,51 +52,395 @@ public class UseSwitchScript : MonoBehaviour
         else if (ButtonRight()) { }
     }
 
-
-    bool NearView() // it is true if you near interactive object
+    /// <summary>
+    /// Function to check if switch is reachable
+    /// </summary>
+    /// <returns></returns>
+    bool PossibleToClick()
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+        direction = transform.position - Camera.main.transform.position;
+        angleView = Vector3.Angle(Camera.main.transform.forward, direction);
 
-        if (Physics.Raycast(ray, out hit, 100.0f))
-        {
+        if (angleView < 45f && distance < 3f)
             return true;
-            //if (hit.transform != null)
-            //{
-            //    //Rigidbody rb;
-            //    //if (rb = hit.transform.GetComponent<Rigidbody>())
-            //    //{
-            //    //    LaunchIntoAir(rb); // Use Force On Rigidbody
-            //    //}
-            //}
-
-        }
-        else return false;
-
-
-        //distance = Vector3.Distance(transform.position, Camera.main.transform.position);
-        //direction = transform.position - Camera.main.transform.position;
-        //angleView = Vector3.Angle(Camera.main.transform.forward, direction);
-        //if (angleView < 30f && distance < 1.85f) return true;
-        //else return false;
+        else
+            return false;
     }
 
-    //bool NearView() // it is true if you near interactive object
-    //{
-    //    distance = Vector3.Distance(transform.position, Camera.main.transform.position);
-    //    direction = transform.position - Camera.main.transform.position;
-    //    angleView = Vector3.Angle(Camera.main.transform.forward, direction);
-    //    if (angleView < 30f && distance < 1.85f) return true;
-    //    else return false;
-    //}
+    #region Button pressed activity
+    bool ButtonE()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && PossibleToClick())
+        {
+            if (isDetonator)
+            {
+                Detonator(); return true;
+            }
+            else if (isSmallButton)
+            {
+                SmallButton(KeyCode.E); return true;
+            }
+            else if (isBigButton)
+            {
+                BigButton(KeyCode.E); return true;
+            }
+            else if (isSwitch)
+            {
+                Switch(KeyCode.E); return true;
+            }
+
+            else if (isElectricityLever)
+            {
+                ElectricityLever(KeyCode.E); return true;
+            }
+            else if (isHazardousLever)
+            {
+                HazardousLever(KeyCode.E); return true;
+            }
+        }
+        return false;
+    }
+
+    bool ButtonUp()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow) && PossibleToClick())
+        {
+            if (isComplexLever)
+            {
+                ComplexLever(KeyCode.UpArrow); return true;
+            }
+            else if (isClownLever)
+            {
+                ClownLever(KeyCode.UpArrow); return true;
+            }
+        }
+        return false;
+    }
+
+    bool ButtonDown()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && PossibleToClick())
+        {
+            if (isComplexLever)
+            {
+                ComplexLever(KeyCode.DownArrow); return true;
+            }
+            else if (isClownLever)
+            {
+                ClownLever(KeyCode.DownArrow); return true;
+            }
+        }
+        return false;
+    }
+
+    bool ButtonLeft()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && PossibleToClick())
+        {
+            if (isComplexLever)
+            {
+                ComplexLever(KeyCode.LeftArrow); return true;
+            }
+            else if (isElevatorButton)
+            {
+                Elevatorbutton(KeyCode.LeftArrow); return true;
+            }
+            else if (isFinishLever)
+            {
+                FinishLever(KeyCode.LeftArrow); return true;
+            }
+        }
+        return false;
+    }
+
+    bool ButtonRight()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow) && PossibleToClick())
+        {
+            if (isComplexLever)
+            {
+                ComplexLever(KeyCode.RightArrow); return true;
+            }
+            else if (isElevatorButton)
+            {
+                Elevatorbutton(KeyCode.RightArrow); return true;
+            }
+            else if (isFinishLever)
+            {
+                FinishLever(KeyCode.RightArrow); return true;
+            }
+            return false;
+        }
+        return false;
+    }
+    #endregion
+
+    #region Switches activity
 
     /// <summary>
-    /// Detonate
+    /// Set Hazardous lever animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
+    void HazardousLever(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.E:
+                if (animator.GetBool("HazardousLeverDown"))
+                    animator.SetBool("HazardousLeverDown", false);
+                else
+                    animator.SetBool("HazardousLeverDown", true);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Set Electricity lever animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
+    void ElectricityLever(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.E:
+                if (animator.GetBool("ElectricityLeverDown"))
+                    animator.SetBool("ElectricityLeverDown", false);
+                else
+                    animator.SetBool("ElectricityLeverDown", true);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Set Big button animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
+    void BigButton(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.E:
+                if (animator.GetBool("BigButtonPressed"))
+                    animator.SetBool("BigButtonPressed", false);
+                else
+                    animator.SetBool("BigButtonPressed", true);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Set Small button animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
+    void SmallButton(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.E:
+                if (animator.GetBool("SmallButtonPressed"))
+                    animator.SetBool("SmallButtonPressed", false);
+                else
+                    animator.SetBool("SmallButtonPressed", true);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Set Switch animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
+    void Switch(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.E:
+                if (animator.GetBool("SwitcherOn"))
+                    animator.SetBool("SwitcherOn", false);
+                else
+                    animator.SetBool("SwitcherOn", true);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Set Clown lever animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
+    void ClownLever(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.UpArrow:
+                if (animator.GetBool("ClownLeverDown"))
+                {
+                    animator.SetBool("ClownLeverCenter", true);
+                    animator.SetBool("ClownLeverDown", false);
+                }
+                else
+                {
+                    animator.SetBool("ClownLeverCenter", false);
+                    animator.SetBool("ClownLeverUp", true);
+                }
+                break;
+            case KeyCode.DownArrow:
+                if (animator.GetBool("ClownLeverUp"))
+                {
+                    animator.SetBool("ClownLeverCenter", true);
+                    animator.SetBool("ClownLeverUp", false);
+                }
+                else
+                {
+                    animator.SetBool("ClownLeverCenter", false);
+                    animator.SetBool("ClownLeverDown", true);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+    void FinishLever(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.LeftArrow:
+                if (animator.GetBool("FinishLeverRight"))
+                {
+                    animator.SetBool("FinishLeverCenter", true);
+                    animator.SetBool("FinishLeverRight", false);
+                }
+                else
+                {
+                    animator.SetBool("FinishLeverCenter", false);
+                    animator.SetBool("FinishLeverLeft", true);
+                }
+                break;
+            case KeyCode.RightArrow:
+                if (animator.GetBool("FinishLeverLeft"))
+                {
+                    animator.SetBool("FinishLeverCenter", true);
+                    animator.SetBool("FinishLeverLeft", false);
+                }
+                else
+                {
+                    animator.SetBool("FinishLeverCenter", false);
+                    animator.SetBool("FinishLeverRight", true);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Set Detonator object animation and sound
     /// </summary>
     void Detonator()
     {
         animator.SetBool("Detonate", true);
     }
+
+    /// <summary>
+    /// Set Elevator button animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
+    void Elevatorbutton(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.LeftArrow:
+                animator.SetBool("ElevatorButtonDown", false);
+                animator.SetBool("ElevatorButtonUp", true);
+                break;
+            case KeyCode.RightArrow:
+                animator.SetBool("ElevatorButtonUp", false);
+                animator.SetBool("ElevatorButtonDown", true);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Set Complex lever animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
+    void ComplexLever(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.UpArrow:
+                if (animator.GetBool("ComplexLeverDown"))
+                {
+                    animator.SetBool("ComplexLeverCenter", true);
+                    animator.SetBool("ComplexLeverDown", false);
+                }
+                else
+                {
+                    animator.SetBool("ComplexLeverCenter", false);
+                    animator.SetBool("ComplexLeverUp", true);
+                }
+                break;
+            case KeyCode.DownArrow:
+                if (animator.GetBool("ComplexLeverUp"))
+                {
+                    animator.SetBool("ComplexLeverCenter", true);
+                    animator.SetBool("ComplexLeverUp", false);
+                }
+                else
+                {
+                    animator.SetBool("ComplexLeverCenter", false);
+                    animator.SetBool("ComplexLeverDown", true);
+                }
+                break;
+            case KeyCode.LeftArrow:
+                if (animator.GetBool("ComplexIndicatorRight"))
+                {
+                    animator.SetBool("ComplexIndicatorCenter", true);
+                    animator.SetBool("ComplexIndicatorRight", false);
+                }
+                else
+                {
+                    animator.SetBool("ComplexIndicatorCenter", false);
+                    animator.SetBool("ComplexIndicatorLeft", true);
+                }
+                break;
+            case KeyCode.RightArrow:
+                if (animator.GetBool("ComplexIndicatorLeft"))
+                {
+                    animator.SetBool("ComplexIndicatorCenter", true);
+                    animator.SetBool("ComplexIndicatorLeft", false);
+                }
+                else
+                {
+                    animator.SetBool("ComplexIndicatorCenter", false);
+                    animator.SetBool("ComplexIndicatorRight", true);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+    #endregion
 
     /// <summary>
     /// Function that check if stage is finished

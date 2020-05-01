@@ -6,14 +6,13 @@ public class HeroController : MonoBehaviour
     [Tooltip("Character movement speed")]
     [SerializeField] private float movementSpeed = 3f; // Variable holding value how quick charaver will move
     [Tooltip("Character runing speed")]
-    [SerializeField] private float runSpeed = 6f;
+    [SerializeField] private float runSpeed = 5f;
     [Tooltip("Character jumping force")]
     [SerializeField] private float jumpingForce = 300f; // Variable holding value how high character will jump
     [Tooltip("Mouse sensitivity")]
     [SerializeField] private float mouseSens = 70f; // Variable holding value sensitivity of the mouse
-    private bool onGround = false; // Variable holding value if player is on the ground
-    private bool characterLanded = false; // Variable holding value if player landed
-    private bool inAir = false;
+    [SerializeField] private bool onGround = true; // Variable holding value if player is on the ground
+    [SerializeField] private bool inAir = false;
     private float currentMovementSpeed;
 
     [SerializeField] private float m_StepInterval;
@@ -28,7 +27,7 @@ public class HeroController : MonoBehaviour
 
 
     // Hero and moving him
-    Rigidbody characterBody; // Character body
+    private Rigidbody characterBody = null; // Character body
     Vector3 moveVector; // Character move vector
 
     Transform Cam;
@@ -39,18 +38,23 @@ public class HeroController : MonoBehaviour
     /// </summary>
     void Start()
     {
-        m_AudioSource = GetComponent<AudioSource>();
         characterBody = GetComponent<Rigidbody>();
+        m_JumpSound = GetComponent<AudioClip>();
+        m_LandSound = GetComponent<AudioClip>();
+        //m_FootstepSounds = GetComponent<AudioClip[]>();
+
+        m_AudioSource = GetComponent<AudioSource>();
         Cam = Camera.main.GetComponent<Transform>();
         currentMovementSpeed = float.MinValue;
         m_StepCycle = 0f;
         m_NextStep = m_StepCycle / 2f;
+        m_StepInterval = 10;
 
 
-        Cursor.visible = true;
+        //Cursor.visible = true;
 
-        Cursor.lockState = CursorLockMode.Confined; // freeze cursor on screen centre
-        //Cursor.visible = false; // invisible cursor
+        Cursor.lockState = CursorLockMode.Locked; // freeze cursor on screen centre
+        Cursor.visible = false; // invisible cursor
     }
 
     /// <summary>
@@ -60,7 +64,6 @@ public class HeroController : MonoBehaviour
     {
         CameraRotation(); // Function to rotate hero's camera according to mouse movement 
         Jump(); // Function to let character jump if space button pressed and he is on the grouund
-                //Land();
     }
 
     /// <summary>
@@ -90,21 +93,19 @@ public class HeroController : MonoBehaviour
     /// </summary>
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && characterLanded == true)
+        if (Input.GetButtonDown("Jump") && inAir == false)
         {
             characterBody.AddForce(transform.up * jumpingForce);
             PlayJumpSound();
-            //inAir = true;
+            onGround = false;
         }
 
     }
     private void Land()
     {
-        if (!m_AudioSource.isPlaying && inAir == true && onGround == true)
-        {
-            PlayLandingSound();
-            inAir = false;
-        }
+        PlayLandingSound();
+        inAir = false;
+        m_NextStep = m_StepCycle + 1f;
     }
 
     /// <summary>
@@ -158,11 +159,20 @@ public class HeroController : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Ground"))
+        if (!onGround)
         {
-            onGround = true;
+            if (inAir)
+            {
+                if (other.CompareTag("Ground"))
+                {
+                    Land();
+                    onGround = true;
+                }
+                else
+                    Land();
+            }
         }
-        characterLanded = true; // Set variable that hero is on the ground
+        inAir = false;
     }
 
     /// <summary>
@@ -171,39 +181,27 @@ public class HeroController : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Ground"))
-        {
-            onGround = false;
-        }
-        characterLanded = false; // Set variable that hero is no on the ground
         inAir = true;
     }
 
-    private void StepsCounter(float speed)
-    {
-    }
-
-
     private void PlayJumpSound()
     {
-        //if (m_JumpSound != null)
-        //{
-        //    m_AudioSource.clip = m_JumpSound;
-        //    //m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
-        //    m_AudioSource.Play();
-        //}
-        FindObjectOfType<AudioManager>().Play("Jump"); // Play Button Press Audio
-
+        if (m_JumpSound != null)
+        {
+            m_AudioSource.clip = m_JumpSound;
+            //m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
+            m_AudioSource.Play();
+        }
     }
     private void PlayLandingSound()
     {
-        //if (m_LandSound != null)
-        //{
-        //    m_AudioSource.clip = m_LandSound;
-        //    //m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
-        //    m_AudioSource.Play();
-        //}
-        FindObjectOfType<AudioManager>().Play("Land"); // Play Button Press Audio
+        if (m_LandSound != null)
+        {
+            m_AudioSource.clip = m_LandSound;
+            //m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
+            m_AudioSource.Play();
+        }
+        //FindObjectOfType<AudioManager>().Play("Land"); // Play Button Press Audio
 
     }
 

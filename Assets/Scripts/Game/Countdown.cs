@@ -1,26 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using TMPro;
 
 public class Countdown : MonoBehaviour
 {
-    public float timeStart = 60;
-    public Text textBox;
+    public float timeLeft = 60;
+    private float minutes = float.MinValue;
+    private float seconds = float.MinValue;
+    public float roundedTime;
+    public TMP_Text textBox;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        textBox.text = timeStart.ToString();
-        //textBox.text = timeStart.ToString("F2");
+        textBox.text = timeLeft.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeStart -= Time.deltaTime;
-        textBox.text = Mathf.Round(timeStart).ToString();
-        //textBox.text = Mathf.Round(timeStart).ToString("F2");
+        timeLeft -= Time.deltaTime;
+        roundedTime = Mathf.Round(timeLeft);
+
+        minutes = Mathf.Floor(roundedTime / 60);
+        seconds = roundedTime % 60;
+
+        textBox.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }
- 
