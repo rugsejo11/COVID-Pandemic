@@ -14,11 +14,13 @@ public class UseSwitchScript : MonoBehaviour
     [SerializeField] private bool isBigButton = false;
     [SerializeField] private bool isSmallButton = false;
     [Space]
-    [SerializeField] private bool isDetonator = false;
+    [SerializeField] private bool isDummyDetonate = false;
+    [SerializeField] private bool isFinishDetonate = false;
     [Space]
     [SerializeField] private bool isSwitch = false;
     [Space]
 
+    [SerializeField] private HeroInteractive hero; // Game character
     [SerializeField] private Animator animator = null;
 
     // PossibleToClick() - Function to check if switch is reachable
@@ -28,16 +30,27 @@ public class UseSwitchScript : MonoBehaviour
 
     [SerializeField] private OpenDoorsScript dm = null;
 
-    private int firstDoors = 1;
-    private int secondDoors = 2;
+    //private bool complexLeverDone; private bool switcherDone; private bool clownLeverDone;
+    //private bool elevatorButtonDone; private bool hazardousLeverDone; private bool electricityLeverDone;
+    //private bool smallButtonDone; private bool finishLeverDone; private bool finishDetonator;
 
+    //private int currentStage = 1;
     #endregion
 
+    private void Start()
+    {
+        dm = FindObjectOfType<OpenDoorsScript>(); // Get current socket
+        hero = FindObjectOfType<HeroInteractive>(); // Get hero object
+
+        //complexLeverDone = false; switcherDone = false; clownLeverDone = false;
+        //elevatorButtonDone = false; hazardousLeverDone = false; electricityLeverDone = false;
+        //smallButtonDone = false; finishLeverDone = false; finishDetonator = false;
+    }
     // Update is called once per frame
     private void Update()
     {
         ButtonPressedOnSwitch();
-        CheckIfStageFinished();
+        //CheckIfStageFinished();
     }
 
     /// <summary>
@@ -73,9 +86,13 @@ public class UseSwitchScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && PossibleToClick())
         {
-            if (isDetonator)
+            if (isDummyDetonate)
             {
-                Detonator(); return true;
+                DummyDetonate(); return true;
+            }
+            if (isFinishDetonate)
+            {
+                FinishDetonate(); return true;
             }
             else if (isSmallButton)
             {
@@ -187,10 +204,17 @@ public class UseSwitchScript : MonoBehaviour
         switch (keyCode)
         {
             case KeyCode.E:
-                if (animator.GetBool("HazardousLeverDown"))
-                    animator.SetBool("HazardousLeverDown", false);
-                else
+                if (!animator.GetBool("HazardousLeverDown"))
+                {
                     animator.SetBool("HazardousLeverDown", true);
+                    dm.hazardousLeverDone = true;
+                    dm.CheckIfStageFinished();
+                }
+                else
+                {
+                    animator.SetBool("HazardousLeverDown", false);
+                    LoseHP();
+                }
                 break;
 
             default:
@@ -207,10 +231,17 @@ public class UseSwitchScript : MonoBehaviour
         switch (keyCode)
         {
             case KeyCode.E:
-                if (animator.GetBool("ElectricityLeverDown"))
-                    animator.SetBool("ElectricityLeverDown", false);
-                else
+                if (!animator.GetBool("ElectricityLeverDown"))
+                {
                     animator.SetBool("ElectricityLeverDown", true);
+                    dm.electricityLeverDone = true;
+                    dm.CheckIfStageFinished();
+                }
+                else
+                {
+                    animator.SetBool("ElectricityLeverDown", false);
+                    LoseHP();
+                }
                 break;
 
             default:
@@ -228,9 +259,15 @@ public class UseSwitchScript : MonoBehaviour
         {
             case KeyCode.E:
                 if (animator.GetBool("BigButtonPressed"))
+                {
                     animator.SetBool("BigButtonPressed", false);
+                    LoseHP();
+                }
                 else
+                {
                     animator.SetBool("BigButtonPressed", true);
+                    LoseHP();
+                }
                 break;
 
             default:
@@ -247,10 +284,17 @@ public class UseSwitchScript : MonoBehaviour
         switch (keyCode)
         {
             case KeyCode.E:
-                if (animator.GetBool("SmallButtonPressed"))
-                    animator.SetBool("SmallButtonPressed", false);
-                else
+                if (!animator.GetBool("SmallButtonPressed"))
+                {
                     animator.SetBool("SmallButtonPressed", true);
+                    dm.smallButtonDone = true;
+                    dm.CheckIfStageFinished();
+                }
+                else
+                {
+                    animator.SetBool("SmallButtonPressed", false);
+                    LoseHP();
+                }
                 break;
 
             default:
@@ -267,10 +311,17 @@ public class UseSwitchScript : MonoBehaviour
         switch (keyCode)
         {
             case KeyCode.E:
-                if (animator.GetBool("SwitcherOn"))
-                    animator.SetBool("SwitcherOn", false);
-                else
+                if (!animator.GetBool("SwitcherOn"))
+                {
                     animator.SetBool("SwitcherOn", true);
+                    dm.switcherDone = true;
+                    dm.CheckIfStageFinished();
+                }
+                else
+                {
+                    animator.SetBool("SwitcherOn", false);
+                    LoseHP();
+                }
                 break;
 
             default:
@@ -287,6 +338,7 @@ public class UseSwitchScript : MonoBehaviour
         switch (keyCode)
         {
             case KeyCode.UpArrow:
+                LoseHP();
                 if (animator.GetBool("ClownLeverDown"))
                 {
                     animator.SetBool("ClownLeverCenter", true);
@@ -308,6 +360,8 @@ public class UseSwitchScript : MonoBehaviour
                 {
                     animator.SetBool("ClownLeverCenter", false);
                     animator.SetBool("ClownLeverDown", true);
+                    dm.clownLeverDone = true;
+                    dm.CheckIfStageFinished();
                 }
                 break;
 
@@ -320,6 +374,7 @@ public class UseSwitchScript : MonoBehaviour
         switch (keyCode)
         {
             case KeyCode.LeftArrow:
+                LoseHP();
                 if (animator.GetBool("FinishLeverRight"))
                 {
                     animator.SetBool("FinishLeverCenter", true);
@@ -341,6 +396,9 @@ public class UseSwitchScript : MonoBehaviour
                 {
                     animator.SetBool("FinishLeverCenter", false);
                     animator.SetBool("FinishLeverRight", true);
+
+                    dm.finishLeverDone = true;
+                    dm.CheckIfStageFinished();
                 }
                 break;
 
@@ -350,11 +408,22 @@ public class UseSwitchScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Set Detonator object animation and sound
+    /// Set DummyDetonate object animation and sound
     /// </summary>
-    void Detonator()
+    void DummyDetonate()
     {
-        animator.SetBool("Detonate", true);
+        animator.SetBool("DummyDetonate", true);
+        // Explode
+    }
+
+    /// <summary>
+    /// Set FinishDetonate object animation and sound
+    /// </summary>
+    void FinishDetonate()
+    {
+        animator.SetBool("FinishDetonate", true);
+        dm.finishDetonator = true;
+        dm.CheckIfStageFinished();
     }
 
     /// <summary>
@@ -368,10 +437,13 @@ public class UseSwitchScript : MonoBehaviour
             case KeyCode.LeftArrow:
                 animator.SetBool("ElevatorButtonDown", false);
                 animator.SetBool("ElevatorButtonUp", true);
+                dm.elevatorButtonDone = true;
+                dm.CheckIfStageFinished();
                 break;
             case KeyCode.RightArrow:
                 animator.SetBool("ElevatorButtonUp", false);
                 animator.SetBool("ElevatorButtonDown", true);
+                LoseHP();
                 break;
 
             default:
@@ -397,9 +469,16 @@ public class UseSwitchScript : MonoBehaviour
                 {
                     animator.SetBool("ComplexLeverCenter", false);
                     animator.SetBool("ComplexLeverUp", true);
+
+                    if (animator.GetBool("ComplexIndicatorLeft") && animator.GetBool("ComplexLeverUp"))
+                    {
+                        dm.complexLeverDone = true;
+                        dm.CheckIfStageFinished();
+                    }
                 }
                 break;
             case KeyCode.DownArrow:
+                LoseHP();
                 if (animator.GetBool("ComplexLeverUp"))
                 {
                     animator.SetBool("ComplexLeverCenter", true);
@@ -421,9 +500,16 @@ public class UseSwitchScript : MonoBehaviour
                 {
                     animator.SetBool("ComplexIndicatorCenter", false);
                     animator.SetBool("ComplexIndicatorLeft", true);
+
+                    if (animator.GetBool("ComplexIndicatorLeft") && animator.GetBool("ComplexLeverUp"))
+                    {
+                        dm.complexLeverDone = true;
+                        dm.CheckIfStageFinished();
+                    }
                 }
                 break;
             case KeyCode.RightArrow:
+                LoseHP();
                 if (animator.GetBool("ComplexIndicatorLeft"))
                 {
                     animator.SetBool("ComplexIndicatorCenter", true);
@@ -440,22 +526,11 @@ public class UseSwitchScript : MonoBehaviour
                 break;
         }
     }
+
     #endregion
 
-    /// <summary>
-    /// Function that check if stage is finished
-    /// </summary>
-    void CheckIfStageFinished()
+    void LoseHP()
     {
-        if (animator.GetBool("ComplexIndicatorLeft") && animator.GetBool("ComplexLeverUp"))
-        {
-            if (dm != null)
-                dm.OpenDoors(firstDoors);
-        }
-        if (animator.GetBool("ComplexIndicatorLeft") && animator.GetBool("ComplexLeverUp") && animator.GetBool("SwitcherOn"))
-        {
-            if (dm != null)
-                dm.OpenDoors(secondDoors);
-        }
+        hero.LoseHP();
     }
 }

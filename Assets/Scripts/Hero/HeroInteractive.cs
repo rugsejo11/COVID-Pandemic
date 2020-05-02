@@ -6,10 +6,19 @@ public class HeroInteractive : MonoBehaviour
 {
     public Transform GoalPosition; // Level goal position
     public bool objectGrabbed = false; // Variable holding value if hero has object in he's hands
+    private AudioSource audioSource = null;
+    [SerializeField] private AudioClip wrongBuzzer = null;           // the sound played when pressed wrong button.
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     ///
     public delegate void OnHealthChangedDelegate();
     public OnHealthChangedDelegate onHealthChangedCallback;
+
+
 
     #region Sigleton
     private static HeroInteractive instance;
@@ -24,21 +33,21 @@ public class HeroInteractive : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private float health;
-    [SerializeField] private float maxHealth;
-    //[SerializeField] private float maxTotalHealth;
+    [SerializeField] private float health = float.MinValue;
+    [SerializeField] private float maxHealth = float.MinValue;
 
     public float Health { get { return health; } }
     public float MaxHealth { get { return maxHealth; } }
 
-    void Start()
-    {
-        maxHealth = 3;
-    }
     public void LoseHP()
     {
         health -= 1;
         ClampHealth();
+        if (wrongBuzzer != null)
+        {
+            audioSource.clip = wrongBuzzer;
+            audioSource.Play();
+        }
     }
     void ClampHealth()
     {
@@ -47,29 +56,6 @@ public class HeroInteractive : MonoBehaviour
         if (onHealthChangedCallback != null)
             onHealthChangedCallback.Invoke();
     }
-
-    //public float MaxTotalHealth { get { return maxTotalHealth; } }
-
-    //public void Heal(float health)
-    //{
-    //    this.health += health;
-    //    ClampHealth();
-    //}
-
-
-
-    //public void AddHealth()
-    //{
-    //    if (maxHealth < maxTotalHealth)
-    //    {
-    //        maxHealth += 1;
-    //        health = maxHealth;
-
-    //        if (onHealthChangedCallback != null)
-    //            onHealthChangedCallback.Invoke();
-    //    }
-    //}
-
 
 
     ///

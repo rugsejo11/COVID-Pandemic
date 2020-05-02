@@ -13,17 +13,17 @@ public class HeroController : MonoBehaviour
     [SerializeField] private float mouseSens = 70f; // Variable holding value sensitivity of the mouse
     [SerializeField] private bool onGround = true; // Variable holding value if player is on the ground
     [SerializeField] private bool inAir = false;
-    private float currentMovementSpeed;
+    private float currentMovementSpeed = float.MinValue;
 
-    [SerializeField] private float m_StepInterval;
-    private float m_StepCycle;
+    [SerializeField] private float m_StepInterval = float.MinValue;
+    private float m_StepCycle = 0f;
     private float m_NextStep;
 
     // Sound
-    [SerializeField] private AudioClip[] m_FootstepSounds = new AudioClip[4];    // an array of footstep sounds that will be randomly selected from.
-    [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
-    [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
-    private AudioSource m_AudioSource;
+    [SerializeField] private AudioClip[] footstepSounds = new AudioClip[4];    // an array of footstep sounds that will be randomly selected from.
+    [SerializeField] private AudioClip jumpSound = null;           // the sound played when character leaves the ground.
+    [SerializeField] private AudioClip landSound = null;           // the sound played when character touches back on ground.
+    private AudioSource audioSource;
 
 
     // Hero and moving him
@@ -39,19 +39,9 @@ public class HeroController : MonoBehaviour
     void Start()
     {
         characterBody = GetComponent<Rigidbody>();
-        m_JumpSound = GetComponent<AudioClip>();
-        m_LandSound = GetComponent<AudioClip>();
-        //m_FootstepSounds = GetComponent<AudioClip[]>();
-
-        m_AudioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         Cam = Camera.main.GetComponent<Transform>();
-        currentMovementSpeed = float.MinValue;
-        m_StepCycle = 0f;
         m_NextStep = m_StepCycle / 2f;
-        m_StepInterval = 10;
-
-
-        //Cursor.visible = true;
 
         Cursor.lockState = CursorLockMode.Locked; // freeze cursor on screen centre
         Cursor.visible = false; // invisible cursor
@@ -138,6 +128,10 @@ public class HeroController : MonoBehaviour
         if (verticalVector.magnitude > 0 || horizontalVector.magnitude > 0)
             ProgressStepCycle();
     }
+
+    /// <summary>
+    /// Function to keep track of steps character made to know when to play walking sound
+    /// </summary>
     private void ProgressStepCycle()
     {
 
@@ -186,20 +180,20 @@ public class HeroController : MonoBehaviour
 
     private void PlayJumpSound()
     {
-        if (m_JumpSound != null)
+        if (jumpSound != null)
         {
-            m_AudioSource.clip = m_JumpSound;
-            //m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
-            m_AudioSource.Play();
+            audioSource.clip = jumpSound;
+            //audioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
+            audioSource.Play();
         }
     }
     private void PlayLandingSound()
     {
-        if (m_LandSound != null)
+        if (landSound != null)
         {
-            m_AudioSource.clip = m_LandSound;
-            //m_AudioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
-            m_AudioSource.Play();
+            audioSource.clip = landSound;
+            //audioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
+            audioSource.Play();
         }
         //FindObjectOfType<AudioManager>().Play("Land"); // Play Button Press Audio
 
@@ -210,11 +204,11 @@ public class HeroController : MonoBehaviour
         //FindObjectOfType<AudioManager>().Play("footStep1"); // Play Button Press Audio
         // pick & play a random footstep sound from the array,
         // excluding sound at index 0
-        int n = Random.Range(1, m_FootstepSounds.Length);
-        m_AudioSource.clip = m_FootstepSounds[n];
-        m_AudioSource.PlayOneShot(m_AudioSource.clip);
+        int n = Random.Range(1, footstepSounds.Length);
+        audioSource.clip = footstepSounds[n];
+        audioSource.PlayOneShot(audioSource.clip);
         // move picked sound to index 0 so it's not picked next time
-        m_FootstepSounds[n] = m_FootstepSounds[0];
-        m_FootstepSounds[0] = m_AudioSource.clip;
+        footstepSounds[n] = footstepSounds[0];
+        footstepSounds[0] = audioSource.clip;
     }
 }
