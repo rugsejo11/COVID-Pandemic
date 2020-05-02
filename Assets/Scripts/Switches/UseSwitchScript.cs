@@ -4,6 +4,7 @@ public class UseSwitchScript : MonoBehaviour
 {
     #region Variables
 
+    //Switches
     [SerializeField] private bool isHazardousLever = false;
     [SerializeField] private bool isFinishLever = false;
     [SerializeField] private bool isElectricityLever = false;
@@ -20,21 +21,16 @@ public class UseSwitchScript : MonoBehaviour
     [SerializeField] private bool isSwitch = false;
     [Space]
 
+
     [SerializeField] private HeroInteractive hero; // Game character
     [SerializeField] private Animator animator = null;
+    [SerializeField] private OpenDoorsScript dm = null;
 
     // PossibleToClick() - Function to check if switch is reachable
     private float distance;
     private float angleView;
     private Vector3 direction;
 
-    [SerializeField] private OpenDoorsScript dm = null;
-
-    //private bool complexLeverDone; private bool switcherDone; private bool clownLeverDone;
-    //private bool elevatorButtonDone; private bool hazardousLeverDone; private bool electricityLeverDone;
-    //private bool smallButtonDone; private bool finishLeverDone; private bool finishDetonator;
-
-    //private int currentStage = 1;
     #endregion
 
     private void Start()
@@ -42,15 +38,11 @@ public class UseSwitchScript : MonoBehaviour
         dm = FindObjectOfType<OpenDoorsScript>(); // Get current socket
         hero = FindObjectOfType<HeroInteractive>(); // Get hero object
 
-        //complexLeverDone = false; switcherDone = false; clownLeverDone = false;
-        //elevatorButtonDone = false; hazardousLeverDone = false; electricityLeverDone = false;
-        //smallButtonDone = false; finishLeverDone = false; finishDetonator = false;
     }
     // Update is called once per frame
     private void Update()
     {
         ButtonPressedOnSwitch();
-        //CheckIfStageFinished();
     }
 
     /// <summary>
@@ -58,11 +50,11 @@ public class UseSwitchScript : MonoBehaviour
     /// </summary>
     void ButtonPressedOnSwitch()
     {
-        if (ButtonE()) { }
-        else if (ButtonUp()) { }
-        else if (ButtonDown()) { }
-        else if (ButtonLeft()) { }
-        else if (ButtonRight()) { }
+        if (ButtonE()) { } // Check if button E was pressed on an switch
+        else if (ButtonUp()) { } // Check if button arrow up was pressed on an switch
+        else if (ButtonDown()) { } // Check if button arrow down was pressed on an switch
+        else if (ButtonLeft()) { } // Check if button arrow left was pressed on an switch
+        else if (ButtonRight()) { } // Check if button arrow right was pressed on an switch
     }
 
     /// <summary>
@@ -82,10 +74,17 @@ public class UseSwitchScript : MonoBehaviour
     }
 
     #region Button pressed activity
+
+    /// <summary>
+    /// Function if Button E pressed to manipulate switch
+    /// </summary>
+    /// <returns></returns>
     bool ButtonE()
     {
+        // If Button E pressed and object is near enough to be clickable
         if (Input.GetKeyDown(KeyCode.E) && PossibleToClick())
         {
+            //Check which switch to manipulate
             if (isDummyDetonate)
             {
                 DummyDetonate(); return true;
@@ -119,10 +118,16 @@ public class UseSwitchScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Function if Button Up pressed to manipulate switch
+    /// </summary>
+    /// <returns></returns>
     bool ButtonUp()
-    {
+    {        
+        // If button arrow up pressed and object is near enough to be clickable
         if (Input.GetKeyDown(KeyCode.UpArrow) && PossibleToClick())
         {
+            //Check which switch to manipulate
             if (isComplexLever)
             {
                 ComplexLever(KeyCode.UpArrow); return true;
@@ -135,10 +140,16 @@ public class UseSwitchScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Function if Button Down pressed to manipulate switch
+    /// </summary>
+    /// <returns></returns>
     bool ButtonDown()
-    {
+    {        
+        // If Button arrow down pressed and object is near enough to be clickable
         if (Input.GetKeyDown(KeyCode.DownArrow) && PossibleToClick())
         {
+            //Check which switch to manipulate
             if (isComplexLever)
             {
                 ComplexLever(KeyCode.DownArrow); return true;
@@ -151,10 +162,16 @@ public class UseSwitchScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Function if Button Left pressed to manipulate switch
+    /// </summary>
+    /// <returns></returns>
     bool ButtonLeft()
     {
+        // If Button arrow left pressed and object is near enough to be clickable
         if (Input.GetKeyDown(KeyCode.LeftArrow) && PossibleToClick())
         {
+            //Check which switch to manipulate
             if (isComplexLever)
             {
                 ComplexLever(KeyCode.LeftArrow); return true;
@@ -171,10 +188,16 @@ public class UseSwitchScript : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Function if Button Right pressed to manipulate switch
+    /// </summary>
+    /// <returns></returns>
     bool ButtonRight()
     {
+        // If Button arrow right pressed and object is near enough to be clickable
         if (Input.GetKeyDown(KeyCode.RightArrow) && PossibleToClick())
         {
+            //Check which switch to manipulate
             if (isComplexLever)
             {
                 ComplexLever(KeyCode.RightArrow); return true;
@@ -369,6 +392,11 @@ public class UseSwitchScript : MonoBehaviour
                 break;
         }
     }
+
+    /// <summary>
+    /// Set Finish lever animation and sound
+    /// </summary>
+    /// <param name="keyCode"></param>
     void FinishLever(KeyCode keyCode)
     {
         switch (keyCode)

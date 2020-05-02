@@ -2,33 +2,31 @@
 
 public class HeroController : MonoBehaviour
 {
-    // Character characteristics
+    // Character movement characteristics
     [Tooltip("Character movement speed")]
-    [SerializeField] private float movementSpeed = 3f; // Variable holding value how quick charaver will move
+    [SerializeField] private float movementSpeed = 3f; // Variable holding value how quick character will go
     [Tooltip("Character runing speed")]
-    [SerializeField] private float runSpeed = 5f;
+    [SerializeField] private float runSpeed = 5f; // Variable holding value how quick character will run
     [Tooltip("Character jumping force")]
     [SerializeField] private float jumpingForce = 300f; // Variable holding value how high character will jump
     [Tooltip("Mouse sensitivity")]
     [SerializeField] private float mouseSens = 70f; // Variable holding value sensitivity of the mouse
-    [SerializeField] private bool onGround = true; // Variable holding value if player is on the ground
-    [SerializeField] private bool inAir = false;
-    private float currentMovementSpeed = float.MinValue;
+    private float currentMovementSpeed = float.MinValue; // Variable holding current movement speed of the character
+    private bool onGround = true; // Variable holding value if player is on the ground
+    private bool inAir = false; // Variable holding value if player is in the air
 
-    [SerializeField] private float m_StepInterval = float.MinValue;
-    private float m_StepCycle = 0f;
-    private float m_NextStep;
-
-    // Sound
-    [SerializeField] private AudioClip[] footstepSounds = new AudioClip[4];    // an array of footstep sounds that will be randomly selected from.
-    [SerializeField] private AudioClip jumpSound = null;           // the sound played when character leaves the ground.
-    [SerializeField] private AudioClip landSound = null;           // the sound played when character touches back on ground.
-    private AudioSource audioSource;
-
-
-    // Hero and moving him
+    // Hero and move vector to set hero velocity
     private Rigidbody characterBody = null; // Character body
     Vector3 moveVector; // Character move vector
+
+    // Sound
+    [SerializeField] private AudioClip[] footstepSounds = new AudioClip[4]; // an array of footstep sounds that will be randomly selected from.
+    [SerializeField] private AudioClip jumpSound = null; // the sound played when character leaves the ground.
+    [SerializeField] private AudioClip landSound = null; // the sound played when character touches back on ground.
+    private AudioSource audioSource;
+    [SerializeField] private float stepsToMakeNoise = float.MinValue; // Variable holding value how many steps character has to make to make sound
+    private float stepsMade = float.MinValue; // Variable holding value how many steps character has made
+    private float nextNoiseAtStep = float.MinValue; // Variable holding value at which step to make noise
 
     Transform Cam;
     float yRotation;
@@ -41,10 +39,18 @@ public class HeroController : MonoBehaviour
         characterBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         Cam = Camera.main.GetComponent<Transform>();
-        m_NextStep = m_StepCycle / 2f;
+        nextNoiseAtStep = stepsMade / 2f;
+        SetCursorData();
 
-        Cursor.lockState = CursorLockMode.Locked; // freeze cursor on screen centre
-        Cursor.visible = false; // invisible cursor
+    }
+
+    /// <summary>
+    /// Function to set cursor data
+    /// </summary>
+    void SetCursorData()
+    {
+        Cursor.lockState = CursorLockMode.Locked; // lock cursor on the center of the game screen
+        Cursor.visible = false; // make cursor invisible
     }
 
     /// <summary>
@@ -66,12 +72,12 @@ public class HeroController : MonoBehaviour
     }
 
     /// <summary>
-    /// Function to rotate hero's camera according to mouse movement 
+    /// Function to move hero according to mouse movement 
     /// </summary>
     private void CameraRotation()
     {
-        float xmouse = Input.GetAxis("Mouse X") * Time.deltaTime * mouseSens;
-        float ymouse = Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSens;
+        float xmouse = Input.GetAxis("Mouse X") * Time.deltaTime * mouseSens; // Get Mouse X axis movement
+        float ymouse = Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSens; // Get Mouse Y axis movement
         transform.Rotate(Vector3.up * xmouse);
         yRotation -= ymouse;
         yRotation = Mathf.Clamp(yRotation, -85f, 60f);
@@ -79,7 +85,7 @@ public class HeroController : MonoBehaviour
     }
 
     /// <summary>
-    /// Function to let character jump if space button pressed and he is on the grouund
+    /// Function to let character jump if space button pressed and he is on the ground
     /// </summary>
     private void Jump()
     {
@@ -91,11 +97,15 @@ public class HeroController : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// Function to know when character lands
+    /// </summary>
     private void Land()
     {
         PlayLandingSound();
         inAir = false;
-        m_NextStep = m_StepCycle + 1f;
+        nextNoiseAtStep = stepsMade + 1f;
     }
 
     /// <summary>
@@ -135,15 +145,15 @@ public class HeroController : MonoBehaviour
     private void ProgressStepCycle()
     {
 
-        m_StepCycle += (characterBody.velocity.magnitude + (currentMovementSpeed * 3)) *
-                 Time.fixedDeltaTime;
+        stepsMade += (characterBody.velocity.magnitude + (currentMovementSpeed * 3)) *
+                 Time.fixedDeltaTime; // Get number of steps made according to the current movement speed and hero velocity
 
-        if (!(m_StepCycle > m_NextStep))
+        if (!(stepsMade > nextNoiseAtStep))
         {
             return;
         }
-
-        m_NextStep = m_StepCycle + m_StepInterval;
+        // If required number steps to make sound is reached, get next value when to make noise and make footstep noise
+        nextNoiseAtStep = stepsMade + stepsToMakeNoise;
 
         PlayFootStepAudio();
     }
@@ -153,18 +163,15 @@ public class HeroController : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerStay(Collider other)
     {
-        if (!onGround)
+        if (!onGround && inAir)
         {
-            if (inAir)
+            if (other.CompareTag("Ground"))
             {
-                if (other.CompareTag("Ground"))
-                {
-                    Land();
-                    onGround = true;
-                }
-                else
-                    Land();
+                Land();
+                onGround = true;
             }
+            else
+                Land();
         }
         inAir = false;
     }
@@ -196,7 +203,6 @@ public class HeroController : MonoBehaviour
             audioSource.Play();
         }
         //FindObjectOfType<AudioManager>().Play("Land"); // Play Button Press Audio
-
     }
 
     private void PlayFootStepAudio()

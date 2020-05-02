@@ -356,9 +356,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efba0fe2ec0b22d49bf8c21cc1861351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstDoorsOpen: 0
-  secondDoorsOpen: 0
   animator: {fileID: 18413306}
+  complexLeverDone: 0
+  switcherDone: 0
+  clownLeverDone: 0
+  elevatorButtonDone: 0
+  hazardousLeverDone: 0
+  electricityLeverDone: 0
+  smallButtonDone: 0
+  finishLeverDone: 0
+  finishDetonator: 0
 --- !u!4 &26418723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 465684, guid: 9ea3ce9ce36004e46b39c1080f65ab2e,
@@ -425,36 +432,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1923350856}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &73645711
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 73645712}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &73645712
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73645711}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &78475014
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +613,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &104392939
 PrefabInstance:
@@ -894,8 +871,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 1
   isSmallButton: 0
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 156902579}
   dm: {fileID: 0}
 --- !u!4 &157410768 stripped
@@ -1290,8 +1269,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 217447231}
   dm: {fileID: 0}
 --- !u!95 &217447231
@@ -2152,8 +2133,10 @@ MonoBehaviour:
   isElevatorButton: 1
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 416886812}
   dm: {fileID: 0}
 --- !u!95 &416886812
@@ -2836,6 +2819,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8844f0074e08e146ac42fb5eaeab3db, type: 3}
+--- !u!1 &535888521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 535888522}
+  m_Layer: 0
+  m_Name: StagesController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &535888522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535888521}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.8609793, y: 1.70106, z: 4.530537}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &543313229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2935,8 +2948,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 554236616}
   dm: {fileID: 0}
 --- !u!95 &554236616
@@ -3162,7 +3177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalScale.x
@@ -3778,8 +3793,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 2139762638}
-  possibleToGrab: 1
   characterBody: {fileID: 0}
+  possibleToGrab: 1
 --- !u!1001 &716952249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4483,7 +4498,7 @@ Transform:
   m_LocalScale: {x: 1.0413711, y: 1.041371, z: 1.041371}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 89.893005, y: 0, z: 2.4380002}
 --- !u!1001 &834955098
 PrefabInstance:
@@ -4506,7 +4521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f1f17300d36436445b4fc6628234650d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.939
+      value: -13.162
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f1f17300d36436445b4fc6628234650d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5816,7 +5831,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &932048507
 PrefabInstance:
@@ -6227,8 +6242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 2139762638}
-  possibleToGrab: 1
   characterBody: {fileID: 0}
+  possibleToGrab: 1
 --- !u!65 &1075989242
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6597,7 +6612,7 @@ RectTransform:
   m_Children:
   - {fileID: 846212391}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6899,7 +6914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalScale.x
@@ -7862,8 +7877,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 1
+  hero: {fileID: 0}
   animator: {fileID: 1315583626}
   dm: {fileID: 0}
 --- !u!4 &1315583630 stripped
@@ -8354,7 +8371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalScale.x
@@ -8776,8 +8793,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 0}
-  possibleToGrab: 1
   characterBody: {fileID: 0}
+  possibleToGrab: 1
 --- !u!114 &1442989768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8798,8 +8815,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 1
+  isDummyDetonate: 0
+  isFinishDetonate: 1
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 1442989769}
   dm: {fileID: 0}
 --- !u!95 &1442989769
@@ -9741,8 +9760,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 1558898495}
   dm: {fileID: 18413307}
 --- !u!95 &1558898495
@@ -10339,7 +10360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 403928, guid: 947e113398f058643a47464fff50cae1, type: 3}
       propertyPath: m_LocalScale.x
@@ -10494,8 +10515,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 1745544151}
   dm: {fileID: 18413307}
 --- !u!95 &1745544151
@@ -11030,31 +11053,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.716
+      value: -0.097
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.12599993
+      value: -0.722
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.445
+      value: -8.939
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.5000001
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0.4999999
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0.4999999
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.5000001
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_RootOrder
@@ -11062,19 +11085,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90.00001
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 89.99999
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalScale.y
@@ -11082,7 +11105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7160fdf679da81442b4fda86ca256aa4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11266,8 +11289,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 1842585186}
   dm: {fileID: 0}
 --- !u!95 &1842585186
@@ -11405,8 +11430,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 0
-  isDetonator: 1
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 1859788472}
   dm: {fileID: 0}
 --- !u!95 &1859788472
@@ -11441,8 +11468,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 0}
-  possibleToGrab: 1
   characterBody: {fileID: 0}
+  possibleToGrab: 1
 --- !u!1001 &1870582429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11688,8 +11715,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 2139762638}
-  possibleToGrab: 1
   characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
 --- !u!1 &1907581865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 125502, guid: ab4ced4914b68784d8bf02aba7918f90,
@@ -12240,8 +12267,10 @@ MonoBehaviour:
   isElevatorButton: 0
   isBigButton: 0
   isSmallButton: 1
-  isDetonator: 0
+  isDummyDetonate: 0
+  isFinishDetonate: 0
   isSwitch: 0
+  hero: {fileID: 0}
   animator: {fileID: 1999177553}
   dm: {fileID: 0}
 --- !u!95 &1999177553
@@ -12653,8 +12682,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 2139762638}
-  possibleToGrab: 1
   characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
 --- !u!4 &2062559138 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 6a9735e7db76a1b4083aecf3819ba5a3,
@@ -13259,6 +13288,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 797663288, guid: 5f8fb9073b33bd741a7e0926cd0b0e5b, type: 3}
+      propertyPath: secondsLeft
+      value: 501
+      objectReference: {fileID: 0}
     - target: {fileID: 5861805559784451948, guid: 5f8fb9073b33bd741a7e0926cd0b0e5b,
         type: 3}
       propertyPath: m_Name

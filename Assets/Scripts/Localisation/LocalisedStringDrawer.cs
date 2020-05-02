@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR 
 [CustomPropertyDrawer(typeof(LocalisedString))]
 public class LocalisedStringDrawer : PropertyDrawer
 {
@@ -72,3 +73,4 @@ public class LocalisedStringDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 }
+#endif

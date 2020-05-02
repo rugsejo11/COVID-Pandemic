@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HeroInteractive : MonoBehaviour
 {
     public Transform GoalPosition; // Level goal position
     public bool objectGrabbed = false; // Variable holding value if hero has object in he's hands
     private AudioSource audioSource = null;
-    [SerializeField] private AudioClip wrongBuzzer = null;           // the sound played when pressed wrong button.
+    [SerializeField] private AudioClip wrongBuzzer = null;  // buzzer sound played when pressed wrong button.
 
     void Start()
     {
@@ -48,6 +49,8 @@ public class HeroInteractive : MonoBehaviour
             audioSource.clip = wrongBuzzer;
             audioSource.Play();
         }
+        if(health == 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     void ClampHealth()
     {

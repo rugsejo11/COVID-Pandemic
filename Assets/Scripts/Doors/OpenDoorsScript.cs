@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class OpenDoorsScript : MonoBehaviour
 {
+    [SerializeField] private Animator animator = null;
+    public bool complexLeverDone = false; public bool switcherDone = false; public bool clownLeverDone = false;
+    public bool elevatorButtonDone = false; public bool hazardousLeverDone = false; public bool electricityLeverDone = false;
+    public bool smallButtonDone = false; public bool finishLeverDone = false; public bool finishDetonator = false;
+    private int currentStage = 1;
+    
+    void Start()
+    {
 
-    public bool firstDoorsOpen = false; 
-    public bool secondDoorsOpen = false;
-    public Animator animator;
+    }
 
-    public void OpenDoors(int doorsNumber)
+    /// <summary>
+    /// Function to open doors because stage is finished
+    /// </summary>
+    /// <param name="doorsToOpen"></param>
+    public void OpenDoors(int doorsToOpen)
     {
         if (animator != null)
         {
-            switch (doorsNumber)
+            switch (doorsToOpen)
             {
                 case 1:
                     animator.SetBool("FirstDoorsOpen", true);
@@ -25,39 +35,35 @@ public class OpenDoorsScript : MonoBehaviour
                     Debug.LogError("Doors not found.");
                     break;
             }
-
         }
     }
 
-
-
-
-
-    public bool complexLeverDone = false; public bool switcherDone = false; public bool clownLeverDone = false;
-    public bool elevatorButtonDone = false; public bool hazardousLeverDone = false; public bool electricityLeverDone = false;
-    public bool smallButtonDone = false; public bool finishLeverDone = false; public bool finishDetonator = false;
-
-    private int currentStage = 1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
+    /// <summary>
+    /// Function to check if first stage is finished
+    /// </summary>
+    /// <returns></returns>
     bool FirstStage()
     {
-        string answer = string.Format("{0} {1} {2}", smallButtonDone, hazardousLeverDone, switcherDone);
-        Debug.Log(answer);
         if (smallButtonDone && hazardousLeverDone && switcherDone)
             return true;
         return false;
     }
+
+    /// <summary>
+    /// Function to check if second stage is finished
+    /// </summary>
+    /// <returns></returns>
     bool SecondStage()
     {
         if (clownLeverDone && electricityLeverDone && elevatorButtonDone)
             return true;
         return false;
     }
+
+    /// <summary>
+    /// Function to check if third stage is finished
+    /// </summary>
+    /// <returns></returns>
     bool LastStage()
     {
         if (finishLeverDone && finishDetonator && complexLeverDone)
@@ -68,6 +74,7 @@ public class OpenDoorsScript : MonoBehaviour
         }
         return false;
     }
+
     /// <summary>
     /// Function that check if stage is finished
     /// </summary>
@@ -89,5 +96,4 @@ public class OpenDoorsScript : MonoBehaviour
             // end game
         }
     }
-
 }

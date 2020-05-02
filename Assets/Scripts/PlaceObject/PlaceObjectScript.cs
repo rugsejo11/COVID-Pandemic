@@ -8,8 +8,8 @@ public class PlaceObjectScript : MonoBehaviour
     #region Variables
     [SerializeField] private Transform HeroHandsPosition = null; // Hands position of the character
     [SerializeField] private HeroInteractive hero; // Game character
+    [SerializeField] private Rigidbody characterBody = null; // Character body
     private Rigidbody objectToTake; // Object that hero is trying to take
-    bool outOfWorld = false;
 
     // Rack slots
     [SerializeField] private SocketScript Socket = null;  // First rack slot
@@ -27,11 +27,9 @@ public class PlaceObjectScript : MonoBehaviour
     private float angleView; // Angle view between object and hero
     private Vector3 direction; // Direction between object and hero
 
-    private bool objectGrabbed = false; // Variable holding value if object is grabbed/being grabbed
+    private bool objectGrabbed = false; // Variable holding value if object is grabbed/being grabbed GAL NEREIKIA
     private bool atSocket = false; // Variable holding value if object is positioned at a socket
     private bool objectInHands = false; // Variable holding value if object is at hero's hands
-    [SerializeField] private Rigidbody characterBody = null; // Character body
-
 
     #endregion
 
@@ -52,7 +50,6 @@ public class PlaceObjectScript : MonoBehaviour
     void Update()
     {
         GrabAnObject(); // Grab or drop object
-
 
         if (atSocket) // If object is at socket
             PlaceObject(); // If object colided with socket, position it at socket 
@@ -105,14 +102,7 @@ public class PlaceObjectScript : MonoBehaviour
 
                 objectInHands = true;
                 objectToTake.transform.rotation = Quaternion.Euler(0, 0, 0);
-                if (!outOfWorld)
-                {
-                    gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, HeroHandsPosition.position, 1f); // Follow object in character's hands
-                }
-                else
-                {
-                    outOfWorld = false;
-                }
+                gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, HeroHandsPosition.position, 1f); // Follow object in character's hands
             }
         }
     }
@@ -194,6 +184,10 @@ public class PlaceObjectScript : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// On collission with the room, push character back, that he would not push item through wall
+    /// </summary>
+    /// <param name="collision"></param>
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Room") && objectGrabbed)
@@ -204,6 +198,7 @@ public class PlaceObjectScript : MonoBehaviour
             characterBody.AddForce(dir * force);
         }
     }
+
     /// <summary>
     /// Function to place an object to a socket
     /// </summary>

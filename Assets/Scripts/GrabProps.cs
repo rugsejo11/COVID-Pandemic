@@ -5,10 +5,12 @@ using UnityEngine;
 public class GrabProps : MonoBehaviour
 {
     #region Variables
-    private HeroInteractive hero; // Game character
     [SerializeField] private Transform HeroHandsPosition = null; // Hands position of the character
+    private HeroInteractive hero; // Game character
+    [SerializeField] private Rigidbody characterBody = null; // Character body
+    private Rigidbody objectToTake;
 
-    // Is object PossibleToGrabObject
+    // Is object PossibleToGrab
     private float distance; // Distance from char to item
     private float angleView; // Angle difference from char camera to item
     private Vector3 direction; // Character camera direction
@@ -16,10 +18,8 @@ public class GrabProps : MonoBehaviour
     private bool objectGrabbed = false; // Item grabbed
     [SerializeField] private bool possibleToGrab = true; // Is it possible to grab this item
     private bool objectInHands = false; // Variable holding value if object is at hero's hands
-    [SerializeField] private Rigidbody characterBody = null; // Character body
 
 
-    Rigidbody objectToTake;
     #endregion
 
     #region Functions
@@ -71,12 +71,6 @@ public class GrabProps : MonoBehaviour
                     }
                 }
             }
-            distance = Vector3.Distance(transform.position, Camera.main.transform.position);
-            if (distance > 3f || Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                objectGrabbed = false;
-            }
-
             objectInHands = true;
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, HeroHandsPosition.position, 1f); // Follow object in character's hands
         }
@@ -93,6 +87,11 @@ public class GrabProps : MonoBehaviour
         else
             return false;
     }
+
+    /// <summary>
+    /// On collission with the room, push character back, that he would not push item through wall
+    /// </summary>
+    /// <param name="collision"></param>
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Room") && objectGrabbed)
