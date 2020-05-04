@@ -1,16 +1,17 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WashHands : MonoBehaviour
 {
-    // PossibleToGrabObject()
+    // SinkIsCloseEnough()
     private float distance; // Distance between object and hero
     private float angleView; // Angle view between object and hero
     private Vector3 direction; // Direction between object and hero
     [SerializeField] private GameObject washHandsNotification = null;
     [SerializeField] private GameObject washHandsEducationNotification = null;
     private HeroInteractive hero; // Game character
+    [SerializeField] private bool isWorking = true;
+    [SerializeField] private bool waterValveOn = true;
 
     // Start is called before the first frame update
     void Start()
@@ -29,19 +30,38 @@ public class WashHands : MonoBehaviour
     /// </summary>
     void Interaction()
     {
-        if (PossibleToGrabObject() && !hero.WereHandsWashed())
+        if (SinkIsCloseEnough() && !hero.WereHandsWashed())
         {
-            ShowNotification(true);
-            if (Input.GetKeyDown(KeyCode.F))
+            if (waterValveOn)
             {
-                hero.WashHands(); // Set that hero has an object in he's hands
-                ShowNotification(false);
-                PlayWashingHandsSound();
-                StartCoroutine(ShowNotificationEducation());
+                ShowNotification(true);
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    hero.WashHands(); // Set that hero has an object in he's hands
+                    ShowNotification(false);
+                    PlayWashingHandsSound();
+                    StartCoroutine(ShowNotificationEducation());
+                }
+            }
+            else if (!waterValveOn)
+            {
+                if (Input.GetKeyDown(KeyCode.L) && isWorking)
+                {
+                    waterValveOn = true;
+                    PlayTurnWaterOnSound();
+                }
+                else if (Input.GetKeyDown(KeyCode.P))
+                {
+                    hero.LoseHP();
+                }
+                else if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    hero.LoseHP();
+                }
             }
         }
     }
-    bool PossibleToGrabObject()
+    bool SinkIsCloseEnough()
     {
         distance = Vector3.Distance(transform.position, Camera.main.transform.position); // Distance between object and hero
         direction = transform.position - Camera.main.transform.position; // Direction between object and hero
@@ -96,5 +116,13 @@ public class WashHands : MonoBehaviour
     void PlayWashingHandsSound()
     {
         FindObjectOfType<AudioManager>().Play("WashHands"); // Play Button Press Audio
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void PlayTurnWaterOnSound()
+    {
+        //FindObjectOfType<AudioManager>().Play("SinkWaterOn"); // Play Button Press Audio
     }
 }

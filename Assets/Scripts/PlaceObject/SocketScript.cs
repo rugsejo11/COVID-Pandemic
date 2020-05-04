@@ -8,6 +8,7 @@ public class SocketScript : MonoBehaviour
     public bool canBeUsed = true; // Variable holding value if socket can be used
     public bool socketEmpty = true; // Variable holding value if socket is empty
     public SphereCollider socket; // Variable holding socket collider
+    public GameObject tube = null;
 
     /// <summary>
     /// Function triggered at the start of the function
@@ -40,5 +41,25 @@ public class SocketScript : MonoBehaviour
     public bool IsSocketEmpty()
     {
         return socketEmpty; // return state of socket (empty or used)
+    }
+
+    /// <summary>
+    /// On collision between object and socket
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "TestTube")
+        {
+            socketEmpty = false;
+            other.transform.position = transform.position;
+            other.transform.rotation = transform.rotation;
+            tube = other.gameObject;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        socketEmpty = true;
+        tube = null;
     }
 }

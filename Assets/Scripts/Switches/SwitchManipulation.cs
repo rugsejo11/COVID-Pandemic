@@ -24,7 +24,7 @@ public class SwitchManipulation : MonoBehaviour
 
     [SerializeField] private HeroInteractive hero; // Game character
     [SerializeField] private Animator animator = null;
-    [SerializeField] private ManageLevel ml = null;
+    [SerializeField] private ManageMorgueLevel mml = null;
 
     // PossibleToClick() - Function to check if switch is reachable
     private float distance;
@@ -35,7 +35,7 @@ public class SwitchManipulation : MonoBehaviour
 
     private void Start()
     {
-        ml = FindObjectOfType<ManageLevel>(); // Get current socket
+        mml = FindObjectOfType<ManageMorgueLevel>(); // Get current socket
         hero = FindObjectOfType<HeroInteractive>(); // Get hero object
 
     }
@@ -231,8 +231,8 @@ public class SwitchManipulation : MonoBehaviour
                 if (!animator.GetBool("HazardousLeverDown"))
                 {
                     animator.SetBool("HazardousLeverDown", true);
-                    ml.hazardousLeverDone = true;
-                    ml.CheckIfStageFinished();
+                    mml.hazardousLeverDone = true;
+                    mml.CheckIfStageFinished();
                 }
                 else
                 {
@@ -259,8 +259,8 @@ public class SwitchManipulation : MonoBehaviour
                 if (!animator.GetBool("ElectricityLeverDown"))
                 {
                     animator.SetBool("ElectricityLeverDown", true);
-                    ml.electricityLeverDone = true;
-                    ml.CheckIfStageFinished();
+                    mml.electricityLeverDone = true;
+                    mml.CheckIfStageFinished();
                 }
                 else
                 {
@@ -314,8 +314,8 @@ public class SwitchManipulation : MonoBehaviour
                 if (!animator.GetBool("SmallButtonPressed"))
                 {
                     animator.SetBool("SmallButtonPressed", true);
-                    ml.smallButtonDone = true;
-                    ml.CheckIfStageFinished();
+                    mml.smallButtonDone = true;
+                    mml.CheckIfStageFinished();
                 }
                 else
                 {
@@ -342,8 +342,8 @@ public class SwitchManipulation : MonoBehaviour
                 if (!animator.GetBool("SwitcherOn"))
                 {
                     animator.SetBool("SwitcherOn", true);
-                    ml.switcherDone = true;
-                    ml.CheckIfStageFinished();
+                    mml.switcherDone = true;
+                    mml.CheckIfStageFinished();
                 }
                 else
                 {
@@ -390,8 +390,8 @@ public class SwitchManipulation : MonoBehaviour
                 {
                     animator.SetBool("ClownLeverCenter", false);
                     animator.SetBool("ClownLeverDown", true);
-                    ml.clownLeverDone = true;
-                    ml.CheckIfStageFinished();
+                    mml.clownLeverDone = true;
+                    mml.CheckIfStageFinished();
                 }
                 break;
 
@@ -432,8 +432,8 @@ public class SwitchManipulation : MonoBehaviour
                     animator.SetBool("FinishLeverCenter", false);
                     animator.SetBool("FinishLeverRight", true);
 
-                    ml.finishLeverDone = true;
-                    ml.CheckIfStageFinished();
+                    mml.finishLeverDone = true;
+                    mml.CheckIfStageFinished();
                 }
                 break;
 
@@ -458,8 +458,8 @@ public class SwitchManipulation : MonoBehaviour
     void FinishDetonate()
     {
         animator.SetBool("FinishDetonate", true);
-        ml.finishDetonator = true;
-        ml.CheckIfStageFinished();
+        mml.finishDetonator = true;
+        mml.CheckIfStageFinished();
     }
 
     /// <summary>
@@ -474,8 +474,8 @@ public class SwitchManipulation : MonoBehaviour
                 FindObjectOfType<AudioManager>().Play("game_button_clicked"); // Play Button Press Audio
                 animator.SetBool("ElevatorButtonDown", false);
                 animator.SetBool("ElevatorButtonUp", true);
-                ml.elevatorButtonDone = true;
-                ml.CheckIfStageFinished();
+                mml.elevatorButtonDone = true;
+                mml.CheckIfStageFinished();
                 break;
             case KeyCode.RightArrow:
                 FindObjectOfType<AudioManager>().Play("game_button_clicked"); // Play Button Press Audio
@@ -511,8 +511,8 @@ public class SwitchManipulation : MonoBehaviour
 
                     if (animator.GetBool("ComplexIndicatorLeft") && animator.GetBool("ComplexLeverUp"))
                     {
-                        ml.complexLeverDone = true;
-                        ml.CheckIfStageFinished();
+                        mml.complexLeverDone = true;
+                        mml.CheckIfStageFinished();
                     }
                 }
                 break;
@@ -544,8 +544,8 @@ public class SwitchManipulation : MonoBehaviour
 
                     if (animator.GetBool("ComplexIndicatorLeft") && animator.GetBool("ComplexLeverUp"))
                     {
-                        ml.complexLeverDone = true;
-                        ml.CheckIfStageFinished();
+                        mml.complexLeverDone = true;
+                        mml.CheckIfStageFinished();
                     }
                 }
                 break;

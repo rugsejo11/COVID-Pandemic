@@ -12,22 +12,14 @@ public class PlaceObjectScript : MonoBehaviour
     private Rigidbody objectToTake; // Object that hero is trying to take
 
     // Rack slots
-    [SerializeField] private SocketScript Socket = null;  // First rack slot
-    [SerializeField] private SocketScript Socket2 = null; // Second rack slot
-    [SerializeField] private SocketScript Socket3 = null;
-    [SerializeField] private SocketScript Socket4 = null;
-    [SerializeField] private SocketScript Socket5 = null;
-    [SerializeField] private SocketScript Socket6 = null;
-    [SerializeField] private SocketScript currentSocket = null; // In which slot object is placed
-    private int socketNum = int.MinValue; // number of the socket, where object is being placed
-
+    [SerializeField] private GameObject currentSocket = null; // In which slot object is placed
 
     // PossibleToGrabObject()
     private float distance; // Distance between object and hero
     private float angleView; // Angle view between object and hero
     private Vector3 direction; // Direction between object and hero
 
-    private bool objectGrabbed = false; // Variable holding value if object is grabbed/being grabbed GAL NEREIKIA
+    private bool objectGrabbed = false; // Variable holding value if object is grabbed/being grabbed
     private bool atSocket = false; // Variable holding value if object is positioned at a socket
     private bool objectInHands = false; // Variable holding value if object is at hero's hands
 
@@ -39,7 +31,7 @@ public class PlaceObjectScript : MonoBehaviour
     /// </summary>
     void Start()
     {
-        currentSocket = GetComponent<SocketScript>(); // Get current socket
+        //currentSocket = GetComponent<SocketScript>(); // Get current socket
         hero = FindObjectOfType<HeroInteractive>(); // Get hero object
         objectToTake = GetComponent<Rigidbody>(); // Get object to take
     }
@@ -64,8 +56,11 @@ public class PlaceObjectScript : MonoBehaviour
         {
 
             if (currentSocket != null)
-                currentSocket.EmptySocket(); // Empty socket if it's not empty
+            {
+                currentSocket = null; // Empty socket if it's not empty
+            }
 
+            //objectToTake.constraints = RigidbodyConstraints.None;
             atSocket = false; // Remove object from socket
             objectGrabbed = true; // Grab object
             hero.GrabObject(); // Set that hero has an object in he's hands
@@ -129,59 +124,10 @@ public class PlaceObjectScript : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other == Socket.socket)
+        if (other.tag == "Socket")
         {
-            if (Socket.IsSocketEmpty()) // If socket which object has colided with is empty
-            {
-                atSocket = true; // Set object at socket
-                socketNum = 1; // Socket number is 1
-                currentSocket = Socket; // Object current socket is this socket
-            }
-        }
-        else if (other == Socket2.socket)
-        {
-            if (Socket2.IsSocketEmpty())
-            {
-                atSocket = true;
-                socketNum = 2;
-                currentSocket = Socket2;
-            }
-        }
-        else if (other == Socket3.socket)
-        {
-            if (Socket3.IsSocketEmpty())
-            {
-                atSocket = true;
-                socketNum = 3;
-                currentSocket = Socket3;
-            }
-        }
-        else if (other == Socket4.socket)
-        {
-            if (Socket4.IsSocketEmpty())
-            {
-                atSocket = true;
-                socketNum = 4;
-                currentSocket = Socket4;
-            }
-        }
-        else if (other == Socket5.socket)
-        {
-            if (Socket5.IsSocketEmpty())
-            {
-                atSocket = true;
-                socketNum = 5;
-                currentSocket = Socket5;
-            }
-        }
-        else if (other == Socket6.socket)
-        {
-            if (Socket6.IsSocketEmpty())
-            {
-                atSocket = true;
-                socketNum = 6;
-                currentSocket = Socket6;
-            }
+            atSocket = true;
+            currentSocket = other.gameObject;
         }
     }
     /// <summary>
@@ -204,42 +150,8 @@ public class PlaceObjectScript : MonoBehaviour
     /// </summary>
     void PlaceObject()
     {
-        switch (socketNum) // Switch to get in which socket to place an object
-        {
-            case 1:
-                gameObject.transform.position = Socket.socket.transform.position; // Set grabbed object position to socket position
-                gameObject.transform.rotation = Socket.socket.transform.rotation; // Set grabbed object rotation to socket rotation
-                currentSocket.UseSocket(); // Mark socket as not empty
-                break;
-            case 2:
-                gameObject.transform.position = Socket2.socket.transform.position;
-                gameObject.transform.rotation = Socket2.socket.transform.rotation;
-                currentSocket.UseSocket();
-                break;
-            case 3:
-                gameObject.transform.position = Socket3.socket.transform.position;
-                gameObject.transform.rotation = Socket3.socket.transform.rotation;
-                currentSocket.UseSocket();
-                break;
-            case 4:
-                gameObject.transform.position = Socket4.socket.transform.position;
-                gameObject.transform.rotation = Socket4.socket.transform.rotation;
-                currentSocket.UseSocket();
-                break;
-            case 5:
-                gameObject.transform.position = Socket5.socket.transform.position;
-                gameObject.transform.rotation = Socket5.socket.transform.rotation;
-                currentSocket.UseSocket();
-                break;
-            case 6:
-                gameObject.transform.position = Socket6.socket.transform.position;
-                gameObject.transform.rotation = Socket6.socket.transform.rotation;
-                currentSocket.UseSocket();
-                break;
-            default:
-                Debug.LogError("Error, socket not found.");
-                break;
-        }
+        gameObject.transform.position = currentSocket.transform.position; // Set grabbed object position to socket position
+        gameObject.transform.rotation = currentSocket.transform.rotation; // Set grabbed object rotation to socket rotation
     }
     #endregion
 }

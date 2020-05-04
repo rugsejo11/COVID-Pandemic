@@ -90,11 +90,19 @@ public class HeroInteractive : MonoBehaviour
     }
 
     /// <summary>
-    /// Function to hero's wash hands
+    /// Function to wash hero's hands
     /// </summary>
     public void WashHands()
     {
         handsWashed = true;
+    }
+
+    /// <summary>
+    /// Function to make hero's hands dirty
+    /// </summary>
+    public void DirtyHands()
+    {
+        handsWashed = false;
     }
 
     /// <summary>
