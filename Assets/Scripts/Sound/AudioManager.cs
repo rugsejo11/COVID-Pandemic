@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
     #region Variables
     public Sound[] sounds; // List Of Audio Manager Sounds
     public static AudioManager instance; // Audio Manager Instance
+    private int lastStep = 0; private int newStep = 0;
     #endregion
 
     #region Functions
@@ -48,27 +49,39 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound" + name + " not found!");
             return;
         }
-        if(!s.source.isPlaying)
-        s.source.Play(); // Play Sound
+        if (!s.source.isPlaying)
+            s.source.Play(); // Play Sound
     }
 
-    /// <summary>
-    /// Play Button Pressed EFX
-    /// </summary>
-    public void ButtonPressed()
+    public void PlayFootstep()
     {
-        Sound s = Array.Find(sounds, sound => sound.name == "buttonPress"); // Find ButtonPress Sound From Sounds List
-        if (s == null)
+        newStep = UnityEngine.Random.Range(1, 4);
+        if (newStep != lastStep)
         {
-            Debug.LogWarning("Sound buttonPress not found!");
-            return;
+            switch (newStep)
+            {
+                case 1:
+                    Play("footStep1");
+                    lastStep = newStep;
+                    break;
+                case 2:
+                    Play("footStep2");
+                    lastStep = newStep;
+                    break;
+                case 3:
+                    Play("footStep3");
+                    lastStep = newStep;
+                    break;
+                case 4:
+                    Play("footStep4");
+                    lastStep = newStep;
+                    break;
+
+                default:
+                    break;
+            }
         }
-        if (s.source == null)
-        {
-            s.source = gameObject.AddComponent<AudioSource>(); // If Component Not Found Create It
-        }
-        s.source.volume = PlayerPrefs.GetFloat("volume", 1f);
-        s.source.Play(); // Play Sound
+        else PlayFootstep();
     }
     #endregion
 }

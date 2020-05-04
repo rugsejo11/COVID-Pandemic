@@ -20,13 +20,13 @@ public class HeroController : MonoBehaviour
     Vector3 moveVector; // Character move vector
 
     // Sound
-    [SerializeField] private AudioClip[] footstepSounds = new AudioClip[4]; // an array of footstep sounds that will be randomly selected from.
-    [SerializeField] private AudioClip jumpSound = null; // the sound played when character leaves the ground.
-    [SerializeField] private AudioClip landSound = null; // the sound played when character touches back on ground.
-    private AudioSource audioSource;
-    [SerializeField] private float stepsToMakeNoise = float.MinValue; // Variable holding value how many steps character has to make to make sound
-    private float stepsMade = float.MinValue; // Variable holding value how many steps character has made
-    private float nextNoiseAtStep = float.MinValue; // Variable holding value at which step to make noise
+    //[SerializeField] private AudioClip[] footstepSounds = new AudioClip[4]; // an array of footstep sounds that will be randomly selected from.
+    //[SerializeField] private AudioClip jumpSound = null; // the sound played when character leaves the ground.
+    //[SerializeField] private AudioClip landSound = null; // the sound played when character touches back on ground.
+    //private AudioSource audioSource;
+    [SerializeField] private float stepsToMakeNoise = 10; // Variable holding value how many steps character has to make to make sound
+    private float stepsMade = 0; // Variable holding value how many steps character has made
+    private float nextNoiseAtStep = 0; // Variable holding value at which step to make noise
 
     Transform Cam;
     float yRotation;
@@ -37,7 +37,7 @@ public class HeroController : MonoBehaviour
     void Start()
     {
         characterBody = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         Cam = Camera.main.GetComponent<Transform>();
         nextNoiseAtStep = stepsMade / 2f;
         SetCursorData();
@@ -187,34 +187,15 @@ public class HeroController : MonoBehaviour
 
     private void PlayJumpSound()
     {
-        if (jumpSound != null)
-        {
-            audioSource.clip = jumpSound;
-            //audioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
-            audioSource.Play();
-        }
+        FindObjectOfType<AudioManager>().Play("Jump"); // Play Button Press Audio
     }
     private void PlayLandingSound()
     {
-        if (landSound != null)
-        {
-            audioSource.clip = landSound;
-            //audioSource.volume = PlayerPrefs.GetFloat("volume", 1f);
-            audioSource.Play();
-        }
-        //FindObjectOfType<AudioManager>().Play("Land"); // Play Button Press Audio
+        FindObjectOfType<AudioManager>().Play("Land"); // Play Button Press Audio
     }
 
     private void PlayFootStepAudio()
     {
-        //FindObjectOfType<AudioManager>().Play("footStep1"); // Play Button Press Audio
-        // pick & play a random footstep sound from the array,
-        // excluding sound at index 0
-        int n = Random.Range(1, footstepSounds.Length);
-        audioSource.clip = footstepSounds[n];
-        audioSource.PlayOneShot(audioSource.clip);
-        // move picked sound to index 0 so it's not picked next time
-        footstepSounds[n] = footstepSounds[0];
-        footstepSounds[0] = audioSource.clip;
+        FindObjectOfType<AudioManager>().PlayFootstep(); // Play Button Press Audio
     }
 }

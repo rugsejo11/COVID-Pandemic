@@ -16,7 +16,7 @@ public class HealthBarController : MonoBehaviour
         heartContainers = new GameObject[(int)HeroInteractive.Instance.MaxHealth];
         heartFills = new Image[(int)HeroInteractive.Instance.MaxHealth];
 
-        HeroInteractive.Instance.onHealthChangedCallback += UpdateHeartsHUD;
+        HeroInteractive.Instance.onHPChangeCallback += UpdateHeartsHUD;
         InstantiateHeartContainers();
         UpdateHeartsHUD();
     }

@@ -5,21 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class HeroInteractive : MonoBehaviour
 {
+    public delegate void HPChangeDelegate();
+    public HPChangeDelegate onHPChangeCallback;
     public Transform GoalPosition; // Level goal position
     public bool objectGrabbed = false; // Variable holding value if hero has object in he's hands
-    private AudioSource audioSource = null;
-    [SerializeField] private AudioClip wrongBuzzer = null;  // buzzer sound played when pressed wrong button.
-
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    ///
-    public delegate void OnHealthChangedDelegate();
-    public OnHealthChangedDelegate onHealthChangedCallback;
-
-
+    public bool handsWashed = false; // Variable holding value if hero has washed his hands
 
     #region Sigleton
     private static HeroInteractive instance;
@@ -44,25 +34,35 @@ public class HeroInteractive : MonoBehaviour
     {
         health -= 1;
         ClampHealth();
-        if (wrongBuzzer != null)
-        {
-            audioSource.clip = wrongBuzzer;
-            audioSource.Play();
-        }
-        if(health == 0)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayBuzzerSound();
     }
     void ClampHealth()
     {
         health = Mathf.Clamp(health, 0, maxHealth);
 
-        if (onHealthChangedCallback != null)
-            onHealthChangedCallback.Invoke();
+        if (onHPChangeCallback != null)
+            onHPChangeCallback.Invoke();
+        CheckHP();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    void PlayBuzzerSound()
+    {
+        FindObjectOfType<AudioManager>().Play("wrong_buzzer"); // Play Button Press Audio
+    }
 
-    ///
-
+    /// <summary>
+    /// 
+    /// </summary>
+    void CheckHP()
+    {
+        if (health == 0)
+        {
+            MenuControl.GetToMenu();
+        }
+    }
 
     /// <summary>
     /// Function to fill hero's hands 
@@ -70,7 +70,6 @@ public class HeroInteractive : MonoBehaviour
     public void GrabObject()
     {
         objectGrabbed = true;
-
     }
 
     /// <summary>
@@ -88,5 +87,22 @@ public class HeroInteractive : MonoBehaviour
     public bool IsObjectGrabbed()
     {
         return objectGrabbed;
+    }
+
+    /// <summary>
+    /// Function to hero's wash hands
+    /// </summary>
+    public void WashHands()
+    {
+        handsWashed = true;
+    }
+
+    /// <summary>
+    /// Function to get if hero's hands were washed
+    /// </summary>
+    /// <returns></returns>
+    public bool WereHandsWashed()
+    {
+        return handsWashed;
     }
 }

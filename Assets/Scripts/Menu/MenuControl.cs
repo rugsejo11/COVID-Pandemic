@@ -6,15 +6,7 @@ using UnityEngine.SceneManagement;
 public class MenuControl : MonoBehaviour
 {
     /// <summary>
-    /// When Play Button Pressed Game Scene Loaded
-    /// </summary>
-    public void StartGame()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    /// <summary>
-    /// When ESC Button Pressed Menu Scene Loaded
+    /// Function to load menu scene
     /// </summary>
     public static void GetToMenu()
     {
@@ -22,20 +14,36 @@ public class MenuControl : MonoBehaviour
     }
 
     /// <summary>
-    /// When Quit Button Pressed Exit From Game
+    /// Function to load first level
+    /// </summary>
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    /// <summary>
+    /// Function to load second level
+    /// </summary>
+    public void SecondLevel()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    /// <summary>
+    /// Function to
+    /// </summary>
+    public void PlayDemo()
+    {
+        SceneManager.LoadScene(3);
+
+    }
+
+    /// <summary>
+    /// Function to quit game
     /// </summary>
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    public void ShowHighscores()
-    {
-        SceneManager.LoadScene(2);
-    }
-
-    public void PlayDemo()
-    {
-        SceneManager.LoadScene(3);
-    }
 }
