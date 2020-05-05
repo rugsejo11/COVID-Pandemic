@@ -8,12 +8,12 @@ using System.Linq;
 public class Options : MonoBehaviour
 {
     #region Variables
-    public AudioMixer audioMixer; // Audio Mixer
-    public TMP_Dropdown resolutionDropdown; // Dropdown To Select Game Resolution
-    public TMP_Dropdown graphicsDropdown; // Dropdown To Select Between Fancy And Fast Graphics
-    public Toggle FullscreenToggle; // Toggle To Select Fullscreen Or Windowed Game
-    public TMP_Text ToggleText; //Fullscreen Toggle Text
-    public Slider VolumeSilder; // Audio Volume Selector
+    [SerializeField] private AudioMixer audioMixer = null; // Audio Mixer
+    [SerializeField] private TMP_Dropdown resolutionDropdown = null; // Dropdown To Select Game Resolution
+    [SerializeField] private TMP_Dropdown graphicsDropdown = null; // Dropdown To Select Between Fancy And Fast Graphics
+    [SerializeField] private Toggle FullscreenToggle = null; // Toggle To Select Fullscreen Or Windowed Game
+    [SerializeField] private TMP_Text ToggleText = null; // Fullscreen Toggle Text
+    [SerializeField] private Slider VolumeSilder = null; // Audio Volume Selector
 
     private Resolution[] screenResolutions; // Array Containing All Resolutions
     private Resolution selectedResolution; // Variable Containing Selected Resolution

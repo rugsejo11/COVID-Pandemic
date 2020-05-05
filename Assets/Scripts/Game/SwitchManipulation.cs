@@ -22,9 +22,9 @@ public class SwitchManipulation : MonoBehaviour
     [Space]
 
 
-    [SerializeField] private HeroInteractive hero; // Game character
     [SerializeField] private Animator animator = null;
-    [SerializeField] private ManageMorgueLevel mml = null;
+    private HeroInteractive hero; // Game character
+    private ManageMorgueLevel mml = null;
 
     // PossibleToClick() - Function to check if switch is reachable
     private float distance;

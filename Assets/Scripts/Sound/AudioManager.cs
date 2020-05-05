@@ -4,9 +4,9 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     #region Variables
-    public Sound[] sounds; // List Of Audio Manager Sounds
-    public static AudioManager instance; // Audio Manager Instance
-    private int lastStep = 0; private int newStep = 0;
+    [SerializeField] private Sound[] sounds = null; // List Of Audio Manager Sounds
+    private static AudioManager instance; // Audio Manager Instance
+    private int lastStep = 0;
     #endregion
 
     #region Functions
@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+
         // Keep Playing Sound While Switching Scenes
         if (instance == null)
             instance = this;
@@ -29,11 +30,10 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+            s.source.clip = s.GetClip();
+            s.source.volume = s.GetVolume();
+            s.source.pitch = s.GetPitch();
+            s.source.loop = s.GetLoop();
         }
     }
 
@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="name"></param>
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name); // Find Sound From Sounds List
+        Sound s = Array.Find(sounds, sound => sound.GetName() == name); // Find Sound From Sounds List
         if (s == null)
         {
             Debug.LogWarning("Sound" + name + " not found!");
@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayFootstep()
     {
-        newStep = UnityEngine.Random.Range(1, 4);
+        int newStep = UnityEngine.Random.Range(1, 4);
         if (newStep != lastStep)
         {
             switch (newStep)

@@ -18,6 +18,8 @@ public class PlaceObjectScript : MonoBehaviour
     private float distance; // Distance between object and hero
     private float angleView; // Angle view between object and hero
     private Vector3 direction; // Direction between object and hero
+    private Vector3 newDirection; // Direction between object and hero
+
 
     private bool objectGrabbed = false; // Variable holding value if object is grabbed/being grabbed
     private bool atSocket = false; // Variable holding value if object is positioned at a socket
@@ -31,7 +33,6 @@ public class PlaceObjectScript : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //currentSocket = GetComponent<SocketScript>(); // Get current socket
         hero = FindObjectOfType<HeroInteractive>(); // Get hero object
         objectToTake = GetComponent<Rigidbody>(); // Get object to take
     }
@@ -57,6 +58,7 @@ public class PlaceObjectScript : MonoBehaviour
 
             if (currentSocket != null)
             {
+                currentSocket.gameObject.tag = "Socket";
                 currentSocket = null; // Empty socket if it's not empty
             }
 
@@ -110,10 +112,15 @@ public class PlaceObjectScript : MonoBehaviour
     {
         distance = Vector3.Distance(transform.position, Camera.main.transform.position); // Distance between object and hero
         direction = transform.position - Camera.main.transform.position; // Direction between object and hero
-        angleView = Vector3.Angle(Camera.main.transform.forward, direction); // Angle view between object and hero
 
-        if (distance < 3f && angleView < 20f) // If distance and angle view is in range, return that it is possible to grab this object
+        newDirection.Set(direction.x * 10, direction.y, direction.z);
+
+        angleView = Vector3.Angle(Camera.main.transform.forward, newDirection); // Angle view between object and hero
+
+        if (distance < 2f && angleView < 60f) // If distance and angle view is in range, return that it is possible to grab this object
+        {
             return true;
+        }
         else
             return false;
     }
@@ -124,10 +131,11 @@ public class PlaceObjectScript : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Socket")
+        if (other.gameObject.tag == "Socket")
         {
             atSocket = true;
             currentSocket = other.gameObject;
+            other.gameObject.tag = "UsedSocket";
         }
     }
     /// <summary>

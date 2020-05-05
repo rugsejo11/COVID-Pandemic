@@ -7,46 +7,54 @@ public class HeroInteractive : MonoBehaviour
 {
     public delegate void HPChangeDelegate();
     public HPChangeDelegate onHPChangeCallback;
-    public Transform GoalPosition; // Level goal position
     public bool objectGrabbed = false; // Variable holding value if hero has object in he's hands
     public bool handsWashed = false; // Variable holding value if hero has washed his hands
+    [SerializeField] private float health = float.MinValue; // current health points hero has
+    [SerializeField] private float maxHealth = float.MinValue; // max health points hero can have
 
-    #region Sigleton
-    private static HeroInteractive instance;
-    public static HeroInteractive Instance
+
+    /// <summary>
+    /// Function to get current health points hero has
+    /// </summary>
+    /// <returns></returns>
+    public float GetHealth()
     {
-        get
-        {
-            if (instance == null)
-                instance = FindObjectOfType<HeroInteractive>();
-            return instance;
-        }
-    }
-    #endregion
-
-    [SerializeField] private float health = float.MinValue;
-    [SerializeField] private float maxHealth = float.MinValue;
-
-    public float Health { get { return health; } }
-    public float MaxHealth { get { return maxHealth; } }
-
-    public void LoseHP()
-    {
-        health -= 1;
-        ClampHealth();
-        PlayBuzzerSound();
-    }
-    void ClampHealth()
-    {
-        health = Mathf.Clamp(health, 0, maxHealth);
-
-        if (onHPChangeCallback != null)
-            onHPChangeCallback.Invoke();
-        CheckHP();
+        return health;
     }
 
     /// <summary>
-    /// 
+    /// Function to get max health points hero can have
+    /// </summary>
+    /// <returns></returns>
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    /// <summary>
+    /// Function to remove one health point
+    /// </summary>
+    public void LoseHP()
+    {
+        health -= 1;
+        UpdateHPBar();
+        PlayBuzzerSound();
+    }
+
+    /// <summary>
+    /// Function to update hero's health bar
+    /// </summary>
+    void UpdateHPBar()
+    {
+        health = Mathf.Clamp(health, 0, maxHealth);
+
+        onHPChangeCallback?.Invoke();
+
+        CheckIfAlive();
+    }
+
+    /// <summary>
+    /// Function to play buzzer sound, because of wrong hero's action
     /// </summary>
     void PlayBuzzerSound()
     {
@@ -54,9 +62,9 @@ public class HeroInteractive : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Function to check if hero run out of health points
     /// </summary>
-    void CheckHP()
+    void CheckIfAlive()
     {
         if (health == 0)
         {

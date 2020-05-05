@@ -5,13 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class TimeManagement : MonoBehaviour
 {
-    [SerializeField] private float secondsLeft = float.MinValue;
-    private float minutes = float.MinValue;
-    private float seconds = float.MinValue;
-    private float roundedTime;
-    [SerializeField] private TMP_Text textBox = null;
+    [SerializeField] private float secondsLeft = float.MinValue; // Variable holding time left
+    private float minutes = float.MinValue; // Variable holding rounded timer minutes
+    private float seconds = float.MinValue; // Variable holding rounded timer seconds
+    private float roundedTime; // Variable holding rounded time left
+    [SerializeField] private TMP_Text textBox = null; // Text box showing time left
 
-    // Update is called once per frame
+    /// <summary>
+    /// Function to update every frame.
+    /// </summary>
     void Update()
     {
         secondsLeft -= Time.deltaTime;
@@ -20,6 +22,9 @@ public class TimeManagement : MonoBehaviour
         PlaySoundEffects();
     }
 
+    /// <summary>
+    /// Function to update timer shown time
+    /// </summary>
     void UpdateDigitalTimer()
     {
         if (roundedTime >= 0)
@@ -29,6 +34,10 @@ public class TimeManagement : MonoBehaviour
             textBox.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
     }
+
+    /// <summary>
+    /// Funtion to play time sound effects
+    /// </summary>
     void PlaySoundEffects()
     {
         if (Mathf.Floor(roundedTime) > 60)

@@ -1,37 +1,44 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBarController : MonoBehaviour
 {
-    private GameObject[] heartContainers;
-    private Image[] heartFills;
-
-    public Transform heartsParent;
-    public GameObject heartContainerPrefab;
+    public GameObject heartContainerPrefab; // Prefab of heart
+    private HeroInteractive hero; // Hero object
+    private GameObject[] heartContainers; // Hero's health points
+    private Image[] heartFills; // Health points fills
+    public Transform heartsParent; // Parent object for hearts
 
     private void Start()
     {
-        heartContainers = new GameObject[(int)HeroInteractive.Instance.MaxHealth];
-        heartFills = new Image[(int)HeroInteractive.Instance.MaxHealth];
+        hero = FindObjectOfType<HeroInteractive>();
 
-        HeroInteractive.Instance.onHPChangeCallback += UpdateHeartsHUD;
-        InstantiateHeartContainers();
-        UpdateHeartsHUD();
+        heartContainers = new GameObject[(int)hero.GetMaxHealth()];
+        heartFills = new Image[(int)hero.GetMaxHealth()];
+
+        hero.onHPChangeCallback += UpdateHeartsUI; 
+
+        InitiateHearts();
+        UpdateHeartsUI();
     }
 
-    public void UpdateHeartsHUD()
+    /// <summary>
+    /// Function to update hearts UI
+    /// </summary>
+    public void UpdateHeartsUI()
     {
-        SetHeartContainers();
-        SetFilledHearts();
+        ActiveHearts();
+        FillHearts();
     }
 
-    void SetHeartContainers()
+    /// <summary>
+    /// Function to set active hearts objects
+    /// </summary>
+    void ActiveHearts()
     {
         for (int i = 0; i < heartContainers.Length; i++)
         {
-            if (i < HeroInteractive.Instance.MaxHealth)
+            if (i < hero.GetMaxHealth())
             {
                 heartContainers[i].SetActive(true);
             }
@@ -42,11 +49,14 @@ public class HealthBarController : MonoBehaviour
         }
     }
 
-    void SetFilledHearts()
+    /// <summary>
+    /// Function to fill hero's hearts
+    /// </summary>
+    void FillHearts()
     {
         for (int i = 0; i < heartFills.Length; i++)
         {
-            if (i < HeroInteractive.Instance.Health)
+            if (i < hero.GetHealth())
             {
                 heartFills[i].fillAmount = 1;
             }
@@ -56,16 +66,19 @@ public class HealthBarController : MonoBehaviour
             }
         }
 
-        if (HeroInteractive.Instance.Health % 1 != 0)
+        if (hero.GetHealth() % 1 != 0)
         {
-            int lastPos = Mathf.FloorToInt(HeroInteractive.Instance.Health);
-            heartFills[lastPos].fillAmount = HeroInteractive.Instance.Health % 1;
+            int lastPos = Mathf.FloorToInt(hero.GetHealth());
+            heartFills[lastPos].fillAmount = hero.GetHealth() % 1;
         }
     }
 
-    void InstantiateHeartContainers()
+    /// <summary>
+    /// Function initiate hearts objects
+    /// </summary>
+    void InitiateHearts()
     {
-        for (int i = 0; i < HeroInteractive.Instance.MaxHealth; i++)
+        for (int i = 0; i < hero.GetMaxHealth(); i++)
         {
             GameObject temp = Instantiate(heartContainerPrefab);
             temp.transform.SetParent(heartsParent, false);
