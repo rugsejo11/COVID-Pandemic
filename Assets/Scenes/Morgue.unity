@@ -899,7 +899,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 156902579}
-  morgLevel: {fileID: 18413307}
 --- !u!4 &157410768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490622, guid: b09e95949a2b3cf489baf6fd2307361e,
@@ -1296,7 +1295,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 217447231}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &217447231
 Animator:
   serializedVersion: 3
@@ -2159,7 +2157,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 416886812}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &416886812
 Animator:
   serializedVersion: 3
@@ -2877,7 +2874,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 554236616}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &554236616
 Animator:
   serializedVersion: 3
@@ -7663,7 +7659,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 1
   animator: {fileID: 1315583626}
-  morgLevel: {fileID: 18413307}
 --- !u!4 &1315583630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a7e53d5698a3ebe48ab6da8e0480c602,
@@ -8598,7 +8593,6 @@ MonoBehaviour:
   isFinishDetonate: 1
   isSwitch: 0
   animator: {fileID: 1442989769}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &1442989769
 Animator:
   serializedVersion: 3
@@ -9542,7 +9536,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 1558898495}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &1558898495
 Animator:
   serializedVersion: 3
@@ -10302,7 +10295,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 1745544151}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &1745544151
 Animator:
   serializedVersion: 3
@@ -11081,7 +11073,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 1842585186}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &1842585186
 Animator:
   serializedVersion: 3
@@ -11221,7 +11212,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 1859788472}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &1859788472
 Animator:
   serializedVersion: 3
@@ -11729,6 +11719,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
+--- !u!114 &1948730919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1332243446595691151, guid: 41f85c0c4f6fc8742b90c1da1f6c676a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3460356969103544897}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1955155077 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 111714, guid: 6b2098cbc1fd4384da8ca063c3d4eb24,
@@ -12076,7 +12078,6 @@ MonoBehaviour:
   isFinishDetonate: 0
   isSwitch: 0
   animator: {fileID: 1999177553}
-  morgLevel: {fileID: 18413307}
 --- !u!95 &1999177553
 Animator:
   serializedVersion: 3
@@ -13104,6 +13105,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1332243446595691137, guid: 41f85c0c4f6fc8742b90c1da1f6c676a,
+        type: 3}
+      propertyPath: textBox
+      value: 
+      objectReference: {fileID: 1948730919}
+    - target: {fileID: 1332243446595691137, guid: 41f85c0c4f6fc8742b90c1da1f6c676a,
+        type: 3}
+      propertyPath: secondsLeft
+      value: 601
+      objectReference: {fileID: 0}
     - target: {fileID: 4838068051460648405, guid: 41f85c0c4f6fc8742b90c1da1f6c676a,
         type: 3}
       propertyPath: m_Name

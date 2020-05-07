@@ -22,6 +22,9 @@ public class PlaceToRackScript : MonoBehaviour
     private bool objectInHands = false; // Variable holding value if object is at hero's hands
     private bool atSocket = false; // Variable holding value if object is positioned at a socket
 
+    //Time after removing from rack
+    private float timeAfterRemovingFromRack;
+
     #endregion
 
     #region Functions
@@ -32,6 +35,7 @@ public class PlaceToRackScript : MonoBehaviour
     {
         hero = FindObjectOfType<HeroDataScript>(); // Get hero object
         objectToTake = GetComponent<Rigidbody>(); // Get object to take
+        timeAfterRemovingFromRack = 2f;
     }
 
     /// <summary>
@@ -42,7 +46,13 @@ public class PlaceToRackScript : MonoBehaviour
         GrabAnObject(); // Grab or drop object
 
         if (atSocket) // If object is at socket
+        {
             PlaceToRack(); // If object colided with socket, position it at socket 
+        }
+        else
+        {
+            timeAfterRemovingFromRack += Time.deltaTime;
+        }
     }
 
     /// <summary>
@@ -60,6 +70,7 @@ public class PlaceToRackScript : MonoBehaviour
             }
 
             atSocket = false; // Remove object from socket
+            timeAfterRemovingFromRack = 0;
             objectGrabbed = true; // Grab object
             hero.GrabObject(); // Set that hero has an object in he's hands
             objectInHands = false; // Set that object is not grabbed just yet
@@ -129,7 +140,7 @@ public class PlaceToRackScript : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Socket")
+        if (other.gameObject.tag == "Socket" && timeAfterRemovingFromRack >= 2)
         {
             atSocket = true;
             currentSocket = other.gameObject;

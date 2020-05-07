@@ -1984,8 +1984,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 1984521463}
 --- !u!135 &227985737
 SphereCollider:
@@ -2388,7 +2386,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 05121f20c98ced9409101dd6069eec2a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 05121f20c98ced9409101dd6069eec2a,
         type: 3}
@@ -2845,8 +2843,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!1 &350418883
 GameObject:
@@ -3854,8 +3850,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &426139777
 SphereCollider:
@@ -7559,6 +7553,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817241763}
   m_Mesh: {fileID: 4300004, guid: 8280e1e720f463d4ba03562f3dd759b3, type: 3}
+--- !u!114 &822499807 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1332243446595691151, guid: 41f85c0c4f6fc8742b90c1da1f6c676a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1726991876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &839065875 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4253908656219167120, guid: e796e55053bea814f907c34e8e1a66d3,
@@ -7806,8 +7812,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &847438132
 SphereCollider:
@@ -8923,8 +8927,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 257158826}
 --- !u!135 &933691123
 SphereCollider:
@@ -10026,8 +10028,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 2029450623}
 --- !u!135 &1032682295
 SphereCollider:
@@ -11445,8 +11445,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &1123186657
 SphereCollider:
@@ -12167,8 +12165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &1191927705
 SphereCollider:
@@ -13712,8 +13708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 2057119272}
 --- !u!135 &1292719101
 SphereCollider:
@@ -14161,7 +14155,7 @@ Transform:
   - {fileID: 2139473012}
   - {fileID: 158154282}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1328558421
 GameObject:
@@ -14458,7 +14452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f7e2db2e50cdc644095597644040a86f, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f7e2db2e50cdc644095597644040a86f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -16198,7 +16192,7 @@ PrefabInstance:
     - target: {fileID: 2189870819492480559, guid: a53b80592d7404d498fb05550c9144d6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2189870819492480559, guid: a53b80592d7404d498fb05550c9144d6,
         type: 3}
@@ -18206,6 +18200,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1332243446595691137, guid: 41f85c0c4f6fc8742b90c1da1f6c676a,
+        type: 3}
+      propertyPath: textBox
+      value: 
+      objectReference: {fileID: 822499807}
+    - target: {fileID: 1332243446595691137, guid: 41f85c0c4f6fc8742b90c1da1f6c676a,
+        type: 3}
+      propertyPath: secondsLeft
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 1332243446595691151, guid: 41f85c0c4f6fc8742b90c1da1f6c676a,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -18781,8 +18785,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &1832468139
 SphereCollider:
@@ -19057,7 +19059,7 @@ PrefabInstance:
     - target: {fileID: 2773946259844099778, guid: b480403759dd97248b80a380554e6ca8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2773946259844099778, guid: b480403759dd97248b80a380554e6ca8,
         type: 3}
@@ -19655,8 +19657,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!1 &1919380023
 GameObject:
@@ -21982,8 +21982,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
-  socketEmpty: 1
-  testTube: {fileID: 0}
   desiredTestTube: {fileID: 1289987174}
 --- !u!1 &2081056292
 GameObject:
