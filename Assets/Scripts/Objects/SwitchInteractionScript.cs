@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SwitchManipulation : MonoBehaviour
+public class SwitchInteractionScript : MonoBehaviour
 {
     #region Variables
 
@@ -22,46 +22,53 @@ public class SwitchManipulation : MonoBehaviour
     [Space]
 
 
-    [SerializeField] private Animator animator = null;
-    private HeroInteractive hero; // Game character
-    private ManageMorgueLevel mml = null;
+    [SerializeField] private Animator animator = null; // Animator for switches animations
+    private HeroDataScript hero; // Game character
+    [SerializeField] private ManageMorgLevelScript morgLevel = null; // Morge level manager
 
-    // PossibleToClick() - Function to check if switch is reachable
-    private float distance;
-    private float angleView;
-    private Vector3 direction;
+    // IsObjectInRange()
+    private float distance; // Variable holding distance between hero and item
+    private float angleView; // Variable holding angle difference between hero camera and item
+    private Vector3 direction; // Varialbe holding hero camera direction
 
     #endregion
 
+    #region Essential functions
+    /// <summary>
+    /// Function is called on the frame when a script is enabled just before any of the Update methods are called the first time
+    /// </summary>
     private void Start()
     {
-        mml = FindObjectOfType<ManageMorgueLevel>(); // Get current socket
-        hero = FindObjectOfType<HeroInteractive>(); // Get hero object
+        morgLevel = FindObjectOfType<ManageMorgLevelScript>(); // Get current socket
+        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
 
     }
-    // Update is called once per frame
+
+    /// <summary>
+    /// Function is called every frame
+    /// </summary>
     private void Update()
     {
-        WhichButtonPressed();
+        ButtonPressed();
     }
 
     /// <summary>
     /// Function to check if button pressed on switch
     /// </summary>
-    void WhichButtonPressed()
+    void ButtonPressed()
     {
-        if (ButtonE()) { } // Check if button E was pressed on an switch
-        else if (ButtonUp()) { } // Check if button arrow up was pressed on an switch
-        else if (ButtonDown()) { } // Check if button arrow down was pressed on an switch
-        else if (ButtonLeft()) { } // Check if button arrow left was pressed on an switch
-        else if (ButtonRight()) { } // Check if button arrow right was pressed on an switch
+        if (ButtonEPressed()) { } // Check if button E was pressed on an switch
+        else if (ButtonUpPressed()) { } // Check if button arrow up was pressed on an switch
+        else if (ButtonDownPressed()) { } // Check if button arrow down was pressed on an switch
+        else if (ButtonLeftPressed()) { } // Check if button arrow left was pressed on an switch
+        else if (ButtonRightPressed()) { } // Check if button arrow right was pressed on an switch
     }
 
     /// <summary>
     /// Function to check if switch is reachable
     /// </summary>
     /// <returns></returns>
-    bool PossibleToClick()
+    bool IsObjectInRange()
     {
         distance = Vector3.Distance(transform.position, Camera.main.transform.position);
         direction = transform.position - Camera.main.transform.position;
@@ -73,16 +80,18 @@ public class SwitchManipulation : MonoBehaviour
             return false;
     }
 
-    #region Button pressed activity
+    #endregion
+
+    #region On button pressed activities
 
     /// <summary>
     /// Function if Button E pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonE()
+    bool ButtonEPressed()
     {
         // If Button E pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.E) && PossibleToClick())
+        if (Input.GetKeyDown(KeyCode.E) && IsObjectInRange())
         {
             //Check which switch to manipulate
             if (isDummyDetonate)
@@ -122,10 +131,10 @@ public class SwitchManipulation : MonoBehaviour
     /// Function if Button Up pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonUp()
-    {        
+    bool ButtonUpPressed()
+    {
         // If button arrow up pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.UpArrow) && PossibleToClick())
+        if (Input.GetKeyDown(KeyCode.UpArrow) && IsObjectInRange())
         {
             //Check which switch to manipulate
             if (isComplexLever)
@@ -144,10 +153,10 @@ public class SwitchManipulation : MonoBehaviour
     /// Function if Button Down pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonDown()
-    {        
+    bool ButtonDownPressed()
+    {
         // If Button arrow down pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.DownArrow) && PossibleToClick())
+        if (Input.GetKeyDown(KeyCode.DownArrow) && IsObjectInRange())
         {
             //Check which switch to manipulate
             if (isComplexLever)
@@ -166,10 +175,10 @@ public class SwitchManipulation : MonoBehaviour
     /// Function if Button Left pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonLeft()
+    bool ButtonLeftPressed()
     {
         // If Button arrow left pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && PossibleToClick())
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && IsObjectInRange())
         {
             //Check which switch to manipulate
             if (isComplexLever)
@@ -192,10 +201,10 @@ public class SwitchManipulation : MonoBehaviour
     /// Function if Button Right pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonRight()
+    bool ButtonRightPressed()
     {
         // If Button arrow right pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.RightArrow) && PossibleToClick())
+        if (Input.GetKeyDown(KeyCode.RightArrow) && IsObjectInRange())
         {
             //Check which switch to manipulate
             if (isComplexLever)
@@ -216,28 +225,29 @@ public class SwitchManipulation : MonoBehaviour
     }
     #endregion
 
-    #region Switches activity
+    #region Switches activities, animations
 
     /// <summary>
     /// Set Hazardous lever animation and sound
     /// </summary>
-    /// <param name="keyCode"></param>
+    /// <param name="keyCode">Keyboard button</param>
     void HazardousLever(KeyCode keyCode)
     {
         switch (keyCode)
         {
             case KeyCode.E:
-                FindObjectOfType<AudioManager>().Play("hazardous_lever_moving"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("hazardous_lever_moving"); // Play Button Press Audio
                 if (!animator.GetBool("HazardousLeverDown"))
                 {
                     animator.SetBool("HazardousLeverDown", true);
-                    mml.hazardousLeverDone = true;
-                    mml.CheckIfStageFinished();
+                    morgLevel.SetDone("hazardousLeverDone", true);
+                    morgLevel.CheckIfStageFinished();
                 }
                 else
                 {
                     animator.SetBool("HazardousLeverDown", false);
-                    LoseHP();
+                    morgLevel.SetDone("hazardousLeverDone", false);
+                    hero.LoseHP();
                 }
                 break;
 
@@ -255,17 +265,18 @@ public class SwitchManipulation : MonoBehaviour
         switch (keyCode)
         {
             case KeyCode.E:
-                FindObjectOfType<AudioManager>().Play("electricity_noise"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("electricity_noise"); // Play Button Press Audio
                 if (!animator.GetBool("ElectricityLeverDown"))
                 {
                     animator.SetBool("ElectricityLeverDown", true);
-                    mml.electricityLeverDone = true;
-                    mml.CheckIfStageFinished();
+                    morgLevel.SetDone("electricityLeverDone", true);
+                    morgLevel.CheckIfStageFinished();
                 }
                 else
                 {
                     animator.SetBool("ElectricityLeverDown", false);
-                    LoseHP();
+                    morgLevel.SetDone("electricityLeverDone", false);
+                    hero.LoseHP();
                 }
                 break;
 
@@ -277,22 +288,22 @@ public class SwitchManipulation : MonoBehaviour
     /// <summary>
     /// Set Big button animation and sound
     /// </summary>
-    /// <param name="keyCode"></param>
+    /// <param name="keyCode">Keyboard button</param>
     void BigButton(KeyCode keyCode)
     {
         switch (keyCode)
         {
             case KeyCode.E:
-                FindObjectOfType<AudioManager>().Play("game_button_clicked"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("game_button_clicked"); // Play Button Press Audio
                 if (animator.GetBool("BigButtonPressed"))
                 {
                     animator.SetBool("BigButtonPressed", false);
-                    LoseHP();
+                    hero.LoseHP();
                 }
                 else
                 {
                     animator.SetBool("BigButtonPressed", true);
-                    LoseHP();
+                    hero.LoseHP();
                 }
                 break;
 
@@ -304,23 +315,24 @@ public class SwitchManipulation : MonoBehaviour
     /// <summary>
     /// Set Small button animation and sound
     /// </summary>
-    /// <param name="keyCode"></param>
+    /// <param name="keyCode">Keyboard button</param>
     void SmallButton(KeyCode keyCode)
     {
         switch (keyCode)
         {
             case KeyCode.E:
-                FindObjectOfType<AudioManager>().Play("game_button_clicked"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("game_button_clicked"); // Play Button Press Audio
                 if (!animator.GetBool("SmallButtonPressed"))
                 {
                     animator.SetBool("SmallButtonPressed", true);
-                    mml.smallButtonDone = true;
-                    mml.CheckIfStageFinished();
+                    morgLevel.SetDone("smallButtonDone", true);
+                    morgLevel.CheckIfStageFinished();
                 }
                 else
                 {
                     animator.SetBool("SmallButtonPressed", false);
-                    LoseHP();
+                    morgLevel.SetDone("smallButtonDone", false);
+                    hero.LoseHP();
                 }
                 break;
 
@@ -332,23 +344,24 @@ public class SwitchManipulation : MonoBehaviour
     /// <summary>
     /// Set Switch animation and sound
     /// </summary>
-    /// <param name="keyCode"></param>
+    /// <param name="keyCode">Keyboard button</param>
     void Switch(KeyCode keyCode)
     {
         switch (keyCode)
         {
             case KeyCode.E:
-                FindObjectOfType<AudioManager>().Play("switch_clicked"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("switch_clicked"); // Play Button Press Audio
                 if (!animator.GetBool("SwitcherOn"))
                 {
                     animator.SetBool("SwitcherOn", true);
-                    mml.switcherDone = true;
-                    mml.CheckIfStageFinished();
+                    morgLevel.SetDone("switcherDone", true);
+                    morgLevel.CheckIfStageFinished();
                 }
                 else
                 {
                     animator.SetBool("SwitcherOn", false);
-                    LoseHP();
+                    morgLevel.SetDone("switcherDone", false);
+                    hero.LoseHP();
                 }
                 break;
 
@@ -360,14 +373,15 @@ public class SwitchManipulation : MonoBehaviour
     /// <summary>
     /// Set Clown lever animation and sound
     /// </summary>
-    /// <param name="keyCode"></param>
+    /// <param name="keyCode">Keyboard button</param>
     void ClownLever(KeyCode keyCode)
     {
         switch (keyCode)
         {
             case KeyCode.UpArrow:
-                FindObjectOfType<AudioManager>().Play("lever_pushed"); // Play Button Press Audio
-                LoseHP();
+                FindObjectOfType<AudioManagerScript>().Play("lever_pushed"); // Play Button Press Audio
+                hero.LoseHP();
+                morgLevel.SetDone("clownLeverDone", false);
                 if (animator.GetBool("ClownLeverDown"))
                 {
                     animator.SetBool("ClownLeverCenter", true);
@@ -380,18 +394,19 @@ public class SwitchManipulation : MonoBehaviour
                 }
                 break;
             case KeyCode.DownArrow:
-                FindObjectOfType<AudioManager>().Play("lever_pushed"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("lever_pushed"); // Play Button Press Audio
                 if (animator.GetBool("ClownLeverUp"))
                 {
                     animator.SetBool("ClownLeverCenter", true);
                     animator.SetBool("ClownLeverUp", false);
+                    morgLevel.SetDone("clownLeverDone", false);
                 }
                 else
                 {
                     animator.SetBool("ClownLeverCenter", false);
                     animator.SetBool("ClownLeverDown", true);
-                    mml.clownLeverDone = true;
-                    mml.CheckIfStageFinished();
+                    morgLevel.SetDone("clownLeverDone", true);
+                    morgLevel.CheckIfStageFinished();
                 }
                 break;
 
@@ -403,13 +418,14 @@ public class SwitchManipulation : MonoBehaviour
     /// <summary>
     /// Set Finish lever animation and sound
     /// </summary>
-    /// <param name="keyCode"></param>
+    /// <param name="keyCode">Keyboard button</param>
     void FinishLever(KeyCode keyCode)
     {
         switch (keyCode)
         {
             case KeyCode.LeftArrow:
-                LoseHP();
+                hero.LoseHP();
+                morgLevel.SetDone("finishLeverDone", false);
                 if (animator.GetBool("FinishLeverRight"))
                 {
                     animator.SetBool("FinishLeverCenter", true);
@@ -426,14 +442,15 @@ public class SwitchManipulation : MonoBehaviour
                 {
                     animator.SetBool("FinishLeverCenter", true);
                     animator.SetBool("FinishLeverLeft", false);
+                    morgLevel.SetDone("finishLeverDone", false);
                 }
                 else
                 {
                     animator.SetBool("FinishLeverCenter", false);
                     animator.SetBool("FinishLeverRight", true);
 
-                    mml.finishLeverDone = true;
-                    mml.CheckIfStageFinished();
+                    morgLevel.SetDone("finishLeverDone", true);
+                    morgLevel.CheckIfStageFinished();
                 }
                 break;
 
@@ -448,7 +465,7 @@ public class SwitchManipulation : MonoBehaviour
     void DummyDetonate()
     {
         animator.SetBool("DummyDetonate", true);
-        FindObjectOfType<AudioManager>().Play("siren_alarm"); // Play Button Press Audio
+        FindObjectOfType<AudioManagerScript>().Play("siren_alarm"); // Play Button Press Audio
         hero.LoseHP();
     }
 
@@ -458,30 +475,31 @@ public class SwitchManipulation : MonoBehaviour
     void FinishDetonate()
     {
         animator.SetBool("FinishDetonate", true);
-        mml.finishDetonator = true;
-        mml.CheckIfStageFinished();
+        morgLevel.SetDone("finishDetonator", true);
+        morgLevel.CheckIfStageFinished();
     }
 
     /// <summary>
     /// Set Elevator button animation and sound
     /// </summary>
-    /// <param name="keyCode"></param>
+    /// <param name="keyCode">Keyboard button</param>
     void Elevatorbutton(KeyCode keyCode)
     {
         switch (keyCode)
         {
             case KeyCode.LeftArrow:
-                FindObjectOfType<AudioManager>().Play("game_button_clicked"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("game_button_clicked"); // Play Button Press Audio
                 animator.SetBool("ElevatorButtonDown", false);
                 animator.SetBool("ElevatorButtonUp", true);
-                mml.elevatorButtonDone = true;
-                mml.CheckIfStageFinished();
+                morgLevel.SetDone("elevatorButtonDone", true);
+                morgLevel.CheckIfStageFinished();
                 break;
             case KeyCode.RightArrow:
-                FindObjectOfType<AudioManager>().Play("game_button_clicked"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("game_button_clicked"); // Play Button Press Audio
                 animator.SetBool("ElevatorButtonUp", false);
                 animator.SetBool("ElevatorButtonDown", true);
-                LoseHP();
+                morgLevel.SetDone("elevatorButtonDone", false);
+                hero.LoseHP();
                 break;
 
             default:
@@ -492,17 +510,18 @@ public class SwitchManipulation : MonoBehaviour
     /// <summary>
     /// Set Complex lever animation and sound
     /// </summary>
-    /// <param name="keyCode"></param>
+    /// <param name="keyCode">Keyboard button</param>
     void ComplexLever(KeyCode keyCode)
     {
         switch (keyCode)
         {
             case KeyCode.UpArrow:
-                FindObjectOfType<AudioManager>().Play("lever_pushed"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("lever_pushed"); // Play Button Press Audio
                 if (animator.GetBool("ComplexLeverDown"))
                 {
                     animator.SetBool("ComplexLeverCenter", true);
                     animator.SetBool("ComplexLeverDown", false);
+                    morgLevel.SetDone("complexLeverDone", false);
                 }
                 else
                 {
@@ -511,14 +530,15 @@ public class SwitchManipulation : MonoBehaviour
 
                     if (animator.GetBool("ComplexIndicatorLeft") && animator.GetBool("ComplexLeverUp"))
                     {
-                        mml.complexLeverDone = true;
-                        mml.CheckIfStageFinished();
+                        morgLevel.SetDone("complexLeverDone", true);
+                        morgLevel.CheckIfStageFinished();
                     }
                 }
                 break;
             case KeyCode.DownArrow:
-                FindObjectOfType<AudioManager>().Play("lever_pushed"); // Play Button Press Audio
-                LoseHP();
+                FindObjectOfType<AudioManagerScript>().Play("lever_pushed"); // Play Button Press Audio
+                hero.LoseHP();
+                morgLevel.SetDone("complexLeverDone", false);
                 if (animator.GetBool("ComplexLeverUp"))
                 {
                     animator.SetBool("ComplexLeverCenter", true);
@@ -531,27 +551,28 @@ public class SwitchManipulation : MonoBehaviour
                 }
                 break;
             case KeyCode.LeftArrow:
-                FindObjectOfType<AudioManager>().Play("indicator_move"); // Play Button Press Audio
+                FindObjectOfType<AudioManagerScript>().Play("indicator_move"); // Play Button Press Audio
                 if (animator.GetBool("ComplexIndicatorRight"))
                 {
                     animator.SetBool("ComplexIndicatorCenter", true);
                     animator.SetBool("ComplexIndicatorRight", false);
+                    morgLevel.SetDone("complexLeverDone", false);
                 }
                 else
                 {
                     animator.SetBool("ComplexIndicatorCenter", false);
                     animator.SetBool("ComplexIndicatorLeft", true);
-
                     if (animator.GetBool("ComplexIndicatorLeft") && animator.GetBool("ComplexLeverUp"))
                     {
-                        mml.complexLeverDone = true;
-                        mml.CheckIfStageFinished();
+                        morgLevel.SetDone("complexLeverDone", true);
+                        morgLevel.CheckIfStageFinished();
                     }
                 }
                 break;
             case KeyCode.RightArrow:
-                FindObjectOfType<AudioManager>().Play("indicator_move"); // Play Button Press Audio
-                LoseHP();
+                FindObjectOfType<AudioManagerScript>().Play("indicator_move"); // Play Button Press Audio
+                hero.LoseHP();
+                morgLevel.SetDone("complexLeverDone", false);
                 if (animator.GetBool("ComplexIndicatorLeft"))
                 {
                     animator.SetBool("ComplexIndicatorCenter", true);
@@ -570,9 +591,4 @@ public class SwitchManipulation : MonoBehaviour
     }
 
     #endregion
-
-    void LoseHP()
-    {
-        hero.LoseHP();
-    }
 }

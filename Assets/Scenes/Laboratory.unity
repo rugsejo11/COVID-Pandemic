@@ -11726,80 +11726,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130463819}
   m_Mesh: {fileID: 4300000, guid: 8280e1e720f463d4ba03562f3dd759b3, type: 3}
---- !u!1001 &1131243021
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1502550647392465368, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_Name
-      value: HealthBarController
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.884489
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.362306
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -13.089954
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465371, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: heartsParent
-      value: 
-      objectReference: {fileID: 839065875}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d, type: 3}
 --- !u!1 &1137599208
 GameObject:
   m_ObjectHideFlags: 0
@@ -16213,6 +16139,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 254737168150183585, guid: a53b80592d7404d498fb05550c9144d6,
+        type: 3}
+      propertyPath: heartsParent
+      value: 
+      objectReference: {fileID: 839065875}
+    - target: {fileID: 254737168150183585, guid: a53b80592d7404d498fb05550c9144d6,
+        type: 3}
+      propertyPath: heartContainerPrefab
+      value: 
+      objectReference: {fileID: 1000013667988280, guid: 677e3f20f0ab76a45bd59d5b73b0b446,
+        type: 3}
     - target: {fileID: 2189870818583825321, guid: a53b80592d7404d498fb05550c9144d6,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -19392,7 +19329,7 @@ PrefabInstance:
     - target: {fileID: 4253908654337118399, guid: e796e55053bea814f907c34e8e1a66d3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4253908654337118399, guid: e796e55053bea814f907c34e8e1a66d3,
         type: 3}

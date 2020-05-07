@@ -1,39 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FinishNotification : MonoBehaviour
+public class FinishNotificationScript : MonoBehaviour
 {
     private float distance; // Distance between object and hero
     private float angleView; // Angle view between object and hero
     private Vector3 direction; // Direction between object and hero
-    [SerializeField] private GameObject finishNotification = null;
-    bool DetonatorNotPressed = true;
+    [SerializeField] private GameObject finishNotification = null; // Variable holding finish notification game object
+    private bool DetonatorNotPressed = true; // Variable holding value if detonator has been pressed
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Function is called every frame
+    /// </summary>
     void Update()
     {
-        Interaction();
+        ShowFinishNotification();
     }
 
-    void Interaction()
+    /// <summary>
+    /// Function to show finish game notification
+    /// </summary>
+    private void ShowFinishNotification()
     {
-        if (PossibleToGrabObject() && DetonatorNotPressed)
+        if (IsObjectCloseEnough() && DetonatorNotPressed)
         {
-            ShowNotification(true);
+            EnableNotification(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
                 DetonatorNotPressed = false;
-                ShowNotification(false);
+                EnableNotification(false);
             }
         }
     }
-    bool PossibleToGrabObject()
+
+    /// <summary>
+    /// Function to check if object is close enough to interact
+    /// </summary>
+    /// <returns></returns>
+    private bool IsObjectCloseEnough()
     {
         distance = Vector3.Distance(transform.position, Camera.main.transform.position); // Distance between object and hero
         direction = transform.position - Camera.main.transform.position; // Direction between object and hero
@@ -45,16 +49,16 @@ public class FinishNotification : MonoBehaviour
         }
         else
         {
-            ShowNotification(false);
+            EnableNotification(false);
             return false;
         }
     }
 
     /// <summary>
-    /// 
+    /// Function to enable or disable finish notification
     /// </summary>
     /// <param name="enabled"></param>
-    void ShowNotification(bool enabled)
+    private void EnableNotification(bool enabled)
     {
         if (enabled)
         {

@@ -5,6 +5,10 @@ using UnityEditor;
 #if UNITY_EDITOR
 public class TextLocaliserEditWindow : EditorWindow
 {
+    /// <summary>
+    /// Function to open localisation editing interface
+    /// </summary>
+    /// <param name="key"></param>
     public static void Open(string key)
     {
         var window = (TextLocaliserEditWindow)ScriptableObject.CreateInstance(typeof(TextLocaliserEditWindow));
@@ -13,11 +17,11 @@ public class TextLocaliserEditWindow : EditorWindow
         window.key = key;
     }
 
-    public string key;
-    public string word;
+    private string key; // localised value key
+    private string word; // localised value word
 
     /// <summary>
-    /// Adding localisation
+    /// Function to set user interface for updating localised values
     /// </summary>
     public void OnGUI()
     {
@@ -33,13 +37,13 @@ public class TextLocaliserEditWindow : EditorWindow
 
         if (GUILayout.Button("Add"))
         {
-            if (LocalisationSystem.GetLocalisedValue(key) != string.Empty)
+            if (LocalisationSystemScript.GetLocalisedValue(key) != string.Empty)
             {
-                LocalisationSystem.Replace(key, word);
+                LocalisationSystemScript.Replace(key, word);
             }
             else
             {
-                LocalisationSystem.Add(key, word);
+                LocalisationSystemScript.Add(key, word);
             }
         }
 
@@ -49,15 +53,14 @@ public class TextLocaliserEditWindow : EditorWindow
 }
 
 
-/// <summary>
-/// Localisation List Search Window
-/// </summary>
 public class TextLocaliserSearchWindow : EditorWindow
 {
+    /// <summary>
+    /// Function to set search localisation values interface
+    /// </summary>
     public static void Open()
     {
         var window = (TextLocaliserSearchWindow)ScriptableObject.CreateInstance(typeof(TextLocaliserSearchWindow));
-        //TextLocaliserSearchWindow window = new TextLocaliserSearchWindow();
         window.titleContent = new GUIContent("Localisation Search");
 
         Vector2 mouse = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
@@ -69,11 +72,17 @@ public class TextLocaliserSearchWindow : EditorWindow
     public Vector2 scroll;
     public Dictionary<string, string> dictionary;
 
+    /// <summary>
+    /// Function to set dictionary on search window enabling
+    /// </summary>
     private void OnEnable()
     {
-        dictionary = LocalisationSystem.GetDictionaryForEditor();
+        dictionary = LocalisationSystemScript.GetDictionaryForEditor();
     }
 
+    /// <summary>
+    /// Function to set user interface for searching localised values
+    /// </summary>
     public void OnGUI()
     {
         EditorGUILayout.BeginHorizontal("Box");
@@ -83,6 +92,10 @@ public class TextLocaliserSearchWindow : EditorWindow
 
         GetSearchResults();
     }
+
+    /// <summary>
+    /// Function to output localisation search results
+    /// </summary>
     private void GetSearchResults()
     {
         if (value == null) { return; }
@@ -101,10 +114,10 @@ public class TextLocaliserSearchWindow : EditorWindow
                 {
                     if (EditorUtility.DisplayDialog("Remove key " + element.Key + "?", "This will remove the element from the localisation, are you sure?", "Do it"))
                     {
-                        LocalisationSystem.Remove(element.Key);
+                        LocalisationSystemScript.Remove(element.Key);
                         AssetDatabase.Refresh();
-                        LocalisationSystem.Init();
-                        dictionary = LocalisationSystem.GetDictionaryForEditor();
+                        LocalisationSystemScript.Init();
+                        dictionary = LocalisationSystemScript.GetDictionaryForEditor();
                     }
                 }
 

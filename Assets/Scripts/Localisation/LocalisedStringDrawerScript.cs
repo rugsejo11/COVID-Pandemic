@@ -2,12 +2,24 @@
 using UnityEditor;
 
 #if UNITY_EDITOR 
-[CustomPropertyDrawer(typeof(LocalisedString))]
-public class LocalisedStringDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(LocalisedStringScript))]
+public class LocalisedStringDrawerScript : PropertyDrawer
 {
-    bool dropdown;
-    float height;
+    #region Variables 
 
+    private bool dropdown; // text dropdown
+    private float height; // window height
+
+    #endregion
+
+    #region Localised String Drawer functions 
+
+    /// <summary>
+    /// Function to get property height of the localised string drawer window
+    /// </summary>
+    /// <param name="property"></param>
+    /// <param name="label"></param>
+    /// <returns></returns>
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         if (dropdown)
@@ -17,6 +29,12 @@ public class LocalisedStringDrawer : PropertyDrawer
         return 20;
     }
 
+    /// <summary>
+    /// Function to set user interface for entering, searching, updating localised values
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="property"></param>
+    /// <param name="label"></param>
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);
@@ -61,7 +79,7 @@ public class LocalisedStringDrawer : PropertyDrawer
         }
         if (dropdown)
         {
-            var value = LocalisationSystem.GetLocalisedValue(key.stringValue);
+            var value = LocalisationSystemScript.GetLocalisedValue(key.stringValue);
             GUIStyle style = GUI.skin.box;
             height = style.CalcHeight(new GUIContent(value), valueRect.width);
 
@@ -72,5 +90,7 @@ public class LocalisedStringDrawer : PropertyDrawer
 
         EditorGUI.EndProperty();
     }
+
+    #endregion
 }
 #endif

@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class Sound
+public class SoundScript
 {
+    #region Variables
+
     [SerializeField] private string name = string.Empty; // Audio Clip Name
     [SerializeField] private AudioClip clip = null; // Audio Clip
     [Range(0f, 1f)]
@@ -11,6 +13,10 @@ public class Sound
     [SerializeField] private float pitch = 1; // Audio Clip Pitch
     [SerializeField] private bool loop = false; // Bool To Loop
     public AudioSource source = null; // Audio Source
+
+    #endregion
+
+    #region Functions
 
     /// <summary>
     /// Function to return name
@@ -54,4 +60,6 @@ public class Sound
     {
         return loop;
     }
+
+    #endregion
 }

@@ -6,18 +6,21 @@ public class SocketScript : MonoBehaviour
 {
 
     [SerializeField] private bool canBeUsed = true; // Variable holding value if socket can be used
-    [SerializeField] private bool socketEmpty = true; // Variable holding value if socket is empty
-    [SerializeField] private GameObject testTube = null;
-    [SerializeField] private GameObject desiredTestTube = null;
-    private HeroInteractive hero; // Game character
+    private bool socketEmpty = true; // Variable holding value if socket is empty
+    private GameObject testTube = null; // Variable holding current attached test tube
+    [SerializeField] private GameObject desiredTestTube = null; // Variable holding desired test tube
+    private HeroDataScript hero; // Game character
 
+    /// <summary>
+    /// Function is called on the frame when a script is enabled just before any of the Update methods are called the first time
+    /// </summary>
     void Start()
     {
-        hero = FindObjectOfType<HeroInteractive>(); // Get hero object
+        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
     }
 
     /// <summary>
-    /// Function to set use socket
+    /// Function to use socket
     /// </summary>
     public void UseSocket()
     {
@@ -31,7 +34,7 @@ public class SocketScript : MonoBehaviour
     public void EmptySocket()
     {
         socketEmpty = true; // empty socket 
-        this.tag = "Socket";
+        tag = "Socket";
     }
 
     /// <summary>
@@ -53,7 +56,7 @@ public class SocketScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Function when the Collider other collides with socket.
+    /// Function when the Collider other collides with socket
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
@@ -64,6 +67,7 @@ public class SocketScript : MonoBehaviour
             other.transform.position = transform.position;
             other.transform.rotation = transform.rotation;
             testTube = other.gameObject;
+
             if (!isDesired())
             {
                 hero.LoseHP();

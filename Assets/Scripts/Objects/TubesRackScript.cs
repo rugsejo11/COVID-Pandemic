@@ -2,8 +2,9 @@
 
 public class TubesRackScript : MonoBehaviour
 {
-    [SerializeField] private SocketScript Socket = null;  // First rack slot
-    [SerializeField] private SocketScript Socket2 = null; // Second rack slot
+    //Tube rack slots
+    [SerializeField] private SocketScript Socket = null;
+    [SerializeField] private SocketScript Socket2 = null;
     [SerializeField] private SocketScript Socket3 = null;
     [SerializeField] private SocketScript Socket4 = null;
     [SerializeField] private SocketScript Socket5 = null;
@@ -12,7 +13,7 @@ public class TubesRackScript : MonoBehaviour
     /// <summary>
     /// Get test rack socket
     /// </summary>
-    /// <param name="socketNumber"></param>
+    /// <param name="socketNumber">socket number</param>
     /// <returns></returns>
     public SocketScript GetSocket(int socketNumber)
     {
@@ -49,7 +50,7 @@ public class TubesRackScript : MonoBehaviour
             if (!GetSocket(i).IsSocketEmpty())
                 usedSockets++;
         }
-        
+
         return usedSockets;
     }
 }

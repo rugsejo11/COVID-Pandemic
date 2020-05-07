@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using System;
 
-public class AudioManager : MonoBehaviour
+public class AudioManagerScript : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private Sound[] sounds = null; // List Of Audio Manager Sounds
-    private static AudioManager instance; // Audio Manager Instance
-    private int lastStep = 0;
+
+    [SerializeField] private SoundScript[] sounds = null; // List Of Audio Manager Sounds
+    private static AudioManagerScript instance; // Audio Manager Instance
+    private int lastStep = 0; // Variable holding last footstep sound played
+
     #endregion
 
     #region Functions
+
     /// <summary>
-    /// On Start Do
+    /// Function initialize any variables or game state before the game starts
     /// </summary>
     private void Awake()
     {
-
         // Keep Playing Sound While Switching Scenes
         if (instance == null)
             instance = this;
@@ -27,7 +29,8 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        foreach (Sound s in sounds)
+        // Run through all the sounds in the sounds array and save them
+        foreach (SoundScript s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.GetClip();
@@ -38,12 +41,12 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Play [name] sound
+    /// Function to play entered sound
     /// </summary>
     /// <param name="name"></param>
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.GetName() == name); // Find Sound From Sounds List
+        SoundScript s = Array.Find(sounds, sound => sound.GetName() == name); // Find Sound From Sounds List
         if (s == null)
         {
             Debug.LogWarning("Sound" + name + " not found!");
@@ -53,6 +56,9 @@ public class AudioManager : MonoBehaviour
             s.source.Play(); // Play Sound
     }
 
+    /// <summary>
+    /// Funtion to play footstep sound
+    /// </summary>
     public void PlayFootstep()
     {
         int newStep = UnityEngine.Random.Range(1, 4);
@@ -83,5 +89,6 @@ public class AudioManager : MonoBehaviour
         }
         else PlayFootstep();
     }
+
     #endregion
 }

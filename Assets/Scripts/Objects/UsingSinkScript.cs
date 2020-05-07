@@ -1,32 +1,37 @@
 ﻿using System.Collections;
 using UnityEngine;
-
-public class WashHands : MonoBehaviour
+public class UsingSinkScript : MonoBehaviour
 {
     // SinkIsCloseEnough()
-    private float distance; // Distance between object and hero
-    private float angleView; // Angle view between object and hero
-    private Vector3 direction; // Direction between object and hero
+    private float distance; // Variable holding distance between hero and sink
+    private float angleView; // Variable holding angle difference between hero camera and isinktem
+    private Vector3 direction; // Variable holding hero camera direction
+
     [SerializeField] private GameObject washHandsNotification = null;
     [SerializeField] private GameObject washHandsEducationNotification = null;
-    private HeroInteractive hero; // Game character
-    [SerializeField] private bool isWorking = true;
-    [SerializeField] private bool waterValveOn = true;
 
-    // Start is called before the first frame update
+    private HeroDataScript hero; // Game character
+    [SerializeField] private bool isWorking = true; // Is sink is working
+    [SerializeField] private bool waterValveOn = true; // Is sink's water valve is on
+
+    /// <summary>
+    /// Function is called on the frame when a script is enabled just before any of the Update methods are called the first time
+    /// </summary>
     void Start()
     {
-        hero = FindObjectOfType<HeroInteractive>(); // Get hero object
+        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Function is called every frame
+    /// </summary>
     void Update()
     {
         Interaction();
     }
 
     /// <summary>
-    /// 
+    /// Function to interact with sink
     /// </summary>
     void Interaction()
     {
@@ -61,6 +66,11 @@ public class WashHands : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Function to get if sink is close enought to wash hands
+    /// </summary>
+    /// <returns></returns>
     bool SinkIsCloseEnough()
     {
         distance = Vector3.Distance(transform.position, Camera.main.transform.position); // Distance between object and hero
@@ -79,7 +89,7 @@ public class WashHands : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Function to show hands washing notification
     /// </summary>
     /// <param name="enabled"></param>
     void ShowNotification(bool enabled)
@@ -93,7 +103,7 @@ public class WashHands : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Function to show washing hands education for x seconds
     /// </summary>
     /// <returns></returns>
     IEnumerator ShowNotificationEducation()
@@ -111,15 +121,15 @@ public class WashHands : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Function to play washing hands sound
     /// </summary>
     void PlayWashingHandsSound()
     {
-        FindObjectOfType<AudioManager>().Play("WashHands"); // Play Button Press Audio
+        FindObjectOfType<AudioManagerScript>().Play("WashHands"); // Play Button Press Audio
     }
 
     /// <summary>
-    /// 
+    /// Function to play valve opening sound
     /// </summary>
     void PlayTurnWaterOnSound()
     {

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuControl : MonoBehaviour
+public class SceneManageScript : MonoBehaviour
 {
     /// <summary>
     /// Function to load menu scene
@@ -14,7 +12,7 @@ public class MenuControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Function to load first level
+    /// Function to start the game
     /// </summary>
     public void StartGame()
     {
@@ -44,6 +42,14 @@ public class MenuControl : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    /// <summary>
+    /// Function to restart active scene
+    /// </summary>
+    public static void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

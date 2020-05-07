@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
-public class HeroController : MonoBehaviour
+public class HeroMovementScript : MonoBehaviour
 {
+    #region Variables
+
     // Character movement characteristics
     [Tooltip("Character movement speed")]
     [SerializeField] private float movementSpeed = 3f; // Variable holding value how quick character will go
@@ -11,33 +13,30 @@ public class HeroController : MonoBehaviour
     [SerializeField] private float jumpingForce = 300f; // Variable holding value how high character will jump
     [Tooltip("Mouse sensitivity")]
     [SerializeField] private float mouseSens = 70f; // Variable holding value sensitivity of the mouse
-    private float currentMovementSpeed = float.MinValue; // Variable holding current movement speed of the character
+    private float currentMovementSpeed = 0; // Variable holding current movement speed of the character
     private bool onGround = true; // Variable holding value if player is on the ground
     private bool inAir = false; // Variable holding value if player is in the air
 
-    // Hero and move vector to set hero velocity
+    // Hero and hero's camera
     private Rigidbody characterBody = null; // Character body
-    Vector3 moveVector; // Character move vector
+    private Transform Cam; // Hero's camera
+    private float camYRotation; // Camera up or down rotation
 
-    // Sound
-    //[SerializeField] private AudioClip[] footstepSounds = new AudioClip[4]; // an array of footstep sounds that will be randomly selected from.
-    //[SerializeField] private AudioClip jumpSound = null; // the sound played when character leaves the ground.
-    //[SerializeField] private AudioClip landSound = null; // the sound played when character touches back on ground.
-    //private AudioSource audioSource;
+    //Sound
     [SerializeField] private float stepsToMakeNoise = 10; // Variable holding value how many steps character has to make to make sound
     private float stepsMade = 0; // Variable holding value how many steps character has made
     private float nextNoiseAtStep = 0; // Variable holding value at which step to make noise
 
-    Transform Cam;
-    float yRotation;
+    #endregion
+
+    #region Start, Update, FixedUpdate functions
 
     /// <summary>
-    /// Function triggered at the start of the script
+    /// Function is called on the frame when a script is enabled just before any of the Update methods are called the first time
     /// </summary>
-    void Start()
+    private void Start()
     {
         characterBody = GetComponent<Rigidbody>();
-        //audioSource = GetComponent<AudioSource>();
         Cam = Camera.main.GetComponent<Transform>();
         nextNoiseAtStep = stepsMade / 2f;
         SetCursorData();
@@ -45,30 +44,33 @@ public class HeroController : MonoBehaviour
     }
 
     /// <summary>
-    /// Function to set cursor data
+    /// Function is called every frame
     /// </summary>
-    void SetCursorData()
-    {
-        Cursor.lockState = CursorLockMode.Locked; // lock cursor on the center of the game screen
-        Cursor.visible = false; // make cursor invisible
-    }
-
-    /// <summary>
-    /// Function to update game on every frame
-    /// </summary>
-    void Update()
+    private void Update()
     {
         CameraRotation(); // Function to rotate hero's camera according to mouse movement 
         Jump(); // Function to let character jump if space button pressed and he is on the grouund
     }
 
     /// <summary>
-    /// Function to update game fixed on every frame
+    /// Function is called every fixed frame-rate frame
     /// </summary>
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Run(); // Function to let character run if Left or Right Shift being hold
         CharacterMove(); // Function to move character according to the keyboard buttons pressed 
+    }
+
+    #endregion
+
+    #region Camera, mouse, character movement functions
+    /// <summary>
+    /// Function to set cursor data
+    /// </summary>
+    private void SetCursorData()
+    {
+        Cursor.lockState = CursorLockMode.Locked; // lock cursor on the center of the game screen
+        Cursor.visible = false; // make cursor invisible
     }
 
     /// <summary>
@@ -79,9 +81,9 @@ public class HeroController : MonoBehaviour
         float xmouse = Input.GetAxis("Mouse X") * Time.deltaTime * mouseSens; // Get Mouse X axis movement
         float ymouse = Input.GetAxis("Mouse Y") * Time.deltaTime * mouseSens; // Get Mouse Y axis movement
         transform.Rotate(Vector3.up * xmouse);
-        yRotation -= ymouse;
-        yRotation = Mathf.Clamp(yRotation, -85f, 60f);
-        Cam.localRotation = Quaternion.Euler(yRotation, 0, 0);
+        camYRotation -= ymouse;
+        camYRotation = Mathf.Clamp(camYRotation, -85f, 60f);
+        Cam.localRotation = Quaternion.Euler(camYRotation, 0, 0);
     }
 
     /// <summary>
@@ -127,6 +129,7 @@ public class HeroController : MonoBehaviour
         Vector3 verticalVector; // Vector holding character vertical movement
         Vector3 horizontalVector; // Vector holding character horizontal movement
         Vector3 jumpVector; // Vector holding character jump movement
+        Vector3 moveVector; // Vector holding vertical, horizontal and jump movement vectors
 
         verticalVector = transform.forward * currentMovementSpeed * Input.GetAxis("Vertical"); // Vertical character movement vector
         horizontalVector = transform.right * currentMovementSpeed * Input.GetAxis("Horizontal"); // horizontal character movement vector
@@ -135,16 +138,20 @@ public class HeroController : MonoBehaviour
         moveVector = verticalVector + horizontalVector + jumpVector; // character movement vector
 
         characterBody.velocity = moveVector; // set character to move
+
         if (verticalVector.magnitude > 0 || horizontalVector.magnitude > 0)
             ProgressStepCycle();
     }
+
+    #endregion
+
+    #region Sound
 
     /// <summary>
     /// Function to keep track of steps character made to know when to play walking sound
     /// </summary>
     private void ProgressStepCycle()
     {
-
         stepsMade += (characterBody.velocity.magnitude + (currentMovementSpeed * 3)) *
                  Time.fixedDeltaTime; // Get number of steps made according to the current movement speed and hero velocity
 
@@ -152,11 +159,41 @@ public class HeroController : MonoBehaviour
         {
             return;
         }
+
         // If required number steps to make sound is reached, get next value when to make noise and make footstep noise
         nextNoiseAtStep = stepsMade + stepsToMakeNoise;
 
         PlayFootStepAudio();
     }
+
+    /// <summary>
+    /// Function to play jump sound
+    /// </summary>
+    private void PlayJumpSound()
+    {
+        FindObjectOfType<AudioManagerScript>().Play("Jump"); // Play Button Press Audio
+    }
+
+    /// <summary>
+    /// Function to play landing sound
+    /// </summary>
+    private void PlayLandingSound()
+    {
+        FindObjectOfType<AudioManagerScript>().Play("Land"); // Play Button Press Audio
+    }
+
+    /// <summary>
+    /// Function to play footstep sound
+    /// </summary>
+    private void PlayFootStepAudio()
+    {
+        FindObjectOfType<AudioManagerScript>().PlayFootstep(); // Play Button Press Audio
+    }
+
+    #endregion
+
+    #region on trigger with ground
+
     /// <summary>
     /// Function on trigger with ground set that hero is on the ground
     /// </summary>
@@ -185,17 +222,5 @@ public class HeroController : MonoBehaviour
         inAir = true;
     }
 
-    private void PlayJumpSound()
-    {
-        FindObjectOfType<AudioManager>().Play("Jump"); // Play Button Press Audio
-    }
-    private void PlayLandingSound()
-    {
-        FindObjectOfType<AudioManager>().Play("Land"); // Play Button Press Audio
-    }
-
-    private void PlayFootStepAudio()
-    {
-        FindObjectOfType<AudioManager>().PlayFootstep(); // Play Button Press Audio
-    }
+    #endregion
 }

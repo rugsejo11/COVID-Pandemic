@@ -1,18 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
-public class HeroInteractive : MonoBehaviour
+public class HeroDataScript : MonoBehaviour
 {
-    public delegate void HPChangeDelegate();
-    public HPChangeDelegate onHPChangeCallback;
-    public bool objectGrabbed = false; // Variable holding value if hero has object in he's hands
-    public bool handsWashed = false; // Variable holding value if hero has washed his hands
-    [SerializeField] private float health = float.MinValue; // current health points hero has
-    [SerializeField] private float maxHealth = float.MinValue; // max health points hero can have
+    #region Variables
 
+    public delegate void HPChangeDelegate(); // Indrutes pagalbos reikia
+    private HPChangeDelegate onHPChangeCallback;
+    private bool objectGrabbed = false; // Variable holding value if hero has object in he's hands
+    [SerializeField] private bool handsWashed = false; // Variable holding value if hero has washed his hands
+    [SerializeField] private float health = 1; // current health points hero has
+    [SerializeField] private float maxHealth = 1; // max health points hero can have
 
+    #endregion
+
+    #region Functions
+
+    public void SetDelegate(HPChangeDelegate function)
+    {
+        onHPChangeCallback += function;
+    }
     /// <summary>
     /// Function to get current health points hero has
     /// </summary>
@@ -44,7 +50,7 @@ public class HeroInteractive : MonoBehaviour
     /// <summary>
     /// Function to update hero's health bar
     /// </summary>
-    void UpdateHPBar()
+    private void UpdateHPBar()
     {
         health = Mathf.Clamp(health, 0, maxHealth);
 
@@ -56,19 +62,19 @@ public class HeroInteractive : MonoBehaviour
     /// <summary>
     /// Function to play buzzer sound, because of wrong hero's action
     /// </summary>
-    void PlayBuzzerSound()
+    private void PlayBuzzerSound()
     {
-        FindObjectOfType<AudioManager>().Play("wrong_buzzer"); // Play Button Press Audio
+        FindObjectOfType<AudioManagerScript>().Play("wrong_buzzer"); // Play Button Press Audio
     }
 
     /// <summary>
     /// Function to check if hero run out of health points
     /// </summary>
-    void CheckIfAlive()
+    private void CheckIfAlive()
     {
         if (health == 0)
         {
-            MenuControl.GetToMenu();
+            SceneManageScript.RestartScene();
         }
     }
 
@@ -121,4 +127,6 @@ public class HeroInteractive : MonoBehaviour
     {
         return handsWashed;
     }
+
+    #endregion
 }

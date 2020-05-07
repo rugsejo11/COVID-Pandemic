@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GrabProps : MonoBehaviour
+public class GrabObjectScript : MonoBehaviour
 {
     #region Variables
     [SerializeField] private Transform HeroHandsPosition = null; // Hands position of the character
-    private HeroInteractive hero; // Game character
+    private HeroDataScript hero; // Game character
     [SerializeField] private Rigidbody characterBody = null; // Character body
     private Rigidbody objectToTake;
 
-    // Is object PossibleToGrab
-    private float distance; // Distance from char to item
-    private float angleView; // Angle difference from char camera to item
-    private Vector3 direction; // Character camera direction
+    // IsObjectInRange()
+    private float distance; // Variable holding distance between hero and item
+    private float angleView; // Variable holding angle difference between hero camera and item
+    private Vector3 direction; // Varialbe holding hero camera direction
 
     private bool objectGrabbed = false; // Item grabbed
     [SerializeField] private bool possibleToGrab = true; // Is it possible to grab this item
@@ -26,7 +24,7 @@ public class GrabProps : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hero = FindObjectOfType<HeroInteractive>(); // Get hero object
+        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
         objectToTake = GetComponent<Rigidbody>();
     }
 
@@ -37,7 +35,7 @@ public class GrabProps : MonoBehaviour
     }
     void Interaction()
     {
-        if (PossibleToGrabObject() && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed())
+        if (IsObjectInRange() && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed())
         {
             objectGrabbed = true;
             hero.GrabObject(); // Set that hero has an object in he's hands
@@ -76,14 +74,25 @@ public class GrabProps : MonoBehaviour
         }
     }
 
-    bool PossibleToGrabObject() // it is true if you near interactive object
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    bool IsObjectInRange()
     {
+        Vector3 newDirection = new Vector3();
+
         distance = Vector3.Distance(transform.position, Camera.main.transform.position); // Distance between object and hero
         direction = transform.position - Camera.main.transform.position; // Direction between object and hero
-        angleView = Vector3.Angle(Camera.main.transform.forward, direction); // Angle view between object and hero
 
-        if (distance < 3f && angleView < 20f) // If distance and angle view is in range, return that it is possible to grab this object
+        newDirection.Set(direction.x * 10, direction.y, direction.z);
+
+        angleView = Vector3.Angle(Camera.main.transform.forward, newDirection); // Angle view between object and hero
+
+        if (distance < 2f && angleView < 60f) // If distance and angle view is in range, return that it is possible to grab this object
+        {
             return true;
+        }
         else
             return false;
     }

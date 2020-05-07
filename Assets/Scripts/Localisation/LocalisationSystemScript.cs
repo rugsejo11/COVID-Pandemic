@@ -2,26 +2,29 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LocalisationSystem : MonoBehaviour
+public class LocalisationSystemScript : MonoBehaviour
 {
     #region Variables
+
     private static Dictionary<string, string> localisedEN; // English Dictionary Values
     private static Dictionary<string, string> localisedLT; // Lithuanian Dictionary Values
     private static Dictionary<string, string> localisedPL; // Polish Dictionary Values
 
     public static bool isInit; // Is Inisitalisation Process Done
 
-    public static CSVLoader csvLoader; // CSV Loader For Loading CSV Data File
+    public static LoadTranslationsScript translationsFile; // CSV Loader For Loading CSV Data File
+
     #endregion
 
-    #region Functions
+    #region Localisation system functions
+
     /// <summary>
-    /// Initialise Localisation System
+    /// Function to initialise localisation system
     /// </summary>
     public static void Init()
     {
-        csvLoader = new CSVLoader(); // Create New CSVLoader
-        csvLoader.LoadCSV(); //Load CSVLoader
+        translationsFile = new LoadTranslationsScript(); // Create New LoadTranslationsScript
+        translationsFile.LoadTranslationsFile(); //Load LoadTranslationsScript
 
         UpdateDictionaries(); // Update Localisation System Dictionary Values
 
@@ -29,17 +32,17 @@ public class LocalisationSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// Update Localisation System Dictionary Values
+    /// Function to update localisation system dictionary values
     /// </summary>
     public static void UpdateDictionaries()
     {
-        localisedEN = csvLoader.GetDictionaryValues("en"); // English Dictionary Values
-        localisedLT = csvLoader.GetDictionaryValues("lt"); // Lithuanian Dictionary Values
-        localisedPL = csvLoader.GetDictionaryValues("pl"); // Polish Dictionary Values
+        localisedEN = translationsFile.GetDictionaryValues("en"); // English Dictionary Values
+        localisedLT = translationsFile.GetDictionaryValues("lt"); // Lithuanian Dictionary Values
+        localisedPL = translationsFile.GetDictionaryValues("pl"); // Polish Dictionary Values
     }
 
     /// <summary>
-    /// Set UI To English
+    /// Function to set UI To English language
     /// </summary>
     public void UpdateLanguageToEnglish()
     {
@@ -48,7 +51,7 @@ public class LocalisationSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// Set UI To Lithuanian
+    /// Function to set UI To Lithuanian language
     /// </summary>
     public void UpdateLanguageToLithuanian()
     {
@@ -57,7 +60,7 @@ public class LocalisationSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// SET UI TO POLISH
+    /// Function to set UI To Polish language
     /// </summary>
     public void UpdateLanguageToPolish()
     {
@@ -76,13 +79,13 @@ public class LocalisationSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// Get Localised Value Of Key
+    /// Function to get localised value of the key
     /// </summary>
     /// <param name="key">Localisation key</param>
     /// <returns></returns>
     public static string GetLocalisedValue(string key)
     {
-        if (!isInit) { Init(); } // Initialise If Not
+        if (!isInit) { Init(); } // Initialise if not initialised before
         string value = key;
         string languageString = string.Empty;
         languageString = PlayerPrefs.GetString("Language", languageString); // Get Player Set Language
@@ -108,11 +111,11 @@ public class LocalisationSystem : MonoBehaviour
     }
     #endregion
 
-    #region UNITY EDITOR
+    #region Unity editor functions
 #if UNITY_EDITOR
 
     /// <summary>
-    /// Add Word To Localisation List
+    /// Function to add a word to localisation list
     /// </summary>
     /// <param name="key"></param>
     /// <param name="word"></param>
@@ -123,18 +126,23 @@ public class LocalisationSystem : MonoBehaviour
             word.Replace('"', '\"');
         }
 
-        if (csvLoader == null)
+        if (translationsFile == null)
         {
-            csvLoader = new CSVLoader();
+            translationsFile = new LoadTranslationsScript();
         }
 
-        csvLoader.LoadCSV();
-        csvLoader.Add(key, word);
-        csvLoader.LoadCSV();
+        translationsFile.LoadTranslationsFile();
+        translationsFile.Add(key, word);
+        translationsFile.LoadTranslationsFile();
 
         UpdateDictionaries();
     }
 
+    /// <summary>
+    /// Function to replace a word on a localisation list
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="word"></param>
     public static void Replace(string key, string word)
     {
         if (word.Contains("\""))
@@ -142,28 +150,32 @@ public class LocalisationSystem : MonoBehaviour
             word.Replace('"', '\"');
         }
 
-        if (csvLoader == null)
+        if (translationsFile == null)
         {
-            csvLoader = new CSVLoader();
+            translationsFile = new LoadTranslationsScript();
         }
 
-        csvLoader.LoadCSV();
-        csvLoader.Edit(key, word);
-        csvLoader.LoadCSV();
+        translationsFile.LoadTranslationsFile();
+        translationsFile.Edit(key, word);
+        translationsFile.LoadTranslationsFile();
 
         UpdateDictionaries();
     }
 
+    /// <summary>
+    /// Function to remove a word on a localisation list
+    /// </summary>
+    /// <param name="key"></param>
     public static void Remove(string key)
     {
-        if (csvLoader == null)
+        if (translationsFile == null)
         {
-            csvLoader = new CSVLoader();
+            translationsFile = new LoadTranslationsScript();
         }
 
-        csvLoader.LoadCSV();
-        csvLoader.Remove(key);
-        csvLoader.LoadCSV();
+        translationsFile.LoadTranslationsFile();
+        translationsFile.Remove(key);
+        translationsFile.LoadTranslationsFile();
 
         UpdateDictionaries();
     }

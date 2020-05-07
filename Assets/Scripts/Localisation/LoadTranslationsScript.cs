@@ -4,23 +4,37 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class CSVLoader
+public class LoadTranslationsScript
 {
-    private TextAsset csvFile;
-    private char lineSeperator = '\n';
-    private char surround = '"';
-    private string[] fieldSeperator = { "\",\"" };
+    #region Variables
 
-    public void LoadCSV()
+    private TextAsset translationsFile; // translations file
+    private char lineSeperator = '\n'; // line seperator
+    private char surround = '"'; // word surrounded by this char
+    private string[] fieldSeperator = { "\",\"" }; // field seperated by this string
+
+    #endregion
+
+    #region Load translations functions
+    /// <summary>
+    /// Function to load translations file
+    /// </summary>
+    public void LoadTranslationsFile()
     {
-        csvFile = Resources.Load<TextAsset>("localisation_translations");
+        translationsFile = Resources.Load<TextAsset>("localisation_translations");
     }
 
+
+    /// <summary>
+    /// Function to work with translation file and get translated value
+    /// </summary>
+    /// <param name="attributeId">asked language to translate to id</param>
+    /// <returns></returns>
     public Dictionary<string, string> GetDictionaryValues(string attributeId)
     {
         Dictionary<string, string> dictionary = new Dictionary<string, string>();
 
-        string[] lines = csvFile.text.Split(lineSeperator);
+        string[] lines = translationsFile.text.Split(lineSeperator);
 
         int attributeIndex = -1;
 
@@ -57,20 +71,30 @@ public class CSVLoader
         }
         return dictionary;
     }
+    #endregion
 
-    #region Unity Editor
+    #region Unity editor functions
 #if UNITY_EDITOR
+    /// <summary>
+    /// Add new translation to translations file
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="word"></param>
     public void Add(string key, string word)
     {
         string append = string.Format("\n\"{0}\",\"{1}\",\"\",\"\"", key, word);
-        File.AppendAllText("Assets/Resources/localisation.csv", append);
+        File.AppendAllText("Assets/Resources/localisation_translations.csv", append);
 
         UnityEditor.AssetDatabase.Refresh();
     }
 
+    /// <summary>
+    /// Remove translation from to translations file
+    /// </summary>
+    /// <param name="key"></param>
     public void Remove(string key)
     {
-        string[] lines = csvFile.text.Split(lineSeperator);
+        string[] lines = translationsFile.text.Split(lineSeperator);
         string[] keys = new string[lines.Length];
 
         for (int i = 0; i < lines.Length; i++)
@@ -96,10 +120,15 @@ public class CSVLoader
             newLines = lines.Where(w => w != lines[index]).ToArray();
 
             string replaced = string.Join(lineSeperator.ToString(), newLines);
-            File.WriteAllText("Assets/Resources/localisation.csv", replaced);
+            File.WriteAllText("Assets/Resources/localisation_translations.csv", replaced);
         }
     }
 
+    /// <summary>
+    /// Edit translation at translations file
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="word"></param>
     public void Edit(string key, string word)
     {
         Remove(key);

@@ -357,15 +357,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 18413306}
-  complexLeverDone: 0
-  switcherDone: 0
-  clownLeverDone: 0
-  elevatorButtonDone: 0
-  hazardousLeverDone: 0
-  electricityLeverDone: 0
-  smallButtonDone: 0
-  finishLeverDone: 0
-  finishDetonator: 0
 --- !u!4 &26418723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 465684, guid: 9ea3ce9ce36004e46b39c1080f65ab2e,
@@ -646,7 +637,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &104392939
 PrefabInstance:
@@ -907,9 +898,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 156902579}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!4 &157410768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490622, guid: b09e95949a2b3cf489baf6fd2307361e,
@@ -1305,9 +1295,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 217447231}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &217447231
 Animator:
   serializedVersion: 3
@@ -2169,9 +2158,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 416886812}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &416886812
 Animator:
   serializedVersion: 3
@@ -2888,9 +2876,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 554236616}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &554236616
 Animator:
   serializedVersion: 3
@@ -3729,7 +3716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroHandsPosition: {fileID: 2139762638}
+  HeroHandsPosition: {fileID: 0}
   characterBody: {fileID: 0}
   possibleToGrab: 1
 --- !u!1001 &716952249
@@ -5319,6 +5306,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 254737168150183585, guid: a53b80592d7404d498fb05550c9144d6,
+        type: 3}
+      propertyPath: heartContainerPrefab
+      value: 
+      objectReference: {fileID: 1000013667988280, guid: 677e3f20f0ab76a45bd59d5b73b0b446,
+        type: 3}
+    - target: {fileID: 254737168150183585, guid: a53b80592d7404d498fb05550c9144d6,
+        type: 3}
+      propertyPath: heartsParent
+      value: 
+      objectReference: {fileID: 846212391}
     - target: {fileID: 2189870819492480555, guid: a53b80592d7404d498fb05550c9144d6,
         type: 3}
       propertyPath: m_Name
@@ -6026,6 +6024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   washHandsNotification: {fileID: 504494431}
   washHandsEducationNotification: {fileID: 2121169120}
+  isWorking: 1
+  waterValveOn: 1
 --- !u!4 &1060593784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 458662, guid: facf14ae9ce68b7479827bcf72fba835,
@@ -6130,7 +6130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroHandsPosition: {fileID: 2139762638}
+  HeroHandsPosition: {fileID: 0}
   characterBody: {fileID: 0}
   possibleToGrab: 1
 --- !u!65 &1075989242
@@ -7662,9 +7662,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 1
-  hero: {fileID: 0}
   animator: {fileID: 1315583626}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!4 &1315583630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a7e53d5698a3ebe48ab6da8e0480c602,
@@ -8598,9 +8597,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 1
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 1442989769}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &1442989769
 Animator:
   serializedVersion: 3
@@ -9543,9 +9541,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 1558898495}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &1558898495
 Animator:
   serializedVersion: 3
@@ -10304,9 +10301,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 1745544151}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &1745544151
 Animator:
   serializedVersion: 3
@@ -11084,9 +11080,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 1842585186}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &1842585186
 Animator:
   serializedVersion: 3
@@ -11225,9 +11220,8 @@ MonoBehaviour:
   isDummyDetonate: 1
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 1859788472}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &1859788472
 Animator:
   serializedVersion: 3
@@ -11261,7 +11255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 0}
   characterBody: {fileID: 0}
-  possibleToGrab: 0
+  possibleToGrab: 1
 --- !u!1001 &1870582429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11506,8 +11500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroHandsPosition: {fileID: 2139762638}
-  characterBody: {fileID: 1238380723}
+  HeroHandsPosition: {fileID: 0}
+  characterBody: {fileID: 0}
   possibleToGrab: 1
 --- !u!1 &1907581865 stripped
 GameObject:
@@ -12081,9 +12075,8 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
-  hero: {fileID: 0}
   animator: {fileID: 1999177553}
-  ml: {fileID: 0}
+  morgLevel: {fileID: 18413307}
 --- !u!95 &1999177553
 Animator:
   serializedVersion: 3
@@ -12498,8 +12491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroHandsPosition: {fileID: 2139762638}
-  characterBody: {fileID: 1238380723}
+  HeroHandsPosition: {fileID: 0}
+  characterBody: {fileID: 0}
   possibleToGrab: 1
 --- !u!4 &2062559138 stripped
 Transform:
@@ -13104,80 +13097,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cfc18c935482f834ab23dced70927e8b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0100db3e890c43d4095696b6887b744b, type: 3}
---- !u!1001 &1502550647702580085
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1502550647392465368, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_Name
-      value: HealthBarController
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.884489
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.362306
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -13.089954
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465370, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1502550647392465371, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d,
-        type: 3}
-      propertyPath: heartsParent
-      value: 
-      objectReference: {fileID: 846212391}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9aa91c2e6a44df24e9d8120cfe1c1c0d, type: 3}
 --- !u!1001 &3460356969103544897
 PrefabInstance:
   m_ObjectHideFlags: 0

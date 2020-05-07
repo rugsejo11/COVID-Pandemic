@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
-public class Options : MonoBehaviour
+public class OptionsScript : MonoBehaviour
 {
     #region Variables
     [SerializeField] private AudioMixer audioMixer = null; // Audio Mixer
@@ -72,7 +72,7 @@ public class Options : MonoBehaviour
 
         for (int i = 0; i < qualitySettings.Length; i++)
         {
-            string settingsName = LocalisationSystem.GetLocalisedValue(qualitySettings[i]); // Localised Graphics Name
+            string settingsName = LocalisationSystemScript.GetLocalisedValue(qualitySettings[i]); // Localised Graphics Name
 
             if (!graphicsList.Contains(settingsName))
                 graphicsList.Add(settingsName); // Creating List Of Graphics

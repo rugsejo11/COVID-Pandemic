@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlaceObjectScript : MonoBehaviour
+public class PlaceToRackScript : MonoBehaviour
 {
     #region Variables
+    // Hero
     [SerializeField] private Transform HeroHandsPosition = null; // Hands position of the character
-    [SerializeField] private HeroInteractive hero; // Game character
+    [SerializeField] private HeroDataScript hero; // Game character
     [SerializeField] private Rigidbody characterBody = null; // Character body
     private Rigidbody objectToTake; // Object that hero is trying to take
 
-    // Rack slots
+    // Test tube rack slot
     [SerializeField] private GameObject currentSocket = null; // In which slot object is placed
 
-    // PossibleToGrabObject()
-    private float distance; // Distance between object and hero
-    private float angleView; // Angle view between object and hero
-    private Vector3 direction; // Direction between object and hero
-    private Vector3 newDirection; // Direction between object and hero
-
-
+    // IsObjectInRange()
+    private float distance; // Variable holding distance between hero and item
+    private float angleView; // Variable holding angle difference between hero camera and item
+    private Vector3 direction; // Variable holding hero camera direction
+    
+    // Hero and tube data
     private bool objectGrabbed = false; // Variable holding value if object is grabbed/being grabbed
-    private bool atSocket = false; // Variable holding value if object is positioned at a socket
     private bool objectInHands = false; // Variable holding value if object is at hero's hands
+    private bool atSocket = false; // Variable holding value if object is positioned at a socket
 
     #endregion
 
@@ -33,7 +30,7 @@ public class PlaceObjectScript : MonoBehaviour
     /// </summary>
     void Start()
     {
-        hero = FindObjectOfType<HeroInteractive>(); // Get hero object
+        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
         objectToTake = GetComponent<Rigidbody>(); // Get object to take
     }
 
@@ -45,7 +42,7 @@ public class PlaceObjectScript : MonoBehaviour
         GrabAnObject(); // Grab or drop object
 
         if (atSocket) // If object is at socket
-            PlaceObject(); // If object colided with socket, position it at socket 
+            PlaceToRack(); // If object colided with socket, position it at socket 
     }
 
     /// <summary>
@@ -53,7 +50,7 @@ public class PlaceObjectScript : MonoBehaviour
     /// </summary>
     void GrabAnObject()
     {
-        if (PossibleToGrabObject() && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed()) // If button pressed and object in range
+        if (IsObjectInRange() && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed()) // If button pressed and object in range
         {
 
             if (currentSocket != null)
@@ -62,7 +59,6 @@ public class PlaceObjectScript : MonoBehaviour
                 currentSocket = null; // Empty socket if it's not empty
             }
 
-            //objectToTake.constraints = RigidbodyConstraints.None;
             atSocket = false; // Remove object from socket
             objectGrabbed = true; // Grab object
             hero.GrabObject(); // Set that hero has an object in he's hands
@@ -108,8 +104,10 @@ public class PlaceObjectScript : MonoBehaviour
     /// Function to check if possible to grab object
     /// </summary>
     /// <returns></returns>
-    bool PossibleToGrabObject()
+    bool IsObjectInRange()
     {
+        Vector3 newDirection = new Vector3();
+
         distance = Vector3.Distance(transform.position, Camera.main.transform.position); // Distance between object and hero
         direction = transform.position - Camera.main.transform.position; // Direction between object and hero
 
@@ -156,7 +154,7 @@ public class PlaceObjectScript : MonoBehaviour
     /// <summary>
     /// Function to place an object to a socket
     /// </summary>
-    void PlaceObject()
+    void PlaceToRack()
     {
         gameObject.transform.position = currentSocket.transform.position; // Set grabbed object position to socket position
         gameObject.transform.rotation = currentSocket.transform.rotation; // Set grabbed object rotation to socket rotation

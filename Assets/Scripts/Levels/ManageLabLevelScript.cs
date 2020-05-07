@@ -1,50 +1,67 @@
 ﻿using UnityEngine;
 
-public class ManageLaboratoryLevel : MonoBehaviour
+public class ManageLabLevelScript : MonoBehaviour
 {
-    [SerializeField] private Animator animator = null;
-    private HeroInteractive hero; // Game character
+    #region Variables
 
-    // PossibleToClick() - Function to check if switch is reachable
-    private float distance;
-    private float angleView;
-    private Vector3 direction;
+    [SerializeField] private Animator animator = null; // animator object to use animation on lever
+    private HeroDataScript hero; // Game character
 
-    //Racks
+    // IsObjectInRange()
+    private float distance; // Variable holding distance between hero and item
+    private float angleView; // Variable holding angle difference between hero camera and item
+    private Vector3 direction; // Varialbe holding hero camera direction
+
+    //Tube racks
     [SerializeField] private TubesRackScript eastRack = null;  // First rack slot
     [SerializeField] private TubesRackScript southRack = null;  // First rack slot
 
-    // Start is called before the first frame update
+    #endregion
+
+    #region Manage lab level script functions
+
+    /// <summary>
+    /// Function is called on the frame when a script is enabled just before any of the Update methods are called the first time
+    /// </summary>
     void Start()
     {
-        hero = FindObjectOfType<HeroInteractive>(); // Get hero object
-        hero.DirtyHands();
+        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
+        hero.DirtyHands(); // set hero's hands to dirty
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Function is called every frame
+    /// </summary>
     void Update()
     {
-        ButtonE();
+        if (ButtonPressedOnLever())
+        {
+            CheckIfStageFinished();
+        }
     }
 
-    void ButtonE()
+    /// <summary>
+    /// Function to check if button e pressed on finish lever
+    /// </summary>
+    private bool ButtonPressedOnLever()
     {
-        if (Input.GetKeyDown(KeyCode.E) && PossibleToClick())
+        if (Input.GetKeyDown(KeyCode.E) && IsOjectInRange())
         {
-            FindObjectOfType<AudioManager>().Play("hazardous_lever_moving"); // Play Button Press Audio
+            FindObjectOfType<AudioManagerScript>().Play("hazardous_lever_moving"); // Play Button Press Audio
             if (!animator.GetBool("HazardousLeverDown"))
             {
                 animator.SetBool("HazardousLeverDown", true);
             }
-            CheckIfStageFinished();
+            return true;
         }
+        return false;
     }
 
     /// <summary>
     /// Function to check if switch is reachable
     /// </summary>
     /// <returns></returns>
-    bool PossibleToClick()
+    bool IsOjectInRange()
     {
         distance = Vector3.Distance(transform.position, Camera.main.transform.position);
         direction = transform.position - Camera.main.transform.position;
@@ -64,12 +81,9 @@ public class ManageLaboratoryLevel : MonoBehaviour
     {
         if (!southRack.GetSocket(2).IsSocketEmpty() && !southRack.GetSocket(5).IsSocketEmpty())
         {
-            if (southRack.UsedSockets() == 2)
+            if (southRack.GetSocket(2).isDesired() && southRack.GetSocket(5).isDesired() && southRack.UsedSockets() == 2)
             {
-                if (southRack.GetSocket(2).isDesired() && southRack.GetSocket(5).isDesired())
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;
@@ -81,15 +95,11 @@ public class ManageLaboratoryLevel : MonoBehaviour
     /// <returns></returns>
     bool EastRack()
     {
-
         if (!eastRack.GetSocket(1).IsSocketEmpty() && !eastRack.GetSocket(3).IsSocketEmpty() && !eastRack.GetSocket(6).IsSocketEmpty())
         {
-            if (eastRack.UsedSockets() == 3)
+            if (eastRack.GetSocket(1).isDesired() && eastRack.GetSocket(3).isDesired() && eastRack.GetSocket(6).isDesired() && eastRack.UsedSockets() == 3)
             {
-                if (eastRack.GetSocket(1).isDesired() && eastRack.GetSocket(3).isDesired() && eastRack.GetSocket(6).isDesired())
-                {
-                    return true;
-                }
+                return true;
             }
 
         }
@@ -103,7 +113,7 @@ public class ManageLaboratoryLevel : MonoBehaviour
     {
         if (hero.WereHandsWashed() && SouthRack() && EastRack())
         {
-            FindObjectOfType<AudioManager>().Play("level_finished"); // Play Button Press Audio
+            FindObjectOfType<AudioManagerScript>().Play("level_finished"); // Play Button Press Audio
             Debug.Log("Level finished");
         }
         else
@@ -112,4 +122,6 @@ public class ManageLaboratoryLevel : MonoBehaviour
             hero.LoseHP();
         }
     }
+
+    #endregion
 }
