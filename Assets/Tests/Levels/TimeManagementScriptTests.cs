@@ -27,7 +27,8 @@ namespace Tests
         {
             TimeManagement tm = new TimeManagement();
             tm.ReturnTimerString(roundedSecondsLeft);
-            Assert.AreEqual(tm.TimerString, timerString);
+
+            Assert.AreEqual(timerString, tm.TimerString);
 
         }
 
@@ -48,7 +49,7 @@ namespace Tests
         {
             TimeManagement tm = new TimeManagement();
             tm.ReturnTimerSound(roundedSecondsLeft);
-            Assert.AreEqual(tm.TimerString, timerSound);
+            Assert.AreEqual(timerSound, tm.TimerSound);
 
         }
     }

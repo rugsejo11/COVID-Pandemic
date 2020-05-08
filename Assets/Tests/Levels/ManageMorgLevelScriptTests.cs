@@ -120,5 +120,23 @@ namespace Tests
             string returnedPlayedSound = morgLevel.PlaySound(soundName, am);
             Assert.AreEqual(playedSound, returnedPlayedSound);
         }
+
+        [Test]
+        [TestCase(1, 1)]
+        [TestCase(2, 2)]
+        [TestCase(0, 0)]
+        [TestCase(3, 0)]
+        [TestCase(null, 0)]
+
+        public void OpenDoors_Test(
+            int doorsToOpen,
+            int doorsOpened
+            )
+
+        {
+            ManageMorgLevel morgLevel = new ManageMorgLevel();
+            int returnedDoorsOpened = morgLevel.OpenDoors(doorsToOpen);
+            Assert.AreEqual(doorsOpened, returnedDoorsOpened);
+        }
     }
 }

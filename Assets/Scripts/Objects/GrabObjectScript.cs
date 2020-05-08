@@ -1,115 +1,76 @@
 ﻿using UnityEngine;
 
-public class GrabObjectScript : MonoBehaviour
+public class GrabObjectScript
 {
-    #region Variables
-    [SerializeField] private Transform HeroHandsPosition = null; // Hands position of the character
-    private HeroDataScript hero; // Game character
-    [SerializeField] private Rigidbody characterBody = null; // Character body
-    private Rigidbody objectToTake;
-
-    // IsObjectInRange()
     private float distance; // Variable holding distance between hero and item
-    private float angleView; // Variable holding angle difference between hero camera and item
-    private Vector3 direction; // Varialbe holding hero camera direction
-
-    private bool objectGrabbed = false; // Item grabbed
-    [SerializeField] private bool possibleToGrab = true; // Is it possible to grab this item
     private bool objectInHands = false; // Variable holding value if object is at hero's hands
+    private ObjectDistanceScript objectDistance = new ObjectDistanceScript();
+    private bool objectGrabbed = false;
+    private float timeAfterRemovingFromRack;
+    private bool atSocket = false;
 
 
-    #endregion
+    public bool AtSocket { get { return atSocket; } set { atSocket = value; } } // Variable holding value if object is positioned at a socket
+    public float TimeAfterRemovingFromRack { get { return timeAfterRemovingFromRack; } set { timeAfterRemovingFromRack = value; } }
+    public bool ObjectGrabbed { get { return objectGrabbed; } private set { objectGrabbed = value; } }
 
-    #region Functions
-    // Start is called before the first frame update
-    void Start()
+
+
+    /// <summary>
+    /// Function to grab or drop object
+    /// </summary>
+    public void GrabAnObject(Transform transform, Camera main, HeroDataScript hero, Transform HeroHandsPosition, Rigidbody objectToTake)
     {
-        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
-        objectToTake = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (possibleToGrab) Interaction();
-    }
-    void Interaction()
-    {
-        if (IsObjectInRange() && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed())
+        // If in range, button pressed and item don't grab, grab item
+        if (objectDistance.IsObjectInRange(transform.position, main.transform) && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed()) // If button pressed and object in range
         {
-            objectGrabbed = true;
+            if (atSocket)
+            {
+                timeAfterRemovingFromRack = 0;
+            }
+
+            atSocket = false; // Remove object from socket
+            objectGrabbed = true; // Grab object
             hero.GrabObject(); // Set that hero has an object in he's hands
             objectInHands = false; // Set that object is not grabbed just yet
+            objectToTake.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        else if (objectGrabbed)
+        // If item grabbed
+        else if (objectGrabbed) // If object grabbed
         {
+            // If mouse 1 released, drop
             if (Input.GetKeyUp(KeyCode.Mouse0)) // If Mouse 1 button realesed
             {
-                objectGrabbed = false;
+                objectGrabbed = false; // Drop object
                 hero.DropObject(); // Free hero's hands
                 objectToTake.drag = 0f;
                 objectToTake.angularDrag = .5f;
             }
 
+            // Follow item with char
             else
             {
-                if (!objectInHands) // If object dropped
+                if (!objectInHands) // If object not in hands just yet
                 {
                     objectToTake.drag = 10f;
                     objectToTake.angularDrag = 10f;
+                    objectToTake.transform.rotation = Quaternion.Euler(0, 0, 0);
                 }
+
                 else
                 {
-                    distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+                    distance = objectDistance.GetDistance(transform.position, main.transform.position);
                     if (distance > 3f) // If object too far, drop object
                     {
                         objectGrabbed = false;
                         hero.DropObject(); // Free hero's hands
                     }
                 }
+
+                objectInHands = true;
+                objectToTake.transform.position = Vector3.Lerp(objectToTake.transform.position, HeroHandsPosition.position, 1f); // Follow object in character's hands
             }
-            objectInHands = true;
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, HeroHandsPosition.position, 1f); // Follow object in character's hands
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    bool IsObjectInRange()
-    {
-        Vector3 newDirection = new Vector3();
-
-        distance = Vector3.Distance(transform.position, Camera.main.transform.position); // Distance between object and hero
-        direction = transform.position - Camera.main.transform.position; // Direction between object and hero
-
-        newDirection.Set(direction.x * 10, direction.y, direction.z);
-
-        angleView = Vector3.Angle(Camera.main.transform.forward, newDirection); // Angle view between object and hero
-
-        if (distance < 2f && angleView < 60f) // If distance and angle view is in range, return that it is possible to grab this object
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-
-    /// <summary>
-    /// On collission with the room, push character back, that he would not push item through wall
-    /// </summary>
-    /// <param name="collision"></param>
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Room") && objectGrabbed)
-        {
-            float force = 1500;
-            Vector3 dir = collision.contacts[0].point - transform.position;
-            dir = -dir.normalized;
-            characterBody.AddForce(dir * force);
-        }
-    }
-    #endregion
 }

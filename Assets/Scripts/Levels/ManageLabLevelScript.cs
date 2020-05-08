@@ -20,7 +20,6 @@ public class ManageLabLevelScript : MonoBehaviour
     {
 
         hero = FindObjectOfType<HeroDataScript>(); // Get hero object
-        hero.DirtyHands(); // set hero's hands to dirty
 
         labLevel = new ManageLabLevel();
         labLevel.hero = hero;
@@ -37,41 +36,30 @@ public class ManageLabLevelScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (labLevel.ButtonPressedOnLever())
+        if (labLevel.ButtonPressedOnLever(transform, Camera.main))
         {
             labLevel.CheckIfStageFinished();
         }
     }
 }
+
 public class ManageLabLevel
 {
-    // IsObjectInRange()
-    private float distance; // Variable holding distance between hero and item
-    private float angleView; // Variable holding angle difference between hero camera and item
-    private Vector3 direction; // Varialbe holding hero camera direction
-
     public HeroDataScript hero { get; set; }
     public TubesRackScript eastRack { get; set; }
     public TubesRackScript southRack { get; set; }
     public Animator animator { get; set; }
     public Transform transform { get; set; }
 
-
-
     private AudioManagerScript am = Object.FindObjectOfType<AudioManagerScript>();
-
-
+    private ObjectDistanceScript objectDistance = new ObjectDistanceScript();
 
     /// <summary>
     /// Function to check if button e pressed on finish lever
     /// </summary>
-    public bool ButtonPressedOnLever()
+    public bool ButtonPressedOnLever(Transform transform, Camera main)
     {
-        distance = GetDistance(transform, Camera.main);
-        direction = GetDirection();
-        angleView = GetAngleView(direction);
-
-        if (Input.GetKeyDown(KeyCode.E) && IsOjectInRange(distance, angleView))
+        if (Input.GetKeyDown(KeyCode.E) && objectDistance.IsObjectInRange(transform.position, main.transform))
         {
             am.Play("hazardous_lever_moving"); // Play Button Press Audio
             if (!animator.GetBool("HazardousLeverDown"))
@@ -81,46 +69,6 @@ public class ManageLabLevel
             return true;
         }
         return false;
-    }
-
-    /// <summary>
-    /// Function to check if switch is reachable
-    /// </summary>
-    /// <returns></returns>
-    bool IsOjectInRange(float distance, float angleView)
-    {
-        if (angleView < 45f && distance < 3f)
-        {
-            return true;
-
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public float GetDistance(Transform transform, Camera main)
-    {
-        distance = Vector3.Distance(transform.position, main.transform.position);
-
-        return distance;
-    }
-
-    public Vector3 GetDirection()
-    {
-        direction = transform.position - Camera.main.transform.position;
-
-        return direction;
-
-    }
-
-    public float GetAngleView(Vector3 direction)
-    {
-        angleView = Vector3.Angle(Camera.main.transform.forward, direction);
-
-        return angleView;
-
     }
 
     /// <summary>

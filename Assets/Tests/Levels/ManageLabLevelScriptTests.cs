@@ -8,23 +8,33 @@ namespace Tests
 {
     public class ManageLabLevelScriptTests
     {
-        [Test]
-        [TestCase("explosions", "explosion")]
-        [TestCase("", "Sound not found!")]
-        [TestCase(null, "Sound not found!")]
+        //[Test]
+        //[TestCase(44, 2, true)]
+        //[TestCase(44, 3, false)]
+        //[TestCase(44, 4, false)]
+        //[TestCase(45, 2, false)]
+        //[TestCase(45, 3, false)]
+        //[TestCase(45, 4, false)]
+        //[TestCase(46, 2, false)]
+        //[TestCase(46, 3, false)]
+        //[TestCase(46, 4, false)]
+        //[TestCase(null, null, false)]
+        //[TestCase(null, 2, false)]
+        //[TestCase(44, null, false)]
+        //[TestCase(0, 0, false)]
 
+        ////if (angleView< 45f && distance< 3f)
 
-        public void PlaySound_Test(
-            string soundName,
-            string playedSound
-            )
+        //public void IsObjectInRange_Test(
+        //    float angleView,
+        //    float distance,
+        //    bool isInRange
+        //    )
 
-        {
-            ManageLabLevelScript labLevel = new ManageLabLevelScript();
-            AudioManagerScript am = Object.FindObjectOfType<AudioManagerScript>();
-            ManageMorgLevel morgLevel = new ManageMorgLevel();
-            string returnedPlayedSound = morgLevel.PlaySound(soundName, am);
-            Assert.AreEqual(playedSound, returnedPlayedSound);
-        }
+        //{
+        //    ManageLabLevel labLevel = new ManageLabLevel();
+        //    bool returnedIsInRange = labLevel.IsOjectInRange(distance, angleView);
+        //    Assert.AreEqual(isInRange, returnedIsInRange);
+        //}
     }
 }

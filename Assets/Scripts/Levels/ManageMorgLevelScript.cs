@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ManageMorgLevelScript : MonoBehaviour
@@ -28,8 +29,10 @@ public class ManageMorgLevelScript : MonoBehaviour
 
 public class ManageMorgLevel
 {
+    private MonoBehaviour mb = GameObject.FindObjectOfType<MonoBehaviour>();
     public HeroDataScript hero { get; set; }
     public Animator animator { get; set; }
+
 
     private int currentStage = 1; // Variable holding current stage of the level 
 
@@ -49,6 +52,7 @@ public class ManageMorgLevel
     private bool switcherDone = false;
 
     private AudioManagerScript am = Object.FindObjectOfType<AudioManagerScript>();
+    private NotificationsScript notifications = new NotificationsScript();
 
     //Get Set
 
@@ -108,21 +112,34 @@ public class ManageMorgLevel
     /// Function to open doors because stage is finished
     /// </summary>
     /// <param name="doorsToOpen">Doors to open number</param>
-    private void OpenDoors(int doorsToOpen)
+    public int OpenDoors(int doorsToOpen)
     {
+        int doorsOpened;
         switch (doorsToOpen)
         {
             case 1:
-                OpenDoors("FirstDoorsOpen");
-                PlaySound("first_doors_open", am);
-                break;
+                if (Application.isPlaying)
+                {
+                    OpenDoorsAnimation("FirstDoorsOpen");
+                    PlaySound("first_doors_open", am);
+                }
+                doorsOpened = doorsToOpen;
+                return doorsOpened;
             case 2:
-                OpenDoors("SecondDoorsOpen");
-                PlaySound("second_doors_open", am);
-                break;
+                if (Application.isPlaying)
+                {
+                    OpenDoorsAnimation("SecondDoorsOpen");
+                    PlaySound("second_doors_open", am);
+                }
+                doorsOpened = doorsToOpen;
+                return doorsOpened;
             default:
-                Debug.LogError("Doors not found.");
-                break;
+                if (Application.isPlaying)
+                {
+                    Debug.LogError("Doors not found.");
+                }
+                doorsOpened = 0;
+                return doorsOpened;
         }
     }
 
@@ -188,29 +205,17 @@ public class ManageMorgLevel
             OpenDoors(currentStage);
             currentStage = 3;
         }
-        else if (currentStage == 3 && LastStage(finishLeverDone, finishDetonator, complexLeverDone) && WereHeroHandsWashed())
+        else if (currentStage == 3 && LastStage(finishLeverDone, finishDetonator, complexLeverDone) && hero.WereHandsWashed())
         {
             PlaySound("level_finished", am);
-            GoNextScene();
+            mb.StartCoroutine(notifications.StageStatusChange(1, true, SceneManager.GetActiveScene().buildIndex));
+
         }
         else if (finishDetonator)
         {
             PlaySound("explosions", am);
-            RestartScene();
+            mb.StartCoroutine(notifications.StageStatusChange(1, false, SceneManager.GetActiveScene().buildIndex));
         }
-    }
-    public bool WereHeroHandsWashed()
-    {
-        if (hero.WereHandsWashed())
-        {
-            return true;
-        }
-        else { return false; }
-    }
-
-    public void RestartScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Restart scene
     }
 
     public string PlaySound(string soundName, AudioManagerScript am)
@@ -252,7 +257,7 @@ public class ManageMorgLevel
         }
     }
 
-    private void OpenDoors(string doors)
+    private void OpenDoorsAnimation(string doors)
     {
         if (animator != null)
         {
@@ -274,9 +279,4 @@ public class ManageMorgLevel
         }
     }
 
-    public void GoNextScene()
-    {
-        Debug.Log("Level finished");
-        // Go next
-    }
 }

@@ -18,17 +18,6 @@ public class AudioManagerScript : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        // Keep Playing Sound While Switching Scenes
-        if (instance == null)
-            instance = this;
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
-
         // Run through all the sounds in the sounds array and save them
         foreach (SoundScript s in sounds)
         {
@@ -46,6 +35,10 @@ public class AudioManagerScript : MonoBehaviour
     /// <param name="name"></param>
     public void Play(string name)
     {
+        if(sounds == null)
+        {
+            Awake();
+        }
         SoundScript s = Array.Find(sounds, sound => sound.GetName() == name); // Find Sound From Sounds List
         if (s == null)
         {

@@ -6,8 +6,8 @@ public class SocketScript : MonoBehaviour
 {
 
     [SerializeField] private bool canBeUsed = true; // Variable holding value if socket can be used
-    private bool socketEmpty = true; // Variable holding value if socket is empty
-    private GameObject testTube = null; // Variable holding current attached test tube
+    [SerializeField] private bool socketEmpty = true; // Variable holding value if socket is empty
+    [SerializeField] private GameObject testTube = null; // Variable holding current attached test tube
     [SerializeField] private GameObject desiredTestTube = null; // Variable holding desired test tube
     private HeroDataScript hero; // Game character
 
@@ -25,7 +25,9 @@ public class SocketScript : MonoBehaviour
     public void UseSocket()
     {
         if (canBeUsed)
+        {
             socketEmpty = false; // use socket
+        }
     }
 
     /// <summary>

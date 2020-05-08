@@ -21,17 +21,16 @@ public class SwitchInteractionScript : MonoBehaviour
     [SerializeField] private bool isSwitch = false;
     [Space]
 
-
+    [SerializeField] private GameObject finishNotification = null; // Variable holding finish notification game object
     [SerializeField] private Animator animator = null; // Animator for switches animations
     private HeroDataScript hero; // Game character
 
     private ManageMorgLevelScript morgLevelScript = null; // Morgue level manager script
     private ManageMorgLevel morgLevel; // Morgue level manager
 
-    // IsObjectInRange()
-    private float distance; // Variable holding distance between hero and item
-    private float angleView; // Variable holding angle difference between hero camera and item
-    private Vector3 direction; // Varialbe holding hero camera direction
+    private ObjectDistanceScript objectDistance;
+    private NotificationsScript notifications;
+
 
     #endregion
 
@@ -44,7 +43,8 @@ public class SwitchInteractionScript : MonoBehaviour
         morgLevelScript = FindObjectOfType<ManageMorgLevelScript>(); // Get current socket
         hero = FindObjectOfType<HeroDataScript>(); // Get hero object
         morgLevel = morgLevelScript.morgLevel;
-
+        objectDistance = new ObjectDistanceScript();
+        notifications = new NotificationsScript();
     }
 
     /// <summary>
@@ -53,6 +53,7 @@ public class SwitchInteractionScript : MonoBehaviour
     private void Update()
     {
         ButtonPressed();
+        ShowFinishNotification(transform, Camera.main);
     }
 
     /// <summary>
@@ -60,27 +61,11 @@ public class SwitchInteractionScript : MonoBehaviour
     /// </summary>
     void ButtonPressed()
     {
-        if (ButtonEPressed()) { } // Check if button E was pressed on an switch
-        else if (ButtonUpPressed()) { } // Check if button arrow up was pressed on an switch
-        else if (ButtonDownPressed()) { } // Check if button arrow down was pressed on an switch
-        else if (ButtonLeftPressed()) { } // Check if button arrow left was pressed on an switch
-        else if (ButtonRightPressed()) { } // Check if button arrow right was pressed on an switch
-    }
-
-    /// <summary>
-    /// Function to check if switch is reachable
-    /// </summary>
-    /// <returns></returns>
-    bool IsObjectInRange()
-    {
-        distance = Vector3.Distance(transform.position, Camera.main.transform.position);
-        direction = transform.position - Camera.main.transform.position;
-        angleView = Vector3.Angle(Camera.main.transform.forward, direction);
-
-        if (angleView < 45f && distance < 3f)
-            return true;
-        else
-            return false;
+        if (ButtonEPressed(transform, Camera.main)) { } // Check if button E was pressed on an switch
+        else if (ButtonUpPressed(transform, Camera.main)) { } // Check if button arrow up was pressed on an switch
+        else if (ButtonDownPressed(transform, Camera.main)) { } // Check if button arrow down was pressed on an switch
+        else if (ButtonLeftPressed(transform, Camera.main)) { } // Check if button arrow left was pressed on an switch
+        else if (ButtonRightPressed(transform, Camera.main)) { } // Check if button arrow right was pressed on an switch
     }
 
     #endregion
@@ -88,13 +73,31 @@ public class SwitchInteractionScript : MonoBehaviour
     #region On button pressed activities
 
     /// <summary>
+    /// Function to show finish game notification
+    /// </summary>
+    private void ShowFinishNotification(Transform transform, Camera main)
+    {
+        if (isFinishDetonate)
+        {
+            if (objectDistance.IsObjectInRange(transform.position, main.transform) && !animator.GetBool("FinishDetonate"))
+            {
+                notifications.ShowNotification(true, finishNotification);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    notifications.ShowNotification(false, finishNotification);
+                }
+            }
+        }
+    }
+
+    /// <summary>
     /// Function if Button E pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonEPressed()
+    bool ButtonEPressed(Transform transform, Camera main)
     {
         // If Button E pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.E) && IsObjectInRange())
+        if (Input.GetKeyDown(KeyCode.E) && objectDistance.IsObjectInRange(transform.position, main.transform))
         {
             //Check which switch to manipulate
             if (isDummyDetonate)
@@ -134,10 +137,10 @@ public class SwitchInteractionScript : MonoBehaviour
     /// Function if Button Up pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonUpPressed()
+    bool ButtonUpPressed(Transform transform, Camera main)
     {
         // If button arrow up pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.UpArrow) && IsObjectInRange())
+        if (Input.GetKeyDown(KeyCode.UpArrow) && objectDistance.IsObjectInRange(transform.position, main.transform))
         {
             //Check which switch to manipulate
             if (isComplexLever)
@@ -156,10 +159,10 @@ public class SwitchInteractionScript : MonoBehaviour
     /// Function if Button Down pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonDownPressed()
+    bool ButtonDownPressed(Transform transform, Camera main)
     {
         // If Button arrow down pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.DownArrow) && IsObjectInRange())
+        if (Input.GetKeyDown(KeyCode.DownArrow) && objectDistance.IsObjectInRange(transform.position, main.transform))
         {
             //Check which switch to manipulate
             if (isComplexLever)
@@ -178,10 +181,10 @@ public class SwitchInteractionScript : MonoBehaviour
     /// Function if Button Left pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonLeftPressed()
+    bool ButtonLeftPressed(Transform transform, Camera main)
     {
         // If Button arrow left pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && IsObjectInRange())
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && objectDistance.IsObjectInRange(transform.position, main.transform))
         {
             //Check which switch to manipulate
             if (isComplexLever)
@@ -204,10 +207,10 @@ public class SwitchInteractionScript : MonoBehaviour
     /// Function if Button Right pressed to manipulate switch
     /// </summary>
     /// <returns></returns>
-    bool ButtonRightPressed()
+    bool ButtonRightPressed(Transform transform, Camera main)
     {
         // If Button arrow right pressed and object is near enough to be clickable
-        if (Input.GetKeyDown(KeyCode.RightArrow) && IsObjectInRange())
+        if (Input.GetKeyDown(KeyCode.RightArrow) && objectDistance.IsObjectInRange(transform.position, main.transform))
         {
             //Check which switch to manipulate
             if (isComplexLever)

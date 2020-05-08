@@ -417,6 +417,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &64698068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64698065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!4 &64698070 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490002, guid: 6b2098cbc1fd4384da8ca063c3d4eb24,
@@ -898,6 +915,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 156902579}
 --- !u!4 &157410768 stripped
 Transform:
@@ -1240,6 +1258,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &214049511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214049508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!4 &214049513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490002, guid: 6b2098cbc1fd4384da8ca063c3d4eb24,
@@ -1294,6 +1329,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 217447231}
 --- !u!95 &217447231
 Animator:
@@ -1667,6 +1703,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1 &298000179 stripped
 GameObject:
@@ -2156,6 +2193,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 416886812}
 --- !u!95 &416886812
 Animator:
@@ -2496,6 +2534,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1001 &483522558
 PrefabInstance:
@@ -2873,6 +2912,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 554236616}
 --- !u!95 &554236616
 Animator:
@@ -2997,6 +3037,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1 &577449841 stripped
 GameObject:
@@ -3034,6 +3075,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &577449844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577449841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 0
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!4 &577449846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490002, guid: 6b2098cbc1fd4384da8ca063c3d4eb24,
@@ -3441,6 +3499,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &686475149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686475147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!54 &686475150
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3709,12 +3784,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 715620855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroHandsPosition: {fileID: 0}
-  characterBody: {fileID: 0}
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
   possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!1001 &716952249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3904,6 +3981,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!4 &732523285 stripped
 Transform:
@@ -4037,6 +4115,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &766675960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766675957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!4 &766675962 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490002, guid: 6b2098cbc1fd4384da8ca063c3d4eb24,
@@ -4096,6 +4191,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1803748425}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &779983828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779983826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!64 &779983829
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4254,6 +4366,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &802790207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802790205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!54 &802790208
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4794,7 +4923,8 @@ PrefabInstance:
       propertyPath: characterBody
       value: 
       objectReference: {fileID: 1238380723}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1 &877611076
 GameObject:
@@ -5221,6 +5351,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &909438354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909438351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!4 &909438356 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490002, guid: 6b2098cbc1fd4384da8ca063c3d4eb24,
@@ -6053,6 +6200,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 576574838}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1071392857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071392856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 0
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!54 &1071392860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6123,12 +6287,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1075989239}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 0}
   characterBody: {fileID: 0}
   possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!65 &1075989242
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7658,6 +7824,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 1
+  finishNotification: {fileID: 0}
   animator: {fileID: 1315583626}
 --- !u!4 &1315583630 stripped
 Transform:
@@ -7749,6 +7916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1001 &1327434052
 PrefabInstance:
@@ -8556,19 +8724,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1830402706}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1442989767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442989765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac93c33cb455bbe46b57ef79e3ac86d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  finishNotification: {fileID: 1780751239}
 --- !u!114 &1442989768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8592,6 +8747,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 1
   isSwitch: 0
+  finishNotification: {fileID: 1780751239}
   animator: {fileID: 1442989769}
 --- !u!95 &1442989769
 Animator:
@@ -9402,6 +9558,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &1541648843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541648841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!54 &1541648844
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9499,6 +9672,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1 &1558898492 stripped
 GameObject:
@@ -9535,6 +9709,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 1558898495}
 --- !u!95 &1558898495
 Animator:
@@ -10253,6 +10428,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fc2c4c6b3f214fb41aa203e2cf5b5e37, type: 3}
+--- !u!114 &1741625712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741625709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!4 &1741625714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 490002, guid: 6b2098cbc1fd4384da8ca063c3d4eb24,
@@ -10294,6 +10486,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 1745544151}
 --- !u!95 &1745544151
 Animator:
@@ -10766,6 +10959,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1001 &1828336879
 PrefabInstance:
@@ -11072,6 +11266,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 1842585186}
 --- !u!95 &1842585186
 Animator:
@@ -11211,6 +11406,7 @@ MonoBehaviour:
   isDummyDetonate: 1
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 1859788472}
 --- !u!95 &1859788472
 Animator:
@@ -11231,21 +11427,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1859788473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859788465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HeroHandsPosition: {fileID: 0}
-  characterBody: {fileID: 0}
-  possibleToGrab: 1
 --- !u!1001 &1870582429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11321,6 +11502,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!4 &1877518397 stripped
 Transform:
@@ -11448,20 +11630,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1962956263}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &1904173787
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1904173784}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 8329db4d33f1198408ab313c5d861966, type: 3}
 --- !u!54 &1904173788
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11487,12 +11655,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1904173784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroHandsPosition: {fileID: 0}
-  characterBody: {fileID: 0}
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
   possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!1 &1907581865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 125502, guid: ab4ced4914b68784d8bf02aba7918f90,
@@ -11637,7 +11807,8 @@ PrefabInstance:
       propertyPath: characterBody
       value: 
       objectReference: {fileID: 1238380723}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1001 &1932085256
 PrefabInstance:
@@ -11718,6 +11889,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!114 &1948730919 stripped
 MonoBehaviour:
@@ -11737,6 +11909,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 873063374}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1955155078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955155077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
+  possibleToGrab: 0
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!65 &1955155081
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11858,8 +12047,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -30.467001
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6446162, guid: 8555b5e3674ee2a49b8206c8ce692744, type: 3}
+    - target: {fileID: 6446162, guid: 8555b5e3674ee2a49b8206c8ce692744, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8555b5e3674ee2a49b8206c8ce692744, type: 3}
 --- !u!4 &1962956264 stripped
 Transform:
@@ -12077,6 +12269,7 @@ MonoBehaviour:
   isDummyDetonate: 0
   isFinishDetonate: 0
   isSwitch: 0
+  finishNotification: {fileID: 0}
   animator: {fileID: 1999177553}
 --- !u!95 &1999177553
 Animator:
@@ -12489,12 +12682,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2044350055}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597a479920975f048b475a2b2b2330a2, type: 3}
+  m_Script: {fileID: 11500000, guid: a38976937e6da1c4eaacc0982fa6c1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroHandsPosition: {fileID: 0}
-  characterBody: {fileID: 0}
+  HeroHandsPosition: {fileID: 2139762638}
+  characterBody: {fileID: 1238380723}
   possibleToGrab: 1
+  testTube: 0
+  currentSocket: {fileID: 0}
 --- !u!4 &2062559138 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 6a9735e7db76a1b4083aecf3819ba5a3,
@@ -12764,6 +12959,7 @@ PrefabInstance:
       objectReference: {fileID: 1238380723}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 8308869619952089575, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6b2098cbc1fd4384da8ca063c3d4eb24, type: 3}
 --- !u!1 &2121169120 stripped
 GameObject:

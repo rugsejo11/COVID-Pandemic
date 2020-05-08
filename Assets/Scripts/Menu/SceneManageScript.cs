@@ -52,4 +52,11 @@ public class SceneManageScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    /// <summary>
+    /// Function to load next scene
+    /// </summary>
+    public static void LoadNextLevel(int currentSceneIndex)
+    {
+        SceneManager.LoadScene(currentSceneIndex + 1);
+    }
 }

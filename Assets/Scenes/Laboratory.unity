@@ -1250,9 +1250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &118624801
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1984,6 +1984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 1984521463}
 --- !u!135 &227985737
 SphereCollider:
@@ -2277,9 +2279,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &257158830
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2843,6 +2845,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!1 &350418883
 GameObject:
@@ -3850,6 +3854,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &426139777
 SphereCollider:
@@ -7812,6 +7818,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &847438132
 SphereCollider:
@@ -8927,6 +8935,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 257158826}
 --- !u!135 &933691123
 SphereCollider:
@@ -9394,9 +9404,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &1003990699
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9687,9 +9697,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!54 &1010483667
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10028,6 +10038,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 2029450623}
 --- !u!135 &1032682295
 SphereCollider:
@@ -11445,6 +11457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &1123186657
 SphereCollider:
@@ -12165,6 +12179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &1191927705
 SphereCollider:
@@ -13373,9 +13389,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!54 &1257925930
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13486,9 +13502,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &1289987177
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13708,6 +13724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 2057119272}
 --- !u!135 &1292719101
 SphereCollider:
@@ -16440,9 +16458,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &1542015523
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18785,6 +18803,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!135 &1832468139
 SphereCollider:
@@ -19657,6 +19677,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 0}
 --- !u!1 &1919380023
 GameObject:
@@ -20210,9 +20232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &1984521466
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20604,9 +20626,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &2004365398
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21258,9 +21280,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &2029450627
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21664,9 +21686,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroHandsPosition: {fileID: 1764801967}
-  hero: {fileID: 0}
   characterBody: {fileID: 1850475532}
-  currentSocket: {fileID: 0}
+  possibleToGrab: 1
+  testTube: 1
 --- !u!64 &2057119276
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21982,6 +22004,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeUsed: 1
+  socketEmpty: 1
+  testTube: {fileID: 0}
   desiredTestTube: {fileID: 1289987174}
 --- !u!1 &2081056292
 GameObject:
