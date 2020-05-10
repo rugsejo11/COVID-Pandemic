@@ -90,6 +90,7 @@ public class SwitchInteractionScript : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Function if Button E pressed to manipulate switch
     /// </summary>

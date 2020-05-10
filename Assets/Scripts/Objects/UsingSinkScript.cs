@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 public class UsingSinkScript : MonoBehaviour
 {
     [SerializeField] private GameObject washHandsNotification = null;
@@ -30,13 +29,13 @@ public class UsingSinkScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        Interaction(transform, Camera.main);
+        InteractWithHero(transform, Camera.main);
     }
 
     /// <summary>
     /// Function to interact with sink
     /// </summary>
-    void Interaction(Transform transform, Camera main)
+    void InteractWithHero(Transform transform, Camera main)
     {
         if (objectDistance.IsObjectInRange(transform.position, main.transform) && !hero.WereHandsWashed())
         {

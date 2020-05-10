@@ -5,7 +5,7 @@ public class HeroDataScript : MonoBehaviour
     #region Variables
 
     public delegate void HPChangeDelegate(); // Indrutes pagalbos reikia
-    private HPChangeDelegate onHPChangeCallback;
+    public HPChangeDelegate onHPChangeCallback;
     private bool objectGrabbed = false; // Variable holding value if hero has object in he's hands
     [SerializeField] private bool handsWashed = false; // Variable holding value if hero has washed his hands
     [SerializeField] private float health = 1; // current health points hero has

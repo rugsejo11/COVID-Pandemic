@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Tests
 {
-    public class PlaceToRackScriptTests
+    public class ObjectManipulationScriptTests
     {
         [Test]
         [TestCase("-1,-1,-1", "-1,-1,-1")]
@@ -23,12 +23,12 @@ namespace Tests
             var secondVector = secondVector3.Split(',').Select(float.Parse).ToArray();
             Vector3 result = new Vector3(secondVector[0], secondVector[1], secondVector[2]);
 
-            PlaceToRackScript placeToRack = new PlaceToRackScript();
+            ObjectManipulationScript objectManipulation = new ObjectManipulationScript();
             GameObject gameObject = new GameObject();
 
             Vector3 resultReturned;
 
-            resultReturned = placeToRack.SetTubePosition(gameObject, input);
+            resultReturned = objectManipulation.PlaceObjectToRack(gameObject, input);
 
             Assert.AreEqual(result, resultReturned);
         }

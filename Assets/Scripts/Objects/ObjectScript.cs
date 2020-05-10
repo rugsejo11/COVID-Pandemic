@@ -11,14 +11,14 @@ public class ObjectScript : MonoBehaviour
     private Rigidbody objectToTake; // Object that hero is trying to take
 
     // Grab and object
-    private GrabObjectScript grabAnObject = new GrabObjectScript();
+    private ObjectManipulationScript manipulateObject;
     [SerializeField] private bool possibleToGrab = false; // Is it possible to grab this item
 
 
     // Test tube rack slot
     [SerializeField] private bool testTube = false;
     private GameObject currentSocket = null; // In which slot object is placed
-    private PlaceToRackScript placeObjectToRack; // Game character
+    private AudioManagerScript am;
 
     #endregion
 
@@ -28,15 +28,16 @@ public class ObjectScript : MonoBehaviour
     {
         hero = FindObjectOfType<HeroDataScript>(); // Get hero object
         objectToTake = GetComponent<Rigidbody>(); // Get object to take
+        am = FindObjectOfType<AudioManagerScript>();
 
         if (possibleToGrab)
         {
-            grabAnObject = new GrabObjectScript();
+            manipulateObject = new ObjectManipulationScript();
+            manipulateObject.am = am;
 
             if (testTube)
             {
-                placeObjectToRack = new PlaceToRackScript(); // Get hero object
-                grabAnObject.TimeAfterRemovingFromRack = 2;
+                manipulateObject.TimeAfterRemovingFromRack = 2;
             }
         }
     }
@@ -49,19 +50,19 @@ public class ObjectScript : MonoBehaviour
         // Grab object
         if (possibleToGrab)
         {
-            grabAnObject.GrabAnObject(transform, Camera.main, hero, HeroHandsPosition, objectToTake);
+            manipulateObject.GrabAnObject(transform, Camera.main, hero, HeroHandsPosition, objectToTake);
         }
 
         // Put to rack if test tube
         if (testTube)
         {
-            if (grabAnObject.AtSocket)
+            if (manipulateObject.AtSocket)
             {
-                placeObjectToRack.SetTubePosition(gameObject, currentSocket.transform.position);
+                manipulateObject.PlaceObjectToRack(gameObject, currentSocket.transform.position);
             }
             else
             {
-                grabAnObject.TimeAfterRemovingFromRack += Time.deltaTime;
+                manipulateObject.TimeAfterRemovingFromRack += Time.deltaTime;
             }
         }
     }
@@ -71,11 +72,12 @@ public class ObjectScript : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Socket" && grabAnObject.TimeAfterRemovingFromRack >= 2)
+        if (other.gameObject.tag == "Socket" && manipulateObject.TimeAfterRemovingFromRack >= 2)
         {
-            grabAnObject.AtSocket = true;
+            manipulateObject.AtSocket = true;
             currentSocket = other.gameObject;
             other.gameObject.tag = "UsedSocket";
+            ////am.Play("putToRack"); // Play explosion sound effect
         }
     }
 
@@ -85,7 +87,7 @@ public class ObjectScript : MonoBehaviour
     /// <param name="collision"></param>
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Room") && grabAnObject.ObjectGrabbed)
+        if (collision.gameObject.CompareTag("Room") && manipulateObject.ObjectGrabbed)
         {
             float force = 1500;
             Vector3 dir = collision.contacts[0].point - objectToTake.transform.position;

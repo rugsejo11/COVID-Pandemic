@@ -35,7 +35,7 @@ public class AudioManagerScript : MonoBehaviour
     /// <param name="name"></param>
     public void Play(string name)
     {
-        if(sounds == null)
+        if (sounds == null)
         {
             Awake();
         }
@@ -47,6 +47,15 @@ public class AudioManagerScript : MonoBehaviour
         }
         if (!s.source.isPlaying)
             s.source.Play(); // Play Sound
+    }
+
+    /// <summary>
+    /// Function to play menu button pressed sound
+    /// </summary>
+    public void PlayButtonPressed()
+    {
+        string buttonPressed = "button_press";
+        Play(buttonPressed);
     }
 
     /// <summary>

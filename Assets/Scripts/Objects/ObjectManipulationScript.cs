@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GrabObjectScript
+public class ObjectManipulationScript
 {
     private float distance; // Variable holding distance between hero and item
     private bool objectInHands = false; // Variable holding value if object is at hero's hands
@@ -13,6 +13,8 @@ public class GrabObjectScript
     public bool AtSocket { get { return atSocket; } set { atSocket = value; } } // Variable holding value if object is positioned at a socket
     public float TimeAfterRemovingFromRack { get { return timeAfterRemovingFromRack; } set { timeAfterRemovingFromRack = value; } }
     public bool ObjectGrabbed { get { return objectGrabbed; } private set { objectGrabbed = value; } }
+    public AudioManagerScript am { get; set; }
+
 
 
 
@@ -34,6 +36,7 @@ public class GrabObjectScript
             hero.GrabObject(); // Set that hero has an object in he's hands
             objectInHands = false; // Set that object is not grabbed just yet
             objectToTake.transform.rotation = Quaternion.Euler(0, 0, 0);
+            //am.Play("objectTaken"); // Play explosion sound effect
         }
 
         // If item grabbed
@@ -46,6 +49,7 @@ public class GrabObjectScript
                 hero.DropObject(); // Free hero's hands
                 objectToTake.drag = 0f;
                 objectToTake.angularDrag = .5f;
+                ////am.Play("objectDropped"); // Play explosion sound effect
             }
 
             // Follow item with char
@@ -65,6 +69,7 @@ public class GrabObjectScript
                     {
                         objectGrabbed = false;
                         hero.DropObject(); // Free hero's hands
+                        //am.Play("objectDropped"); // Play explosion sound effect
                     }
                 }
 
@@ -72,5 +77,15 @@ public class GrabObjectScript
                 objectToTake.transform.position = Vector3.Lerp(objectToTake.transform.position, HeroHandsPosition.position, 1f); // Follow object in character's hands
             }
         }
+    }
+
+    /// <summary>
+    /// Function to place an object to a socket
+    /// </summary>
+    public Vector3 PlaceObjectToRack(GameObject gameObject, Vector3 position)
+    {
+        gameObject.transform.position = position; // Set grabbed object position to socket position
+
+        return gameObject.transform.position;
     }
 }
