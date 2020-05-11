@@ -2,21 +2,25 @@
 
 public class ObjectManipulationScript
 {
+    #region Variables
+
     private float distance; // Variable holding distance between hero and item
     private bool objectInHands = false; // Variable holding value if object is at hero's hands
     private ObjectDistanceScript objectDistance = new ObjectDistanceScript();
     private bool objectGrabbed = false;
-    private float timeAfterRemovingFromRack;
     private bool atSocket = false;
 
+    #endregion 
 
-    public bool AtSocket { get { return atSocket; } set { atSocket = value; } } // Variable holding value if object is positioned at a socket
-    public float TimeAfterRemovingFromRack { get { return timeAfterRemovingFromRack; } set { timeAfterRemovingFromRack = value; } }
-    public bool ObjectGrabbed { get { return objectGrabbed; } private set { objectGrabbed = value; } }
+    #region Get Set Functions
+    public bool IsObjectGrabbed() { return objectGrabbed; }
+    public bool IsAtSocket() { return atSocket; }
+    public void SetAtSocket(bool isAtSocket) { atSocket = isAtSocket; }
     public AudioManagerScript am { get; set; }
 
+    #endregion
 
-
+    #region Interaction Functions
 
     /// <summary>
     /// Function to grab or drop object
@@ -28,7 +32,7 @@ public class ObjectManipulationScript
         {
             if (atSocket)
             {
-                timeAfterRemovingFromRack = 0;
+                hero.SetTimeAfterTakingFromRack(0);
             }
 
             atSocket = false; // Remove object from socket
@@ -88,4 +92,6 @@ public class ObjectManipulationScript
 
         return gameObject.transform.position;
     }
+
+    #endregion
 }

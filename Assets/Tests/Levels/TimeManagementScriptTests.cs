@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
+﻿using NUnit.Framework;
 
 namespace Tests
 {
 
-    public class TimeManagementTests
+    public class TimeManagementScriptTests
     {
 
         [Test]
@@ -28,7 +24,7 @@ namespace Tests
             TimeManagement tm = new TimeManagement();
             tm.ReturnTimerString(roundedSecondsLeft);
 
-            Assert.AreEqual(timerString, tm.TimerString);
+            Assert.AreEqual(timerString, tm.GetTimerString());
 
         }
 
@@ -41,7 +37,7 @@ namespace Tests
         [TestCase(0, "explosion")]
         [TestCase(-1, "error")]
 
-        public void ReturnTimerSound(
+        public void ReturnTimerSound_Test(
             float roundedSecondsLeft,
             string timerSound
             )
@@ -49,7 +45,7 @@ namespace Tests
         {
             TimeManagement tm = new TimeManagement();
             tm.ReturnTimerSound(roundedSecondsLeft);
-            Assert.AreEqual(timerSound, tm.TimerSound);
+            Assert.AreEqual(timerSound, tm.GetTimerSound());
 
         }
     }

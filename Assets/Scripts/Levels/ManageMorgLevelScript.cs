@@ -6,15 +6,18 @@ public class ManageMorgLevelScript : MonoBehaviour
 {
     #region Variables
 
-    public ManageMorgLevel morgLevel { get; set; }
+    public ManageMorgLevel morgLevel { get; set; } // Initialize ManageMorgLevel Class
 
     [SerializeField] private Animator animator = null; // Animator for switches animations
     private HeroDataScript hero; // Game character
 
     #endregion
 
-    #region Functions
+    #region Monobehaviour Functions
 
+    /// <summary>
+    /// Function to initialize any variables or game state before the game starts
+    /// </summary>
     void Awake()
     {
         hero = FindObjectOfType<HeroDataScript>(); // Get hero object
@@ -29,13 +32,12 @@ public class ManageMorgLevelScript : MonoBehaviour
 
 public class ManageMorgLevel
 {
-    private MonoBehaviour mb = GameObject.FindObjectOfType<MonoBehaviour>();
+    #region Variables
+
     public HeroDataScript hero { get; set; }
     public Animator animator { get; set; }
 
-
     private int currentStage = 1; // Variable holding current stage of the level 
-
     //Variables holding values if switches are done
     //_//Levers
     private bool hazardousLeverDone = false;
@@ -53,18 +55,11 @@ public class ManageMorgLevel
 
     private AudioManagerScript am = Object.FindObjectOfType<AudioManagerScript>();
     private NotificationsScript notifications = new NotificationsScript();
+    private MonoBehaviour mb = Object.FindObjectOfType<MonoBehaviour>();
 
-    //Get Set
+    #endregion
 
-    public bool HazardousLeverDone { get { return hazardousLeverDone; } set { hazardousLeverDone = value; } }
-    public bool FinishLeverDone { get { return finishLeverDone; } set { finishLeverDone = value; } }
-    public bool ElectricityLeverDone { get { return electricityLeverDone; } set { electricityLeverDone = value; } }
-    public bool ClownLeverDone { get { return clownLeverDone; } set { clownLeverDone = value; } }
-    public bool ComplexLeverDone { get { return complexLeverDone; } set { complexLeverDone = value; } }
-    public bool ElevatorButtonDone { get { return elevatorButtonDone; } set { elevatorButtonDone = value; } }
-    public bool SmallButtonDone { get { return smallButtonDone; } set { smallButtonDone = value; } }
-    public bool FinishDetonator { get { return finishDetonator; } set { finishDetonator = value; } }
-    public bool SwitcherDone { get { return switcherDone; } set { switcherDone = value; } }
+    #region Functions
 
     /// <summary>
     /// Function to set lever state as done or not done
@@ -218,6 +213,12 @@ public class ManageMorgLevel
         }
     }
 
+    /// <summary>
+    /// Function to play sound effects
+    /// </summary>
+    /// <param name="soundName"></param>
+    /// <param name="am"></param>
+    /// <returns></returns>
     public string PlaySound(string soundName, AudioManagerScript am)
     {
         string playedSong;
@@ -257,6 +258,10 @@ public class ManageMorgLevel
         }
     }
 
+    /// <summary>
+    /// Function to use animations for opening doors
+    /// </summary>
+    /// <param name="doors"></param>
     private void OpenDoorsAnimation(string doors)
     {
         if (animator != null)
@@ -277,6 +282,7 @@ public class ManageMorgLevel
         {
             Debug.LogError("Animator not found!");
         }
-    }
-
+    }    
+   
+    #endregion
 }

@@ -1,8 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManageScript : MonoBehaviour
 {
+    [SerializeField] private Animator transition = null; //Transition animator
+    [SerializeField] private GameObject crossfade = null; // Crossfade object for switching between scenes
+    private float transitionTime = 1f; // Transition time between scenes
+
+
     /// <summary>
     /// Function to load menu scene
     /// </summary>
@@ -16,24 +22,8 @@ public class SceneManageScript : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
-    }
-
-    /// <summary>
-    /// Function to load second level
-    /// </summary>
-    public void SecondLevel()
-    {
-        SceneManager.LoadScene(2);
-    }
-
-    /// <summary>
-    /// Function to
-    /// </summary>
-    public void PlayDemo()
-    {
-        SceneManager.LoadScene(3);
-
+        crossfade.SetActive(true);
+        StartCoroutine(LoadIntro());
     }
 
     /// <summary>
@@ -58,5 +48,18 @@ public class SceneManageScript : MonoBehaviour
     public static void LoadNextLevel(int currentSceneIndex)
     {
         SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
+    /// <summary>
+    /// Function to load intro scene
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator LoadIntro()
+    {
+        transition.SetTrigger("StartGame");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        LoadNextLevel(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -4,17 +4,17 @@ public class ManageLabLevelScript : MonoBehaviour
 {
     #region Variables
 
-    public ManageLabLevel labLevel;
+    private ManageLabLevel labLevel;
     [SerializeField] private Animator animator = null; // animator object to use animation on lever
     private HeroDataScript hero; // Game character
 
     //Tube racks
-    [SerializeField] private TubesRackScript eastRack = null;  // First rack slot
-    [SerializeField] private TubesRackScript southRack = null;  // First rack slot
+    [SerializeField] private TubesRack eastRack = null;  // First rack slot
+    [SerializeField] private TubesRack southRack = null;  // First rack slot
 
     #endregion
 
-    #region Manage lab level script functions
+    #region Monobehaviour functions
 
     void Awake()
     {
@@ -41,18 +41,25 @@ public class ManageLabLevelScript : MonoBehaviour
             labLevel.CheckIfStageFinished();
         }
     }
+    #endregion
 }
 
 public class ManageLabLevel
 {
+    #region Variables
+
     public HeroDataScript hero { get; set; }
-    public TubesRackScript eastRack { get; set; }
-    public TubesRackScript southRack { get; set; }
+    public TubesRack eastRack { get; set; }
+    public TubesRack southRack { get; set; }
     public Animator animator { get; set; }
     public Transform transform { get; set; }
 
     private AudioManagerScript am = Object.FindObjectOfType<AudioManagerScript>();
     private ObjectDistanceScript objectDistance = new ObjectDistanceScript();
+
+    #endregion
+
+    #region Functions
 
     /// <summary>
     /// Function to check if button e pressed on finish lever
@@ -75,7 +82,7 @@ public class ManageLabLevel
     /// Function to check if south rack is finished
     /// </summary>
     /// <returns></returns>
-    bool SouthRack(TubesRackScript southRack)
+    public bool SouthRackFinished(TubesRack southRack)
     {
         if (!southRack.GetSocket(2).IsSocketEmpty() && !southRack.GetSocket(5).IsSocketEmpty())
         {
@@ -91,7 +98,7 @@ public class ManageLabLevel
     /// Function to check if east rack is finished
     /// </summary>
     /// <returns></returns>
-    bool EastRack(TubesRackScript eastRack)
+    public bool EastRackFinished(TubesRack eastRack)
     {
         if (!eastRack.GetSocket(1).IsSocketEmpty() && !eastRack.GetSocket(3).IsSocketEmpty() && !eastRack.GetSocket(6).IsSocketEmpty())
         {
@@ -109,7 +116,7 @@ public class ManageLabLevel
     /// </summary>
     public void CheckIfStageFinished()
     {
-        if (hero.WereHandsWashed() && SouthRack(southRack) && EastRack(eastRack))
+        if (hero.WereHandsWashed() && SouthRackFinished(southRack) && EastRackFinished(eastRack))
         {
             am.Play("level_finished"); // Play Button Press Audio
             Debug.Log("Level finished");

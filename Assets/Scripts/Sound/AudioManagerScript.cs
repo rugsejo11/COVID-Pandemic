@@ -6,7 +6,6 @@ public class AudioManagerScript : MonoBehaviour
     #region Variables
 
     [SerializeField] private SoundScript[] sounds = null; // List Of Audio Manager Sounds
-    private static AudioManagerScript instance; // Audio Manager Instance
     private int lastStep = 0; // Variable holding last footstep sound played
 
     #endregion

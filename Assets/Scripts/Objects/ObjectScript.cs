@@ -14,7 +14,6 @@ public class ObjectScript : MonoBehaviour
     private ObjectManipulationScript manipulateObject;
     [SerializeField] private bool possibleToGrab = false; // Is it possible to grab this item
 
-
     // Test tube rack slot
     [SerializeField] private bool testTube = false;
     private GameObject currentSocket = null; // In which slot object is placed
@@ -22,7 +21,7 @@ public class ObjectScript : MonoBehaviour
 
     #endregion
 
-    #region Functions
+    #region Monobehaviour Functions
 
     void Awake()
     {
@@ -37,7 +36,7 @@ public class ObjectScript : MonoBehaviour
 
             if (testTube)
             {
-                manipulateObject.TimeAfterRemovingFromRack = 2;
+                hero.SetTimeAfterTakingFromRack(2);
             }
         }
     }
@@ -56,13 +55,13 @@ public class ObjectScript : MonoBehaviour
         // Put to rack if test tube
         if (testTube)
         {
-            if (manipulateObject.AtSocket)
+            if (manipulateObject.IsAtSocket())
             {
                 manipulateObject.PlaceObjectToRack(gameObject, currentSocket.transform.position);
             }
             else
             {
-                manipulateObject.TimeAfterRemovingFromRack += Time.deltaTime;
+                hero.AddTimeAfterTakingFromRack(Time.deltaTime);
             }
         }
     }
@@ -72,9 +71,9 @@ public class ObjectScript : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Socket" && manipulateObject.TimeAfterRemovingFromRack >= 2)
+        if (other.gameObject.tag == "Socket" && hero.GetTimeAfterTakingFromRack() >= 2)
         {
-            manipulateObject.AtSocket = true;
+            manipulateObject.SetAtSocket(true);
             currentSocket = other.gameObject;
             other.gameObject.tag = "UsedSocket";
             ////am.Play("putToRack"); // Play explosion sound effect
@@ -87,7 +86,7 @@ public class ObjectScript : MonoBehaviour
     /// <param name="collision"></param>
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Room") && manipulateObject.ObjectGrabbed)
+        if (collision.gameObject.CompareTag("Room") && manipulateObject.IsObjectGrabbed())
         {
             float force = 1500;
             Vector3 dir = collision.contacts[0].point - objectToTake.transform.position;

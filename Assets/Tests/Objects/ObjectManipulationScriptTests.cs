@@ -11,7 +11,7 @@ namespace Tests
         [TestCase("0,0,0", "0,0,0")]
         [TestCase("1,1,1", "1,1,1")]
 
-        public void SetTubePosition_Test(
+        public void PlaceObjectToRack_Test(
             string firstVector3,
             string secondVector3
             )

@@ -3,17 +3,29 @@ using TMPro;
 
 public class TimeManagementScript : MonoBehaviour
 {
-
-    private TimeManagement tm;
+    #region Variables
+    private TimeManagement tm; // Initializing TimeManagement class
+    private AudioManagerScript am;
 
     [Range(0, 1800)]
     [SerializeField] private float secondsLeft = 0; // Variable holding time left
     [SerializeField] private TMP_Text textBox = null; // Text box showing time left
+
+    #endregion
+
+    #region Monobehaviour Functions
+
+    /// <summary>
+    /// Function initialize any variables or game state before the game starts
+    /// </summary>
     private void Awake()
     {
+        am = FindObjectOfType<AudioManagerScript>();
+
         tm = new TimeManagement();
-        tm.SecondsLeft = secondsLeft;
-        tm.TextBox = textBox;
+        tm.am = am;
+        tm.SetSecondsLeft(secondsLeft);
+        tm.SetTextBox(textBox);
     }
 
     /// <summary>
@@ -21,15 +33,16 @@ public class TimeManagementScript : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        tm.SecondsLeft -= Time.deltaTime;
-        tm.RoundedSecondsLeft = Mathf.Round(tm.SecondsLeft);
-        tm.TimerString = tm.ReturnTimerString(tm.RoundedSecondsLeft);
-        tm.UpdateDigitalTimer(tm.TimerString);
+        tm.MinusSecondsLeft(Time.deltaTime);
+        tm.SetRoundedSecondsLeft(Mathf.Round(tm.GetSecondsLeft()));
+        tm.SetTimerString(tm.ReturnTimerString(tm.GetRoundedSecondsLeft()));
+        tm.UpdateDigitalTimer(tm.GetTimerString());
 
-        tm.TimerSound = tm.ReturnTimerSound(tm.RoundedSecondsLeft);
-        tm.PlaySound(tm.TimerSound);
+        tm.SetTimerSound(tm.ReturnTimerSound(tm.GetRoundedSecondsLeft()));
+        tm.PlaySound(tm.GetTimerSound());
     }
 
+    #endregion
 }
 public class TimeManagement
 {
@@ -41,18 +54,25 @@ public class TimeManagement
     private float secondsLeft;
     private string timerString;
     private string timerSound;
-    private float timerMinutes { get; set; }
-    private float timerSeconds { get; set; }
+    private float timerMinutes;
+    private float timerSeconds;
 
-    private AudioManagerScript am = UnityEngine.Object.FindObjectOfType<AudioManagerScript>();
+    #endregion
+
+    #region Get Set Function
+    public AudioManagerScript am { get; set; }
 
     // Get Set methods
-    public float RoundedSecondsLeft { get { return roundedSecondsLeft; } set { roundedSecondsLeft = value; } } 
-    public TMP_Text TextBox { get { return textBox; } set { textBox = value; } }
-    public float SecondsLeft { get { return secondsLeft; } set { secondsLeft = value; } }
-    public string TimerString { get { return timerString; } set { timerString = value; } }
-    public string TimerSound { get { return timerSound; } set { timerSound = value; } }
-
+    public float GetRoundedSecondsLeft() { return roundedSecondsLeft; }
+    public void SetRoundedSecondsLeft(float roundedSeconds) { roundedSecondsLeft = roundedSeconds; }
+    public TMP_Text SetTextBox(TMP_Text tBox) { return textBox = tBox; }
+    public float GetSecondsLeft() { return secondsLeft; }
+    public void SetSecondsLeft(float seconds) { secondsLeft = seconds; }
+    public void MinusSecondsLeft(float seconds) { secondsLeft -= seconds; }
+    public string GetTimerString() { return timerString; }
+    public void SetTimerString(string timerStr) { timerString = timerStr; }
+    public string GetTimerSound() { return timerSound; }
+    public void SetTimerSound(string timerSoun) { timerSound = timerSoun; }
 
     #endregion
 

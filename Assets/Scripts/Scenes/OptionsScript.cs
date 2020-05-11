@@ -19,7 +19,10 @@ public class OptionsScript : MonoBehaviour
     private Resolution selectedResolution; // Variable Containing Selected Resolution
     #endregion
 
-    #region On Start
+    #region Monobehaviour Functions
+    /// <summary>
+    /// Function is called on the frame when a script is enabled just before any of the Update methods are called the first time
+    /// </summary>
     private void Start()
     {
         screenResolutions = Screen.resolutions.Where(resolution => resolution.refreshRate == 60).ToArray(); // All Available Monitor Resolutions With 60 Refresh Rate

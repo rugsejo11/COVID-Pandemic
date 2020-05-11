@@ -23,18 +23,16 @@ public class SwitchInteractionScript : MonoBehaviour
 
     [SerializeField] private GameObject finishNotification = null; // Variable holding finish notification game object
     [SerializeField] private Animator animator = null; // Animator for switches animations
+
     private HeroDataScript hero; // Game character
-
-    private ManageMorgLevelScript morgLevelScript = null; // Morgue level manager script
-    private ManageMorgLevel morgLevel; // Morgue level manager
-
-    private ObjectDistanceScript objectDistance;
-    private NotificationsScript notifications;
-
+    private ManageMorgLevelScript morgLevelScript = null; // Morgue level script
+    private ManageMorgLevel morgLevel; // Morgue level
+    private ObjectDistanceScript objectDistance; // Object distance script
+    private NotificationsScript notifications; // Notifications script
 
     #endregion
 
-    #region Essential functions
+    #region Monobehaviour functions
     /// <summary>
     /// Function is called on the frame when a script is enabled just before any of the Update methods are called the first time
     /// </summary>
@@ -70,7 +68,7 @@ public class SwitchInteractionScript : MonoBehaviour
 
     #endregion
 
-    #region On button pressed activities
+    #region On button press activities
 
     /// <summary>
     /// Function to show finish game notification
@@ -89,7 +87,6 @@ public class SwitchInteractionScript : MonoBehaviour
             }
         }
     }
-
 
     /// <summary>
     /// Function if Button E pressed to manipulate switch

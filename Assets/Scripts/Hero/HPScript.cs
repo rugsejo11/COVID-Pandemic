@@ -96,6 +96,11 @@ public class HPScript : MonoBehaviour
             heartFills[i] = temp.transform.Find("HeartFill").GetComponent<Image>(); // Fill child object with a heart
         }
     }
+
+    /// <summary>
+    /// Function to bug check if heart container and parent exist
+    /// </summary>
+    /// <returns></returns>
     private bool HeartContainerAndParentExist()
     {
         if (heartContainerPrefab == null)

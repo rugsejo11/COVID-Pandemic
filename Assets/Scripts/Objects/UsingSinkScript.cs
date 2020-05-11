@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 public class UsingSinkScript : MonoBehaviour
 {
+    #region Variables
+
     [SerializeField] private GameObject washHandsNotification = null;
     [SerializeField] private GameObject washHandsEducationNotification = null;
 
     private HeroDataScript hero; // Game character
     [SerializeField] private bool isWorking = true; // Is sink is working
     [SerializeField] private bool waterValveOn = true; // Is sink's water valve is on
-    private ObjectDistanceScript objectDistance;
-    private AudioManagerScript am;
-    private NotificationsScript notifications;
+    private ObjectDistanceScript objectDistance; // Object Distance
+    private AudioManagerScript am; // Audio manager
+    private NotificationsScript notifications; // Notifications
 
+    #endregion
 
+    #region Monobehaviour functions
 
     /// <summary>
     /// Function is called on the frame when a script is enabled just before any of the Update methods are called the first time
@@ -31,6 +35,10 @@ public class UsingSinkScript : MonoBehaviour
     {
         InteractWithHero(transform, Camera.main);
     }
+
+    #endregion
+
+    #region Interaction with Sink Functions
 
     /// <summary>
     /// Function to interact with sink
@@ -90,4 +98,6 @@ public class UsingSinkScript : MonoBehaviour
     {
         //am.Play("SinkWaterOn"); // Play Button Press Audio
     }
+
+    #endregion
 }
