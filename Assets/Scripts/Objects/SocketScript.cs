@@ -9,7 +9,7 @@ public class SocketScript : MonoBehaviour
     [SerializeField] private GameObject testTube = null; // Variable holding current attached test tube
     [SerializeField] private GameObject desiredTestTube = null; // Variable holding desired test tube
     private HeroDataScript hero; // Game character
-    private Socket socket; // Initialize Socket class
+    public Socket socket { get; set; } // Initialize Socket class
 
     #endregion
 

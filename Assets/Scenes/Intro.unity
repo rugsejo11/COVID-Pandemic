@@ -330,6 +330,7 @@ MonoBehaviour:
   Fourth: {fileID: 1984354572}
   appearTime: 2
   disappearTime: 3
+  isFinish: 0
 --- !u!4 &132311741
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ManageMorgLevelScript : MonoBehaviour
@@ -142,7 +141,7 @@ public class ManageMorgLevel
     /// Function to check if first stage is finished
     /// </summary>
     /// <returns></returns>
-    public bool FirstStage(bool smallButtonDone, bool hazardousLeverDone, bool switcherDone)
+    public bool IsFirstStageFinished(bool smallButtonDone, bool hazardousLeverDone, bool switcherDone)
     {
         if (smallButtonDone && hazardousLeverDone && switcherDone)
         {
@@ -159,7 +158,7 @@ public class ManageMorgLevel
     /// Function to check if second stage is finished
     /// </summary>
     /// <returns></returns>
-    public bool SecondStage(bool clownLeverDone, bool electricityLeverDone, bool elevatorButtonDone)
+    public bool IsSecondStageFinished(bool clownLeverDone, bool electricityLeverDone, bool elevatorButtonDone)
     {
         if (clownLeverDone && electricityLeverDone && elevatorButtonDone)
         {
@@ -176,7 +175,7 @@ public class ManageMorgLevel
     /// Function to check if third stage is finished
     /// </summary>
     /// <returns></returns>
-    public bool LastStage(bool finishLeverDone, bool finishDetonator, bool complexLeverDone)
+    public bool IsLastStageFinished(bool finishLeverDone, bool finishDetonator, bool complexLeverDone)
     {
         if (finishLeverDone && finishDetonator && complexLeverDone)
         {
@@ -190,17 +189,17 @@ public class ManageMorgLevel
     /// </summary>
     public void CheckIfStageFinished()
     {
-        if (currentStage == 1 && FirstStage(smallButtonDone, hazardousLeverDone, switcherDone))
+        if (currentStage == 1 && IsFirstStageFinished(smallButtonDone, hazardousLeverDone, switcherDone))
         {
             OpenDoors(currentStage);
             currentStage = 2;
         }
-        else if (currentStage == 2 && SecondStage(clownLeverDone, electricityLeverDone, elevatorButtonDone))
+        else if (currentStage == 2 && IsSecondStageFinished(clownLeverDone, electricityLeverDone, elevatorButtonDone))
         {
             OpenDoors(currentStage);
             currentStage = 3;
         }
-        else if (currentStage == 3 && LastStage(finishLeverDone, finishDetonator, complexLeverDone) && hero.WereHandsWashed())
+        else if (currentStage == 3 && IsLastStageFinished(finishLeverDone, finishDetonator, complexLeverDone) && hero.WereHandsWashed())
         {
             PlaySound("level_finished", am);
             mb.StartCoroutine(notifications.StageStatusChange(1, true, SceneManager.GetActiveScene().buildIndex));

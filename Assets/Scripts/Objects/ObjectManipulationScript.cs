@@ -25,7 +25,7 @@ public class ObjectManipulationScript
     /// <summary>
     /// Function to grab or drop object
     /// </summary>
-    public void GrabAnObject(Transform transform, Camera main, HeroDataScript hero, Transform HeroHandsPosition, Rigidbody objectToTake)
+    public bool GrabAnObject(Transform transform, Camera main, HeroDataScript hero, Transform HeroHandsPosition, Rigidbody objectToTake)
     {
         // If in range, button pressed and item don't grab, grab item
         if (objectDistance.IsObjectInRange(transform.position, main.transform) && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed()) // If button pressed and object in range
@@ -41,6 +41,7 @@ public class ObjectManipulationScript
             objectInHands = false; // Set that object is not grabbed just yet
             objectToTake.transform.rotation = Quaternion.Euler(0, 0, 0);
             //am.Play("objectTaken"); // Play explosion sound effect
+            return objectGrabbed;
         }
 
         // If item grabbed
@@ -81,6 +82,8 @@ public class ObjectManipulationScript
                 objectToTake.transform.position = Vector3.Lerp(objectToTake.transform.position, HeroHandsPosition.position, 1f); // Follow object in character's hands
             }
         }
+        return objectGrabbed;
+
     }
 
     /// <summary>

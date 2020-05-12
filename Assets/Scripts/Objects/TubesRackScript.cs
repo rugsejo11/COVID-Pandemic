@@ -5,14 +5,14 @@ public class TubesRackScript : MonoBehaviour
     #region Variables
 
     //Tube rack slots
-    [SerializeField] private Socket Socket = null;
-    [SerializeField] private Socket Socket2 = null;
-    [SerializeField] private Socket Socket3 = null;
-    [SerializeField] private Socket Socket4 = null;
-    [SerializeField] private Socket Socket5 = null;
-    [SerializeField] private Socket Socket6 = null;
+    [SerializeField] private SocketScript socketScript = null;
+    [SerializeField] private SocketScript socketScript2 = null;
+    [SerializeField] private SocketScript socketScript3 = null;
+    [SerializeField] private SocketScript socketScript4 = null;
+    [SerializeField] private SocketScript socketScript5 = null;
+    [SerializeField] private SocketScript socketScript6 = null;
 
-    private TubesRack tubes; // Tubes rack
+    public TubesRack tubes { get; private set; } // Tubes rack
 
     #endregion
 
@@ -24,12 +24,12 @@ public class TubesRackScript : MonoBehaviour
     void Awake()
     {
         tubes = new TubesRack();
-        tubes.SetSocket(1, Socket);
-        tubes.SetSocket(2, Socket2);
-        tubes.SetSocket(3, Socket3);
-        tubes.SetSocket(4, Socket4);
-        tubes.SetSocket(5, Socket5);
-        tubes.SetSocket(6, Socket6);
+        tubes.SetSocket(1, socketScript.socket);
+        tubes.SetSocket(2, socketScript2.socket);
+        tubes.SetSocket(3, socketScript3.socket);
+        tubes.SetSocket(4, socketScript4.socket);
+        tubes.SetSocket(5, socketScript5.socket);
+        tubes.SetSocket(6, socketScript6.socket);
     }
 
     #endregion
@@ -38,12 +38,12 @@ public class TubesRack
 {
     #region Variables
 
-    private Socket Socket;
-    private Socket Socket2;
-    private Socket Socket3;
-    private Socket Socket4;
-    private Socket Socket5;
-    private Socket Socket6;
+    private Socket socket;
+    private Socket socket2;
+    private Socket socket3;
+    private Socket socket4;
+    private Socket socket5;
+    private Socket socket6;
 
     #endregion
 
@@ -54,27 +54,27 @@ public class TubesRack
     /// </summary>
     /// <param name="socketNumber"></param>
     /// <param name="socket"></param>
-    public void SetSocket(int socketNumber, Socket socket)
+    public void SetSocket(int socketNumber, Socket s)
     {
         switch (socketNumber)
         {
             case 1:
-                Socket = socket;
+                socket = s;
                 break;
             case 2:
-                Socket2 = socket;
+                socket2 = s;
                 break;
             case 3:
-                Socket3 = Socket;
+                socket3 = s;
                 break;
             case 4:
-                Socket4 = socket;
+                socket4 = s;
                 break;
             case 5:
-                Socket5 = socket;
+                socket5 = s;
                 break;
             case 6:
-                Socket6 = socket;
+                socket6 = s;
                 break;
             default:
                 Debug.LogError("Wrong socket number entered!");
@@ -92,20 +92,20 @@ public class TubesRack
         switch (socketNumber)
         {
             case 1:
-                return Socket;
+                return socket;
             case 2:
-                return Socket2;
+                return socket2;
             case 3:
-                return Socket3;
+                return socket3;
             case 4:
-                return Socket4;
+                return socket4;
             case 5:
-                return Socket5;
+                return socket5;
             case 6:
-                return Socket6;
+                return socket6;
             default:
                 Debug.LogError("Wrong socket number entered!");
-                return Socket;
+                return socket;
         }
     }
 

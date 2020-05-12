@@ -11,15 +11,21 @@ namespace Tests
 
 
         [Test]
-        [TestCase(0, 1, true)]
-        [TestCase(1, 0, false)]
-        [TestCase(1, 1, false)]
-        [TestCase(0, 0, false)]
-        [TestCase(2, 2, false)] // No desired test tubes
-        [TestCase(3, 3, false)] // Test tubes not inserted
-        public void SouthRackFinished_Test(
+        [TestCase(0, 1, false, true, true, true)]
+        [TestCase(1, 0, false, true, true, false)]
+        [TestCase(1, 1, false, true, true, false)]
+        [TestCase(0, 0, false, true, true, false)]
+        [TestCase(0, 1, false, false, true, false)] // No desired test tubes
+        [TestCase(0, 1, false, true, false, false)] // Test tubes not inserted
+        [TestCase(0, 1, true, true, true, false)]  // Three tubes entered instead of two
+
+
+        public void IsSouthRackFinished_Test(
             int firstEntered,
             int secondEntered,
+            bool thirdEntered,
+            bool desiredTestTubesExist,
+            bool testTubesInserted,
             bool rackFinished
             )
 
@@ -38,46 +44,56 @@ namespace Tests
             GameObject desiredObject3 = new GameObject();
             GameObject[] desiredObjects = { desiredObject, desiredObject2, desiredObject3 };
 
-            if (firstEntered != 2)
+            if (desiredTestTubesExist)
             {
                 southRack.GetSocket(2).SetDesired(desiredObjects[0]);
                 southRack.GetSocket(5).SetDesired(desiredObjects[1]);
             }
 
-            if (firstEntered != 3)
+            if (testTubesInserted)
             {
                 southRack.GetSocket(2).TestTubeInserted(desiredObjects[firstEntered]);
                 southRack.GetSocket(5).TestTubeInserted(desiredObjects[secondEntered]);
             }
 
-            labLevel.southRack = southRack;
-            bool returnedBool = labLevel.SouthRackFinished(labLevel.southRack);
+            if(thirdEntered)
+            {
+                southRack.GetSocket(4).TestTubeInserted(desiredObjects[secondEntered]);
+            }
+
+            bool returnedBool = labLevel.IsSouthRackFinished(southRack);
             Assert.AreEqual(rackFinished, returnedBool);
         }
 
         [Test]
-        [TestCase(0, 1, 2, true)]
-        [TestCase(0, 0, 0, false)]
-        [TestCase(0, 0, 1, false)]
-        [TestCase(0, 1, 0, false)]
-        [TestCase(0, 1, 1, false)]
-        [TestCase(1, 0, 0, false)]
-        [TestCase(1, 0, 1, false)]
-        [TestCase(1, 1, 0, false)]
-        [TestCase(1, 1, 1, false)]
-        [TestCase(2, 0, 0, false)]
-        [TestCase(2, 0, 1, false)]
-        [TestCase(2, 1, 0, false)]
-        [TestCase(2, 1, 1, false)]
-        [TestCase(2, 2, 0, false)]
-        [TestCase(2, 2, 1, false)]
-        [TestCase(2, 2, 2, false)]
-        [TestCase(3, 3, 3, false)] // No desired test tubes
-        [TestCase(4, 4, 4, false)] // Test tubes not inserted
-        public void EastRackFinished_Test(
+        [TestCase(0, 1, 2, false, true, true, true)]
+        [TestCase(0, 0, 0, false, true, true, false)]
+        [TestCase(0, 0, 1, false, true, true, false)]
+        [TestCase(0, 1, 0, false, true, true, false)]
+        [TestCase(0, 1, 1, false, true, true, false)]
+        [TestCase(1, 0, 0, false, true, true, false)]
+        [TestCase(1, 0, 1, false, true, true, false)]
+        [TestCase(1, 1, 0, false, true, true, false)]
+        [TestCase(1, 1, 1, false, true, true, false)]
+        [TestCase(2, 0, 0, false, true, true, false)]
+        [TestCase(2, 0, 1, false, true, true, false)]
+        [TestCase(2, 1, 0, false, true, true, false)]
+        [TestCase(2, 1, 1, false, true, true, false)]
+        [TestCase(2, 2, 0, false, true, true, false)]
+        [TestCase(2, 2, 1, false, true, true, false)]
+        [TestCase(2, 2, 2, false, true, true, false)]
+        [TestCase(0, 1, 2, false, false, true, false)] // No desired test tubes
+        [TestCase(0, 1, 2, false, true, false, false)] // Test tubes not inserted
+        [TestCase(0, 1, 2, true, true, true, false)] // Four tubes entered instead of three
+
+
+        public void IsEastRackFinished_Test(
             int firstEntered,
             int secondEntered,
             int thirdEntered,
+            bool fourthEntered,
+            bool desiredTestTubesExist,
+            bool testTubesInserted,
             bool rackFinished
             )
 
@@ -97,7 +113,7 @@ namespace Tests
             GameObject desiredObject4 = new GameObject();
             GameObject[] desiredObjects = { desiredObject, desiredObject2, desiredObject3, desiredObject4 };
 
-            if (firstEntered != 3)
+            if (desiredTestTubesExist)
             {
                 eastRack.GetSocket(1).SetDesired(desiredObjects[0]);
                 eastRack.GetSocket(3).SetDesired(desiredObjects[1]);
@@ -105,7 +121,7 @@ namespace Tests
 
             }
 
-            if (firstEntered != 4)
+            if (testTubesInserted)
             {
                 eastRack.GetSocket(1).TestTubeInserted(desiredObjects[firstEntered]);
                 eastRack.GetSocket(3).TestTubeInserted(desiredObjects[secondEntered]);
@@ -113,8 +129,12 @@ namespace Tests
 
             }
 
-            labLevel.eastRack = eastRack;
-            bool returnedBool = labLevel.EastRackFinished(labLevel.eastRack);
+            if(fourthEntered)
+            {
+                eastRack.GetSocket(2).TestTubeInserted(desiredObjects[secondEntered]);
+            }
+
+            bool returnedBool = labLevel.IsEastRackFinished(eastRack);
             Assert.AreEqual(rackFinished, returnedBool);
         }
     }

@@ -8,7 +8,6 @@ public class SceneManageScript : MonoBehaviour
     [SerializeField] private GameObject crossfade = null; // Crossfade object for switching between scenes
     private float transitionTime = 1f; // Transition time between scenes
 
-
     /// <summary>
     /// Function to load menu scene
     /// </summary>

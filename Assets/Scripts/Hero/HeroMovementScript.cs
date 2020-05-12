@@ -67,8 +67,9 @@ public class HeroMovementScript : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        heroMovement.Run(); // Function to let character run if Left or Right Shift being hold
+        heroMovement.CharacterRun(); // Function to let character run if Left or Right Shift being hold
         heroMovement.CharacterMove(); // Function to move character according to the keyboard buttons pressed 
+        heroMovement.CharacterGetToMenu(); // Function to get back to menu
     }
 
     /// <summary>
@@ -203,6 +204,18 @@ public class HeroMovement
     }
 
     /// <summary>
+    /// Function to get to menu
+    /// </summary>
+    public void CharacterGetToMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManageScript.GetToMenu();
+        }
+
+    }
+
+    /// <summary>
     /// Function to know when character lands
     /// </summary>
     public void Land()
@@ -215,7 +228,7 @@ public class HeroMovement
     /// <summary>
     /// Function to let character run if Left or Right Shift being hold
     /// </summary>
-    public void Run()
+    public void CharacterRun()
     {
         if (Input.GetButton("Run"))
             currentMovementSpeed = runSpeed;

@@ -17,7 +17,7 @@ namespace Tests
         [TestCase(null, null, null, false)]
 
 
-        public void FirstStage_Test(
+        public void IsFirstStageFinished_Test(
            bool smallButtonDone,
            bool hazardousLeverDone,
            bool switcherDone,
@@ -26,7 +26,7 @@ namespace Tests
 
         {
             ManageMorgLevel morgLevel = new ManageMorgLevel();
-            bool isDone = morgLevel.FirstStage(smallButtonDone, hazardousLeverDone, switcherDone);
+            bool isDone = morgLevel.IsFirstStageFinished(smallButtonDone, hazardousLeverDone, switcherDone);
             Assert.AreEqual(isDone, isStageDone);
 
         }
@@ -43,7 +43,7 @@ namespace Tests
         [TestCase(null, null, null, false)]
 
 
-        public void SecondStage_Test(
+        public void IsSecondStageFinished_Test(
             bool clownLeverDone,
             bool electricityLeverDone,
             bool elevatorButtonDone,
@@ -52,7 +52,7 @@ namespace Tests
 
         {
             ManageMorgLevel morgLevel = new ManageMorgLevel();
-            bool isDone = morgLevel.SecondStage(clownLeverDone, electricityLeverDone, elevatorButtonDone);
+            bool isDone = morgLevel.IsSecondStageFinished(clownLeverDone, electricityLeverDone, elevatorButtonDone);
             Assert.That(isDone, Is.EqualTo(isStageDone));
         }
 
@@ -68,7 +68,7 @@ namespace Tests
         [TestCase(null, null, null, false)]
 
 
-        public void LastStage_Test(
+        public void IsLastStageFinished_Test(
             bool finishLeverDone,
             bool finishDetonator,
             bool complexLeverDone,
@@ -77,7 +77,7 @@ namespace Tests
 
         {
             ManageMorgLevel morgLevel = new ManageMorgLevel();
-            bool isDone = morgLevel.LastStage(finishLeverDone, finishDetonator, complexLeverDone);
+            bool isDone = morgLevel.IsLastStageFinished(finishLeverDone, finishDetonator, complexLeverDone);
             Assert.AreEqual(isDone, isStageDone);
         }
 

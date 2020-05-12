@@ -8,11 +8,12 @@ public class ObjectScript : MonoBehaviour
     [SerializeField] private Transform HeroHandsPosition = null; // Hands position of the character
     [SerializeField] private Rigidbody characterBody = null; // Character body
     private HeroDataScript hero; // Game character
-    private Rigidbody objectToTake; // Object that hero is trying to take
+    [SerializeField] private Rigidbody objectToTake; // Object that hero is trying to take
 
     // Grab and object
     private ObjectManipulationScript manipulateObject;
     [SerializeField] private bool possibleToGrab = false; // Is it possible to grab this item
+    private bool objectGrabbed = false; // Variable holding if object is garbbed
 
     // Test tube rack slot
     [SerializeField] private bool testTube = false;
@@ -49,7 +50,7 @@ public class ObjectScript : MonoBehaviour
         // Grab object
         if (possibleToGrab)
         {
-            manipulateObject.GrabAnObject(transform, Camera.main, hero, HeroHandsPosition, objectToTake);
+            objectGrabbed = manipulateObject.GrabAnObject(transform, Camera.main, hero, HeroHandsPosition, objectToTake);
         }
 
         // Put to rack if test tube
@@ -76,7 +77,6 @@ public class ObjectScript : MonoBehaviour
             manipulateObject.SetAtSocket(true);
             currentSocket = other.gameObject;
             other.gameObject.tag = "UsedSocket";
-            ////am.Play("putToRack"); // Play explosion sound effect
         }
     }
 
@@ -86,12 +86,15 @@ public class ObjectScript : MonoBehaviour
     /// <param name="collision"></param>
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Room") && manipulateObject.IsObjectGrabbed())
+        if (hero.IsObjectGrabbed() && objectGrabbed)
         {
-            float force = 1500;
-            Vector3 dir = collision.contacts[0].point - objectToTake.transform.position;
-            dir = -dir.normalized;
-            characterBody.AddForce(dir * force);
+            if (collision.gameObject.CompareTag("Room") )
+            {
+                float force = 1500;
+                Vector3 dir = collision.contacts[0].point - objectToTake.transform.position;
+                dir = -dir.normalized;
+                characterBody.AddForce(dir * force);
+            }
         }
     }
 }

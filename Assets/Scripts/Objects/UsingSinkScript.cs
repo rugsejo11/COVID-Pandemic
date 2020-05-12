@@ -65,7 +65,6 @@ public class UsingSinkScript : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.L) && isWorking)
                 {
                     waterValveOn = true;
-                    PlayTurnWaterOnSound();
                 }
                 else if (Input.GetKeyDown(KeyCode.P))
                 {
@@ -89,14 +88,6 @@ public class UsingSinkScript : MonoBehaviour
     void PlayWashingHandsSound()
     {
         am.Play("WashHands"); // Play Button Press Audio
-    }
-
-    /// <summary>
-    /// Function to play valve opening sound
-    /// </summary>
-    void PlayTurnWaterOnSound()
-    {
-        //am.Play("SinkWaterOn"); // Play Button Press Audio
     }
 
     #endregion

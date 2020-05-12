@@ -16,7 +16,9 @@ public class ScenesTextScript : MonoBehaviour
 
     private NotificationsScript notifications;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called before the first frame update
+    /// </summary>
     void Start()
     {
         StartCoroutine(ShowText(appearTime, disappearTime));
