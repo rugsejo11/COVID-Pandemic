@@ -115,6 +115,14 @@ public class HeroMovement
     public Transform Cam { get; set; }
     public AudioManagerScript am { get; set; }
 
+    public HeroDataScript HeroDataScript
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     private float currentMovementSpeed = 0; // Variable holding current movement speed of the character
     private bool onGround = true; // Variable holding value if player is on the ground
     private bool inAir = false; // Variable holding value if player is in the air

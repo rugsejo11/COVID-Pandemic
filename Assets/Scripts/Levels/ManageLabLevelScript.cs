@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ManageLabLevelScript : MonoBehaviour
 {
@@ -56,6 +57,8 @@ public class ManageLabLevel
 
     private AudioManagerScript am = Object.FindObjectOfType<AudioManagerScript>();
     private ObjectDistanceScript objectDistance = new ObjectDistanceScript();
+    private MonoBehaviour mb = Object.FindObjectOfType<MonoBehaviour>();
+    private NotificationsScript notifications = new NotificationsScript();
 
     #endregion
 
@@ -84,6 +87,11 @@ public class ManageLabLevel
     /// <returns></returns>
     public bool IsSouthRackFinished(TubesRack southRack)
     {
+        //for(int i = 1; i<=6; i++)
+        //{
+        //    Debug.Log(southRack.GetSocket(i));
+
+        //}
         if (!southRack.GetSocket(2).IsSocketEmpty() && !southRack.GetSocket(5).IsSocketEmpty())
         {
             if (southRack.GetSocket(2).isDesired() && southRack.GetSocket(5).isDesired() && southRack.UsedSockets() == 2)
@@ -118,7 +126,7 @@ public class ManageLabLevel
         if (IsSouthRackFinished(southRack.tubes) && IsEastRackFinished(eastRack.tubes) && hero.WereHandsWashed())
         {
             am.Play("level_finished"); // Play Button Press Audio
-            Debug.Log("Level finished");
+            mb.StartCoroutine(notifications.StageStatusChange(1, true, SceneManager.GetActiveScene().buildIndex));
         }
         else
         {

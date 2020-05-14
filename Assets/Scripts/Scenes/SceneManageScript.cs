@@ -14,6 +14,8 @@ public class SceneManageScript : MonoBehaviour
     public static void GetToMenu()
     {
         SceneManager.LoadScene(0);
+        Cursor.lockState = CursorLockMode.Confined; // lock cursor on the center of the game screen
+        Cursor.visible = true; // make cursor invisible
     }
 
     /// <summary>

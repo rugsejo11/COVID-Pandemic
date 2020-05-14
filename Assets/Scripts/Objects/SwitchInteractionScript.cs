@@ -85,6 +85,10 @@ public class SwitchInteractionScript : MonoBehaviour
                     notifications.ShowNotification(false, finishNotification);
                 }
             }
+            else
+            {
+                notifications.ShowNotification(false, finishNotification);
+            }
         }
     }
 

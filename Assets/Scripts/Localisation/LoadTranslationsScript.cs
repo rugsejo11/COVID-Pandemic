@@ -11,7 +11,7 @@ public class LoadTranslationsScript
     private TextAsset translationsFile; // translations file
     private char lineSeperator = '\n'; // line seperator
     private char surround = '"'; // word surrounded by this char
-    private string[] fieldSeperator = { "\",\"" }; // field seperated by this string
+    private string[] fieldSeperator = { "\";\"" }; // field seperated by this string
 
     #endregion
 
@@ -52,7 +52,7 @@ public class LoadTranslationsScript
         for (int i = 1; i < lines.Length; i++)
         {
             string line = lines[i];
-            string[] words = line.Split(',');
+            string[] words = line.Split(';');
             for (int j = 0; j < words.Length; j++)
             {
                 words[j] = words[j].TrimStart(' ', surround).TrimEnd(surround, '\n', '\r');
@@ -82,7 +82,7 @@ public class LoadTranslationsScript
     /// <param name="word"></param>
     public void Add(string key, string word)
     {
-        string append = string.Format("\n\"{0}\",\"{1}\",\"\",\"\"", key, word);
+        string append = string.Format("\n\"{0}\";\"{1}\";\"\";\"\"", key, word);
         File.AppendAllText("Assets/Resources/localisation_translations.csv", append);
 
         UnityEditor.AssetDatabase.Refresh();
