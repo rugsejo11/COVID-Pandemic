@@ -7,7 +7,7 @@ public class HPScript : MonoBehaviour
 
     [SerializeField] private GameObject heartContainerPrefab = null; // Prefab of heart
     [SerializeField] private Transform heartsParent = null; // Parent object for hearts
-    private HeroDataScript hero; // Hero object
+    private HeroData hero; // Hero object
     private GameObject[] heartContainers; // Hero's health points
     private Image[] heartFills; // Health points fills
 
@@ -20,7 +20,7 @@ public class HPScript : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        hero = FindObjectOfType<HeroDataScript>(); // Main character
+        hero = FindObjectOfType<HeroData>(); // Main character
 
         heartContainers = new GameObject[(int)hero.GetMaxHealth()]; // Hearts container
         heartFills = new Image[(int)hero.GetMaxHealth()]; // Hearts filling container

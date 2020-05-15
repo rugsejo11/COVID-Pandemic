@@ -25,7 +25,7 @@ public class ObjectManipulationScript
     /// <summary>
     /// Function to grab or drop object
     /// </summary>
-    public bool GrabAnObject(Transform transform, Camera main, HeroDataScript hero, Transform HeroHandsPosition, Rigidbody objectToTake)
+    public bool GrabAnObject(Transform transform, Camera main, HeroData hero, Transform HeroHandsPosition, Rigidbody objectToTake)
     {
         // If in range, button pressed and item don't grab, grab item
         if (objectDistance.IsObjectInRange(transform.position, main.transform) && Input.GetKeyDown(KeyCode.Mouse0) && !objectGrabbed && !hero.IsObjectGrabbed()) // If button pressed and object in range

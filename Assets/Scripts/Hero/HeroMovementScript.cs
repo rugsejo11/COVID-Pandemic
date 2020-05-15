@@ -106,22 +106,14 @@ public class HeroMovement
 {
     #region Variables
 
-    public float stepsToMakeNoise { get; set; }
     public float movementSpeed { get; set; }
     public float runSpeed { get; set; }
     public float jumpingForce { get; set; }
     public float mouseSens { get; set; }
+    public float stepsToMakeNoise { get; set; }
     public Rigidbody characterBody { get; set; }
     public Transform Cam { get; set; }
     public AudioManagerScript am { get; set; }
-
-    public HeroDataScript HeroDataScript
-    {
-        get => default;
-        set
-        {
-        }
-    }
 
     private float currentMovementSpeed = 0; // Variable holding current movement speed of the character
     private bool onGround = true; // Variable holding value if player is on the ground
@@ -211,17 +203,6 @@ public class HeroMovement
 
     }
 
-    /// <summary>
-    /// Function to get to menu
-    /// </summary>
-    public void CharacterGetToMenu()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManageScript.GetToMenu();
-        }
-
-    }
 
     /// <summary>
     /// Function to know when character lands
@@ -231,17 +212,6 @@ public class HeroMovement
         PlayLandingSound();
         inAir = false;
         nextNoiseAtStep = stepsMade + 1f;
-    }
-
-    /// <summary>
-    /// Function to let character run if Left or Right Shift being hold
-    /// </summary>
-    public void CharacterRun()
-    {
-        if (Input.GetButton("Run"))
-            currentMovementSpeed = runSpeed;
-        else
-            currentMovementSpeed = movementSpeed;
     }
 
     /// <summary>
@@ -266,6 +236,28 @@ public class HeroMovement
             ProgressStepCycle();
     }
 
+    /// <summary>
+    /// Function to let character run if Left or Right Shift being hold
+    /// </summary>
+    public void CharacterRun()
+    {
+        if (Input.GetButton("Run"))
+            currentMovementSpeed = runSpeed;
+        else
+            currentMovementSpeed = movementSpeed;
+    }
+
+    /// <summary>
+    /// Function to get to menu
+    /// </summary>
+    public void CharacterGetToMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManageScript.GetToMenu();
+        }
+
+    }
     #endregion
 
     #region Functions for sound effects
@@ -286,7 +278,7 @@ public class HeroMovement
         // If required number steps to make sound is reached, get next value when to make noise and make footstep noise
         nextNoiseAtStep = stepsMade + stepsToMakeNoise;
 
-        PlayFootStepAudio();
+        PlayFootstepSound();
     }
 
     /// <summary>
@@ -308,7 +300,7 @@ public class HeroMovement
     /// <summary>
     /// Function to play footstep sound
     /// </summary>
-    private void PlayFootStepAudio()
+    private void PlayFootstepSound()
     {
         am.PlayFootstep(); // Play Button Press Audio
     }

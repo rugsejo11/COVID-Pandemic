@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class HeroDataScript : MonoBehaviour
+public class HeroData : MonoBehaviour
 {
     #region Variables
 
@@ -8,8 +8,8 @@ public class HeroDataScript : MonoBehaviour
     private HPChangeDelegate onHPChangeCallback; // Delegate for updating hearts UI
     private bool objectGrabbed = false; // Variable holding value if hero has object in he's hands
     [SerializeField] private bool handsWashed = false; // Variable holding value if hero has washed his hands
-    [SerializeField] private float health = 1; // current health points hero has
-    [SerializeField] private float maxHealth = 1; // max health points hero can have
+    [SerializeField] private int health = 1; // current health points hero has
+    [SerializeField] private int maxHealth = 1; // max health points hero can have
     private float timeAfterTakingFromRack; // Variable holding time since taking item from the rack, because item can only be placed after 2 seconds after been taken out
 
     #endregion
@@ -31,7 +31,7 @@ public class HeroDataScript : MonoBehaviour
     /// Function to get current health points hero has
     /// </summary>
     /// <returns></returns>
-    public float GetHealth()
+    public int GetHealth()
     {
         return health;
     }
