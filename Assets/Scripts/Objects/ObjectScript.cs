@@ -7,7 +7,7 @@ public class ObjectScript : MonoBehaviour
     // Hero and object
     [SerializeField] private Transform HeroHandsPosition = null; // Hands position of the character
     [SerializeField] private Rigidbody characterBody = null; // Character body
-    private HeroDataScript hero; // Game character
+    private HeroData hero; // Game character
     [SerializeField] private Rigidbody objectToTake; // Object that hero is trying to take
 
     // Grab and object
@@ -26,7 +26,7 @@ public class ObjectScript : MonoBehaviour
 
     void Awake()
     {
-        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
+        hero = FindObjectOfType<HeroData>(); // Get hero object
         objectToTake = GetComponent<Rigidbody>(); // Get object to take
         am = FindObjectOfType<AudioManagerScript>();
 

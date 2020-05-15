@@ -8,7 +8,7 @@ public class ManageMorgLevelScript : MonoBehaviour
     public ManageMorgLevel morgLevel { get; set; } // Initialize ManageMorgLevel Class
 
     [SerializeField] private Animator animator = null; // Animator for switches animations
-    private HeroDataScript hero; // Game character
+    private HeroData hero; // Game character
 
     #endregion
 
@@ -19,7 +19,7 @@ public class ManageMorgLevelScript : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
+        hero = FindObjectOfType<HeroData>(); // Get hero object
 
         morgLevel = new ManageMorgLevel();
         morgLevel.animator = animator;
@@ -33,7 +33,7 @@ public class ManageMorgLevel
 {
     #region Variables
 
-    public HeroDataScript hero { get; set; }
+    public HeroData hero { get; set; }
     public Animator animator { get; set; }
 
     private int currentStage = 1; // Variable holding current stage of the level 

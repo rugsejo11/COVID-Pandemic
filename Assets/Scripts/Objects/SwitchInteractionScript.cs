@@ -24,7 +24,7 @@ public class SwitchInteractionScript : MonoBehaviour
     [SerializeField] private GameObject finishNotification = null; // Variable holding finish notification game object
     [SerializeField] private Animator animator = null; // Animator for switches animations
 
-    private HeroDataScript hero; // Game character
+    private HeroData hero; // Game character
     private ManageMorgLevelScript morgLevelScript = null; // Morgue level script
     private ManageMorgLevel morgLevel; // Morgue level
     private ObjectDistanceScript objectDistance; // Object distance script
@@ -39,7 +39,7 @@ public class SwitchInteractionScript : MonoBehaviour
     private void Start()
     {
         morgLevelScript = FindObjectOfType<ManageMorgLevelScript>(); // Get current socket
-        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
+        hero = FindObjectOfType<HeroData>(); // Get hero object
         morgLevel = morgLevelScript.morgLevel;
         objectDistance = new ObjectDistanceScript();
         notifications = new NotificationsScript();

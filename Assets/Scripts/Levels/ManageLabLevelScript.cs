@@ -6,7 +6,7 @@ public class ManageLabLevelScript : MonoBehaviour
     #region Variables
 
     private ManageLabLevel labLevel;
-    private HeroDataScript hero; // Game character
+    private HeroData hero; // Game character
 
     [SerializeField] private Animator animator = null;  // First rack slot
 
@@ -20,7 +20,7 @@ public class ManageLabLevelScript : MonoBehaviour
     void Awake()
     {
 
-        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
+        hero = FindObjectOfType<HeroData>(); // Get hero object
 
         labLevel = new ManageLabLevel();
         labLevel.hero = hero;
@@ -49,7 +49,7 @@ public class ManageLabLevel
 {
     #region Variables
 
-    public HeroDataScript hero { get; set; }
+    public HeroData hero { get; set; }
     public TubesRackScript eastRack { get; set; }
     public TubesRackScript southRack { get; set; }
     public Animator animator { get; set; }

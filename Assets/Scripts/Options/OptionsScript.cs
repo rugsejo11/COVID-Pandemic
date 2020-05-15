@@ -11,9 +11,9 @@ public class OptionsScript : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer = null; // Audio Mixer
     [SerializeField] private TMP_Dropdown resolutionDropdown = null; // Dropdown To Select Game Resolution
     [SerializeField] private TMP_Dropdown graphicsDropdown = null; // Dropdown To Select Between Fancy And Fast Graphics
-    [SerializeField] private Toggle FullscreenToggle = null; // Toggle To Select Fullscreen Or Windowed Game
-    [SerializeField] private TMP_Text ToggleText = null; // Fullscreen Toggle Text
-    [SerializeField] private Slider VolumeSilder = null; // Audio Volume Selector
+    [SerializeField] private Toggle fullscreenToggle = null; // Toggle To Select Fullscreen Or Windowed Game
+    [SerializeField] private TMP_Text toggleText = null; // Fullscreen Toggle Text
+    [SerializeField] private Slider volumeSlider = null; // Audio Volume Selector
 
     private Resolution[] screenResolutions; // Array Containing All Resolutions
     private Resolution selectedResolution; // Variable Containing Selected Resolution
@@ -94,8 +94,8 @@ public class OptionsScript : MonoBehaviour
         int resolutionIndex = int.MinValue; // Index Of Selected Game Resolution
 
         //Volume
-        VolumeSilder.value = PlayerPrefs.GetFloat("volume", 1f); // Set VolumeSlider To Last Saved Volume Value
-        audioMixer.SetFloat("volume", Mathf.Log10(VolumeSilder.value) * 20); // Set AudioMixer Value To Last Saved Value
+        volumeSlider.value = PlayerPrefs.GetFloat("volume", 1f); // Set VolumeSlider To Last Saved Volume Value
+        audioMixer.SetFloat("volume", Mathf.Log10(volumeSlider.value) * 20); // Set AudioMixer Value To Last Saved Value
 
         //Graphics
         QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("qualityIndex", qualityIndex)); // Set QualityLevel To Last Saved Value
@@ -109,12 +109,12 @@ public class OptionsScript : MonoBehaviour
             if (isFullscreen == 1)
             {
                 Screen.fullScreen = true;
-                FullscreenToggle.isOn = true;
+                fullscreenToggle.isOn = true;
             }
             else
             {
                 Screen.fullScreen = false;
-                FullscreenToggle.isOn = false;
+                fullscreenToggle.isOn = false;
             }
 
             //Resolution
@@ -126,8 +126,8 @@ public class OptionsScript : MonoBehaviour
         else // For Mobile
         {
             resolutionDropdown.gameObject.SetActive(false);
-            FullscreenToggle.gameObject.SetActive(false);
-            Destroy(ToggleText);
+            fullscreenToggle.gameObject.SetActive(false);
+            Destroy(toggleText);
         }
     }
     #endregion

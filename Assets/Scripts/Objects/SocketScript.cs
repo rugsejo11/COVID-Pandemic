@@ -8,7 +8,7 @@ public class SocketScript : MonoBehaviour
     [SerializeField] private bool socketEmpty = true; // Variable holding value if socket is empty
     [SerializeField] private GameObject testTube = null; // Variable holding current attached test tube
     [SerializeField] private GameObject desiredTestTube = null; // Variable holding desired test tube
-    private HeroDataScript hero; // Game character
+    private HeroData hero; // Game character
     public Socket socket { get; set; } // Initialize Socket class
 
     #endregion
@@ -20,7 +20,7 @@ public class SocketScript : MonoBehaviour
     /// </summary>
     void Awake()
     {
-        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
+        hero = FindObjectOfType<HeroData>(); // Get hero object
         socket = new Socket();
         socket.canBeUsed = canBeUsed;
         socket.socketEmpty = socketEmpty;
@@ -79,7 +79,7 @@ public class Socket
     public bool socketEmpty { get; set; } = true;
     public GameObject testTube { get; set; }
     public GameObject desiredTestTube { get; set; }
-    public HeroDataScript hero { get; set; }
+    public HeroData hero { get; set; }
 
     #endregion
 

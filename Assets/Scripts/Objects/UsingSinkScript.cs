@@ -6,7 +6,7 @@ public class UsingSinkScript : MonoBehaviour
     [SerializeField] private GameObject washHandsNotification = null;
     [SerializeField] private GameObject washHandsEducationNotification = null;
 
-    private HeroDataScript hero; // Game character
+    private HeroData hero; // Game character
     [SerializeField] private bool isWorking = true; // Is sink is working
     [SerializeField] private bool waterValveOn = true; // Is sink's water valve is on
     private ObjectDistanceScript objectDistance; // Object Distance
@@ -22,7 +22,7 @@ public class UsingSinkScript : MonoBehaviour
     /// </summary>
     void Start()
     {
-        hero = FindObjectOfType<HeroDataScript>(); // Get hero object
+        hero = FindObjectOfType<HeroData>(); // Get hero object
         objectDistance = new ObjectDistanceScript();
         am = FindObjectOfType<AudioManagerScript>();
         notifications = new NotificationsScript();
